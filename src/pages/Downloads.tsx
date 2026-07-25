@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import gsap from 'gsap';
 import { DownloadCloud, Laptop, Monitor, Printer, Keyboard } from 'lucide-react';
 import ArrowButton from '../components/ArrowButton';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Downloads() {
+  const { t } = useLanguage();
   useEffect(() => {
     // Set accent color to Cyber Teal
     document.documentElement.style.setProperty('--accent-color', '#00e5ff');
@@ -62,7 +64,7 @@ export default function Downloads() {
   return (
     <div className="page-container" style={{ paddingBottom: '100px' }}>
       <div className="page-header">
-        <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>DOWNLOADS</h1>
+        <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>{t('page.downloads.title')}</h1>
         <p className="text-muted" style={{ maxWidth: '600px', marginTop: '20px', lineHeight: '1.6' }}>
           Maximize your hardware's potential. Download the latest drivers, software suites, firmware updates, and user manuals.
         </p>

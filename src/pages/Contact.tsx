@@ -3,8 +3,10 @@ import gsap from 'gsap';
 import AnimatedButton from '../components/AnimatedButton';
 import FloatingInput from '../components/FloatingInput';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Contact() {
+  const { t } = useLanguage();
   useEffect(() => {
     // Set accent color to Neon Orange
     document.documentElement.style.setProperty('--accent-color', '#ff3300');
@@ -29,7 +31,7 @@ export default function Contact() {
   return (
     <div className="page-container" style={{ paddingBottom: '100px' }}>
       <div className="page-header">
-        <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>CONTACT US</h1>
+        <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>{t('page.contact.title')}</h1>
         <p className="text-muted" style={{ maxWidth: '600px', marginTop: '20px', lineHeight: '1.6' }}>
           Have a question about our quantum-grade hardware? Our global support team is ready to assist you.
         </p>

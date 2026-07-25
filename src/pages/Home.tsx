@@ -6,6 +6,8 @@ import AnimatedButton from '../components/AnimatedButton';
 import { TracingBeam } from '../components/ui/tracing-beam';
 import StoreInfo from '../components/StoreInfo';
 import IntroScroll from '../components/IntroScroll';
+import { useLanguage } from '../context/LanguageContext';
+import { useCart } from '../context/CartContext';
 
 type Colorway = {
   id: string;
@@ -40,6 +42,8 @@ const colors: Colorway[] = [
 ];
 
 export default function Home() {
+  const { formatPrice, t } = useLanguage();
+  const { addToCart } = useCart();
   const [introFinished, setIntroFinished] = useState(() => {
     return sessionStorage.getItem('tss_intro_shown') === 'true';
   });
@@ -160,13 +164,18 @@ export default function Home() {
           </div>
 
           <div className="ctas" style={{ display: 'flex', gap: '20px' }}>
-            <AnimatedButton text="ADD TO CART" />
-            <AnimatedButton text="BUY NOW" className="outline-variant" />
+            <AnimatedButton 
+              text={t('product.add_to_cart')} 
+              onClick={() => addToCart({ id: `blade-${activeColor.id}`, title: `TSS Blade X1 (${activeColor.name})`, price: activeColor.price, src: activeColor.image })}
+            />
+            <Link to="/checkout">
+              <AnimatedButton text="BUY NOW" className="outline-variant" />
+            </Link>
           </div>
 
           <div className="info-panel" ref={infoRef}>
             <div className="price-title-row">
-              <div className="price stagger-text text-accent">{activeColor.price}</div>
+              <div className="price stagger-text text-accent">{formatPrice(activeColor.price)}</div>
               <div className="title-area stagger-text">
                 <span className="badge">exclusive</span>
                 <h2 className="title font-heading">TSS BLADE X1</h2>
@@ -217,10 +226,10 @@ export default function Home() {
           <h2 className="section-title font-heading">Categories</h2>
           <div className="categories-grid">
             {[
-              { title: 'LAPTOPS', link: '/laptops', img: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=600' },
-              { title: 'DESKTOPS', link: '/desktops', img: 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&q=80&w=600' },
-              { title: 'LED TV', link: '/led-tv', img: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&q=80&w=600' },
-              { title: 'ACCESSORIES', link: '/accessories', img: 'https://images.unsplash.com/photo-1527814050087-179f376dd0e7?auto=format&fit=crop&q=80&w=600' }
+              { title: t('nav.laptops'), link: '/laptops', img: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=600' },
+              { title: t('nav.desktops'), link: '/desktops', img: 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&q=80&w=600' },
+              { title: t('nav.led_tv'), link: '/led-tv', img: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&q=80&w=600' },
+              { title: t('nav.accessories'), link: '/accessories', img: 'https://images.unsplash.com/photo-1527814050087-179f376dd0e7?auto=format&fit=crop&q=80&w=600' }
             ].map((cat, i) => (
               <Link to={cat.link} key={i} className="category-card" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
                 <img src={cat.img} alt={cat.title} className="category-img" />

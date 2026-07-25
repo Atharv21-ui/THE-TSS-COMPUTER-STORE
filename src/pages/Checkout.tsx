@@ -8,6 +8,7 @@ import FloatingInput from '../components/FloatingInput';
 import { CheckCircle, ShieldCheck, Trash2, Shield, CreditCard, Smartphone, Building } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { api } from '../lib/api';
+import { useLanguage } from '../context/LanguageContext';
 
 const loadingStates = [
   { text: "Securing Razorpay tunnel..." },
@@ -20,6 +21,7 @@ const loadingStates = [
 
 export default function Checkout() {
   const { cartItems, cartTotal, removeFromCart, clearCart } = useCart();
+  const { formatPrice, t } = useLanguage();
   const [loading, setLoading] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   
@@ -177,7 +179,7 @@ export default function Checkout() {
           
           {/* Left Column: Cart Summary */}
           <div className="checkout-panel" style={{ background: '#0a0a0a', padding: '40px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <h3 className="font-heading" style={{ fontSize: '1.5rem', marginBottom: '30px', borderBottom: '1px solid #333', paddingBottom: '15px' }}>ORDER SUMMARY</h3>
+            <h3 className="font-heading" style={{ fontSize: '1.5rem', marginBottom: '30px', borderBottom: '1px solid #333', paddingBottom: '15px' }}>{t('cart.summary')}</h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxHeight: '400px', overflowY: 'auto', paddingRight: '10px' }}>
               {cartItems.map((item) => (
@@ -189,7 +191,7 @@ export default function Checkout() {
                   </div>
                   <div style={{ textAlign: 'right' }}>
                     <p style={{ color: 'var(--accent-color)', fontWeight: 'bold', margin: 0 }}>
-                      {item.price.includes('₹') ? item.price : `₹${item.price}`}
+                      {formatPrice(item.price)}
                     </p>
                     <button 
                       onClick={() => removeFromCart(item.id)}
@@ -204,16 +206,16 @@ export default function Checkout() {
 
             <div style={{ marginTop: '40px', borderTop: '1px solid #333', paddingTop: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                <span className="text-muted">Subtotal</span>
-                <span>₹{cartTotal.toLocaleString()}</span>
+                <span className="text-muted">{t('cart.subtotal')}</span>
+                <span>{formatPrice(cartTotal)}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                <span className="text-muted">Express Shipping</span>
-                <span>₹0.00</span>
+                <span className="text-muted">{t('cart.shipping')}</span>
+                <span>{t('cart.shipping_free')}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', fontSize: '1.5rem', fontWeight: 'bold' }}>
-                <span className="font-heading">TOTAL</span>
-                <span style={{ color: 'var(--accent-color)' }}>₹{cartTotal.toLocaleString()}</span>
+                <span className="font-heading">{t('cart.total')}</span>
+                <span style={{ color: 'var(--accent-color)' }}>{formatPrice(cartTotal)}</span>
               </div>
             </div>
           </div>

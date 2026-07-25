@@ -2,6 +2,7 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "../hooks/use-outside-click";
 import { useCart } from "../context/CartContext";
+import { useLanguage } from "../context/LanguageContext";
 import './ExpandableCard.css';
 
 export interface ProductCardData {
@@ -17,6 +18,7 @@ export interface ProductCardData {
 export function ExpandableCardGrid({ products }: { products: ProductCardData[] }) {
   const [active, setActive] = useState<ProductCardData | null>(null);
   const { addToCart } = useCart();
+  const { formatPrice, t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
 
@@ -92,7 +94,7 @@ export function ExpandableCardGrid({ products }: { products: ProductCardData[] }
                       layoutId={`description-${active.description}-${id}`}
                       className="ec-modal-price text-accent"
                     >
-                      {active.price}
+                      {formatPrice(active.price)}
                     </motion.p>
                   </div>
 
@@ -110,7 +112,7 @@ export function ExpandableCardGrid({ products }: { products: ProductCardData[] }
                       setActive(null); // Optional: close modal on add to cart, or we could just show a toast
                     }}
                   >
-                    ADD TO CART
+                    {t('product.add_to_cart')}
                   </motion.button>
                 </div>
                 <div className="ec-modal-body">
@@ -170,7 +172,7 @@ export function ExpandableCardGrid({ products }: { products: ProductCardData[] }
                 className="product-price text-accent"
                 style={{ marginBottom: '20px' }}
               >
-                {card.price}
+                {formatPrice(card.price)}
               </motion.p>
               
               {/* Fake button layoutId to trigger layout animation smoothly */}

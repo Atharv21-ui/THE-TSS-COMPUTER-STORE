@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import FloatingInput from '../components/FloatingInput';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   Database, 
   Plus, 
@@ -58,6 +59,7 @@ interface IUser {
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const { formatPrice, t } = useLanguage();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
@@ -633,7 +635,7 @@ export default function AdminDashboard() {
                           <p className="text-[10px] text-zinc-500 font-mono mt-0.5">{p.stock} Units In Stock</p>
                         </div>
                         <div className="text-right">
-                          <span className="text-xs font-mono font-bold text-[#00ccff]">{p.price}</span>
+                          <span className="text-xs font-mono font-bold text-[#00ccff]">{formatPrice(p.price)}</span>
                         </div>
                       </div>
                     ))}
@@ -688,7 +690,7 @@ export default function AdminDashboard() {
                             )}
                           </div>
                         </td>
-                        <td className="p-5 text-[#00ccff] font-mono font-bold">{p.price}</td>
+                        <td className="p-5 text-[#00ccff] font-mono font-bold">{formatPrice(p.price)}</td>
                         <td className="p-5">
                           <div className="flex items-center gap-2">
                             <span className={`h-1.5 w-1.5 rounded-full ${p.stock === 0 ? 'bg-red-500' : p.stock <= 5 ? 'bg-amber-500' : 'bg-emerald-500'}`} />

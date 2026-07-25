@@ -2,6 +2,7 @@ import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
 import { GooeyInput } from './ui/gooey-input';
+import { useLanguage } from '../context/LanguageContext';
 import './StaggeredMenu.css';
 
 export interface StaggeredMenuItem {
@@ -63,7 +64,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const iconRef = useRef<HTMLSpanElement | null>(null);
   const textInnerRef = useRef<HTMLSpanElement | null>(null);
   const textWrapRef = useRef<HTMLSpanElement | null>(null);
-  const [textLines, setTextLines] = useState<string[]>(['Menu', 'Close']);
+  const { t } = useLanguage();
+  const [textLines, setTextLines] = useState<string[]>([t('nav.menu'), t('nav.close')]);
+
+  React.useEffect(() => {
+    setTextLines([t('nav.menu'), t('nav.close')]);
+  }, [t]);
 
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);

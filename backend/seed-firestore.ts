@@ -74,7 +74,7 @@ async function runSeed() {
       const defaultProducts = [
         {
           title: 'TSS BLADE X1',
-          price: '1,299$',
+          price: '₹1,299',
           src: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=600',
           badge: 'GAMING',
           description: 'The ultimate portable gaming powerhouse.',
@@ -90,7 +90,7 @@ async function runSeed() {
         },
         {
           title: 'TSS STUDIO',
-          price: '1,599$',
+          price: '₹1,599',
           src: 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=600',
           badge: 'CREATORS',
           description: 'Color accuracy and unmatched rendering speeds.',
@@ -106,7 +106,7 @@ async function runSeed() {
         },
         {
           title: 'TSS PRO 16',
-          price: '1,899$',
+          price: '₹1,899',
           src: 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&q=80&w=600',
           badge: 'WORKSTATION',
           description: 'Desktop-level performance in a magnesium chassis.',
@@ -122,7 +122,7 @@ async function runSeed() {
         },
         {
           title: 'TSS MONOLITH',
-          price: '2,499$',
+          price: '₹2,499',
           src: 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&q=80&w=600',
           badge: 'EXTREME',
           description: 'The pinnacle of desktop computing.',
@@ -138,7 +138,7 @@ async function runSeed() {
         },
         {
           title: 'TSS TOWER X',
-          price: '1,799$',
+          price: '₹1,799',
           src: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?auto=format&fit=crop&q=80&w=600',
           badge: 'GAMING',
           description: 'High performance gaming machine.',
@@ -154,7 +154,7 @@ async function runSeed() {
         },
         {
           title: 'TSS COMPACT',
-          price: '999$',
+          price: '₹999',
           src: 'https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&q=80&w=600',
           badge: 'MINI ITX',
           description: 'Massive power in a tiny footprint.',
@@ -170,7 +170,7 @@ async function runSeed() {
         },
         {
           title: 'TSS PRINTMAX 3D',
-          price: '899$',
+          price: '₹899',
           src: 'https://images.unsplash.com/photo-1590457494480-1a73fb5789f2?auto=format&fit=crop&q=80&w=600',
           badge: 'PRO 3D',
           description: 'Precision layer printing for creators.',
@@ -186,7 +186,7 @@ async function runSeed() {
         },
         {
           title: 'TSS OFFICE LASER',
-          price: '349$',
+          price: '₹349',
           src: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&q=80&w=600',
           badge: 'BUSINESS',
           description: 'High speed, ultra-efficient document printing.',
@@ -202,7 +202,7 @@ async function runSeed() {
         },
         {
           title: 'TSS INKJET LITE',
-          price: '129$',
+          price: '₹129',
           src: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=600',
           badge: 'HOME',
           description: 'Vibrant colors for family and home office.',
@@ -218,7 +218,7 @@ async function runSeed() {
         },
         {
           title: 'TSS QUANTUM 8K',
-          price: '3,999$',
+          price: '₹3,999',
           src: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&q=80&w=600',
           badge: '8K OLED',
           description: 'The future of home cinema is here.',
@@ -234,7 +234,7 @@ async function runSeed() {
         },
         {
           title: 'TSS CINEMA 75"',
-          price: '2,199$',
+          price: '₹2,199',
           src: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=600',
           badge: '4K HDR',
           description: 'Massive screen, incredible color accuracy.',
@@ -250,7 +250,7 @@ async function runSeed() {
         },
         {
           title: 'TSS GAMING 55"',
-          price: '1,299$',
+          price: '₹1,299',
           src: 'https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&q=80&w=600',
           badge: '144HZ',
           description: 'Built specifically for next-gen consoles.',
@@ -266,7 +266,7 @@ async function runSeed() {
         },
         {
           title: 'TSS MECH KEYBOARD',
-          price: '199$',
+          price: '₹199',
           src: 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&q=80&w=600',
           badge: 'TACTILE',
           description: 'Precision mechanical switches with per-key RGB.',
@@ -281,7 +281,7 @@ async function runSeed() {
         },
         {
           title: 'TSS PRO MOUSE',
-          price: '129$',
+          price: '₹129',
           src: 'https://images.unsplash.com/photo-1527814050087-179f376dd0e7?auto=format&fit=crop&q=80&w=600',
           badge: 'WIRELESS',
           description: 'Ultra-lightweight competitive gaming mouse.',
@@ -296,7 +296,7 @@ async function runSeed() {
         },
         {
           title: 'TSS STUDIO HEADSET',
-          price: '249$',
+          price: '₹249',
           src: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&q=80&w=600',
           badge: 'ANC',
           description: 'Immersive spatial audio and active noise cancellation.',

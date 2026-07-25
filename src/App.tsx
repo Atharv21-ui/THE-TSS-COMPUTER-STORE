@@ -14,11 +14,13 @@ import Checkout from './pages/Checkout';
 import Account from './pages/Account';
 import AdminDashboard from './pages/AdminDashboard';
 import { CartProvider } from './context/CartContext';
+import { LanguageProvider } from './context/LanguageContext';
 import './App.css';
 
 function App() {
   return (
-    <CartProvider>
+    <LanguageProvider>
+      <CartProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -37,6 +39,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </CartProvider>
+    </LanguageProvider>
   );
 }
 

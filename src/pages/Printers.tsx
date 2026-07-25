@@ -4,8 +4,10 @@ import { ExpandableCardGrid } from '../components/ExpandableCard';
 import ProductFilterSort from '../components/ProductFilterSort';
 import type { SortOption, FilterOption } from '../components/ProductFilterSort';
 import { api } from '../lib/api';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Printers() {
+  const { t } = useLanguage();
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<SortOption>('featured');
@@ -57,7 +59,7 @@ export default function Printers() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>PRINTERS</h1>
+        <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>{t('page.printers.title')}</h1>
         <p className="text-muted" style={{ maxWidth: '600px', marginTop: '20px', lineHeight: '1.6' }}>
           Precision printing hardware. From high-speed monochrome office lasers to cutting-edge 3D printers engineered for custom prototyping and mechanical designs.
         </p>

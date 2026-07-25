@@ -8,6 +8,7 @@ import FloatingInput from '../components/FloatingInput';
 import { api } from '../lib/api';
 import { auth, googleProvider } from '../config/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { useLanguage } from '../context/LanguageContext';
 
 interface UserProfile {
   name?: string;
@@ -23,6 +24,7 @@ interface UserProfile {
 
 export default function Account() {
   const navigate = useNavigate();
+  const { formatPrice, t } = useLanguage();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');

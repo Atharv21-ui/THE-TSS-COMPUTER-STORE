@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { Shield, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Warranty() {
+  const { t } = useLanguage();
   useEffect(() => {
     // Set accent color to Tech Blue
     document.documentElement.style.setProperty('--accent-color', '#0055ff');
@@ -27,7 +29,7 @@ export default function Warranty() {
   return (
     <div className="page-container" style={{ paddingBottom: '100px' }}>
       <div className="page-header">
-        <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>WARRANTY</h1>
+        <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>{t('page.warranty.title')}</h1>
         <p className="text-muted" style={{ maxWidth: '600px', marginTop: '20px', lineHeight: '1.6' }}>
           TSS hardware is built to last. Our comprehensive warranty plans ensure that your systems run flawlessly, backed by our global network of elite technicians.
         </p>

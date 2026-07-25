@@ -283,3 +283,19 @@ g:/TSS/src/
 - **Current File Structure Changes:**
   - `[MODIFIED]` `vite.config.ts`, `src/main.tsx`, `backend/src/server.ts`
 
+### 30. Standardized All Prices to INR & Added Bilingual Support (English / Hindi)
+- **What happened:** Converted all prices across all pages, modals, cart totals, order summaries, account history, and backend seed files to Indian Rupee (INR - `₹`). Built a complete bilingual internationalization system (English & Hindi) with a floating language selector.
+- **Changes in Frontend:**
+  - **i18n & Translation Library:** Created `src/lib/translations.ts` containing English & Hindi translation dictionaries for navigation, buttons, titles, search, cart, checkout, account, and footer, along with `formatPriceToINR()` helper.
+  - **Language Context:** Created `src/context/LanguageContext.tsx` providing `LanguageProvider`, `useLanguage()`, `t()` translation function, and `formatPrice()` with `localStorage` persistence (`tss_language`).
+  - **App Wrapping:** Wrapped `<LanguageProvider>` around `<CartProvider>` in `src/App.tsx`.
+  - **Layout & Navigation:** Added floating glassmorphic Language Switcher pill (`EN` | `हिन्दी`) to `src/components/Layout.tsx`. Passed localized menu labels to `src/components/StaggeredMenu.tsx` and translated footer links and headers.
+  - **Components:** Updated `src/components/ExpandableCard.tsx`, `src/components/SearchModal.tsx`, and `src/components/ProductFilterSort.tsx` to format all prices into INR (`₹`) and translate buttons and filters.
+  - **Pages:** Updated all 13 pages (`Home`, `Laptops`, `Desktops`, `Accessories`, `Printers`, `LedTv`, `Warranty`, `Downloads`, `Contact`, `Faq`, `Checkout`, `Account`, `AdminDashboard`) to format prices in INR (`₹`) and localize headings.
+- **Changes in Backend:**
+  - **Database Seed Data:** Updated seed product definitions in `backend/src/server.ts` and `backend/seed-firestore.ts` to use INR (`₹`) currency formatting.
+- **Current File Structure Changes:**
+  - `[NEW]` `src/lib/translations.ts`, `src/context/LanguageContext.tsx`
+  - `[MODIFIED]` `src/App.tsx`, `src/components/Layout.tsx`, `src/components/StaggeredMenu.tsx`, `src/components/ExpandableCard.tsx`, `src/components/SearchModal.tsx`, `src/components/ProductFilterSort.tsx`, `src/pages/*.tsx`, `backend/src/server.ts`, `backend/seed-firestore.ts`
+
+

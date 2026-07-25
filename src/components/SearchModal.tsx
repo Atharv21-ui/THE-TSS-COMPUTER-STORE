@@ -4,6 +4,7 @@ import { Search, X, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const { addToCart } = useCart();
+  const { formatPrice, t } = useLanguage();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -124,7 +126,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <div className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-[10px] font-heading font-bold tracking-[0.2em] text-zinc-500 uppercase">
-                  {query.trim() === '' ? 'RECOMMENDED HARDWARE' : `SEARCH RESULTS (${filteredProducts.length})`}
+                  {query.trim() === '' ? t('search.recommended') : t('search.results', { count: filteredProducts.length })}
                 </span>
                 {loading && (
                   <span className="text-[10px] font-heading text-[#00ccff] animate-pulse">
@@ -136,7 +138,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {filteredProducts.length === 0 && !loading ? (
                 <div className="text-center py-12">
                   <p className="text-zinc-500 font-heading text-sm tracking-widest uppercase">
-                    NO HARDWARE MATCHING "{query.toUpperCase()}"
+                    {t('search.no_results', { query: query.toUpperCase() })}
                   </p>
                 </div>
               ) : (
@@ -170,7 +172,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
                       <div className="flex items-center gap-3 shrink-0">
                         <span className="font-mono font-bold text-sm text-[#00ccff]">
-                          {product.price}
+                          {formatPrice(product.price)}
                         </span>
                         <button
                           onClick={(e) => {
