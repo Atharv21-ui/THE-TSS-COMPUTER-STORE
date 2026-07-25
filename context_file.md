@@ -9,6 +9,7 @@
 - Added a new `CUSTOMERS` tab in the `AdminDashboard` to manage users and toggle their ban status.
 - **ADDRESS CAPTURE**: Updated `Account.tsx` registration form to capture the user's `address`, saved securely to the backend on sign-up.
 - **SMART CHECKOUT**: Updated `Checkout.tsx` to fetch the logged-in user profile, automatically pre-fill the saved `address`, and offer dynamic Payment Channels (Credit Card, Saved Card, COD, UPI). Successfully completing checkout on a new card securely saves the card number and expiry to the user's account for future auto-fill, strictly excluding the CVV.
+- **SERVERLESS FUNCTIONS**: Initialized Netlify Go serverless functions capability. Created `netlify.toml` config, initialized Go modules in `netlify/functions`, and added a sample `hello.go` endpoint ready to be built and deployed via Netlify CI/CD.
 
 ## Current File Structure
 ```
