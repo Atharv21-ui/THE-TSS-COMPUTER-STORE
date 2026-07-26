@@ -149,15 +149,19 @@
 .fg-text {
   position: absolute;
   z-index: 3;
-  font-size: 15vw;
+  font-size: clamp(1.4rem, 4vw, 5rem);
   font-weight: 700;
   color: var(--text-main);
-  text-transform: lowercase;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 1;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  line-height: 1.1;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 20px rgba(255,255,255,0.1);
+  text-align: center;
+  max-width: 95vw;
 }
 
 .subtitle {
@@ -265,69 +269,151 @@
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
-  gap: 30px;
+  gap: 18px;
+  max-width: 400px;
+  justify-self: end;
 }
 
-.price-title-row {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-}
-
-.price {
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.title-area {
+.device-header {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.device-badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .badge {
-  background-color: var(--accent-color);
-  color: var(--text-main);
-  padding: 4px 12px;
-  border-radius: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
   font-size: 10px;
   font-weight: 700;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  margin-bottom: 5px;
-  transition: background-color 0.6s ease;
+  transition: all 0.3s ease;
 }
 
-.title {
-  font-size: 24px;
+.badge-accent {
+  background-color: var(--accent-color);
+  color: #050505;
+  box-shadow: 0 0 12px rgba(var(--accent-color-rgb, 255, 0, 0), 0.4);
+}
+
+.badge-outline {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-main);
+  backdrop-filter: blur(8px);
+}
+
+.device-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+  color: var(--text-main);
+  text-transform: uppercase;
+  margin: 0;
+  text-align: right;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.device-edition-highlight {
+  color: var(--accent-color);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  transition: color 0.6s ease;
+}
+
+.price-specs-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  width: 100%;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.price-label {
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 1px;
-  white-space: nowrap;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 2px;
 }
 
-.edition {
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  color: var(--text-muted);
+.price {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.mini-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.spec-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.spec-pill:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.spec-icon {
+  color: var(--accent-color);
+  flex-shrink: 0;
+  transition: color 0.6s ease;
 }
 
 .inspiration {
-  max-width: 300px;
-  text-align: left;
+  max-width: 400px;
+  text-align: right;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
 .inspiration h4 {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  transition: color 0.6s ease;
 }
 
 .inspiration p {
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 11px;
+  line-height: 1.5;
   color: var(--text-muted);
 }
 
@@ -598,6 +684,55 @@
 .footer-logo {
   font-size: 36px;
   margin-bottom: 20px;
+}
+
+/* Footer Social Links */
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.social-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted, #8888a0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+}
+
+.social-icon-btn svg {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+}
+
+.social-icon-btn:hover {
+  color: #ffffff;
+  background: rgba(0, 204, 255, 0.12);
+  border-color: var(--accent-color, #00ccff);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 16px rgba(0, 204, 255, 0.4), 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+.social-icon-btn:hover svg {
+  transform: scale(1.15);
+  color: var(--accent-color, #00ccff);
+}
+
+.social-icon-btn:active {
+  transform: translateY(-1px) scale(0.98);
 }
 
 /* --- NEW PAGE LAYOUTS --- */
@@ -1102,11 +1237,25 @@
     flex-direction: column;
     align-items: center;
   }
+  .footer-social-links {
+    justify-content: center;
+  }
   .footer-col ul {
     padding: 0;
   }
   .hero .title {
     font-size: 2.5rem;
+  }
+  .fg-text {
+    font-size: clamp(1rem, 4.8vw, 2.2rem);
+    white-space: normal;
+    word-break: keep-all;
+    letter-spacing: 0.02em;
+    padding: 0 15px;
+  }
+  .subtitle {
+    letter-spacing: 6px;
+    font-size: 11px;
   }
   .hero .price {
     font-size: 3rem;
@@ -1127,6 +1276,11 @@
     align-items: flex-start;
     text-align: left;
     margin-top: 100px;
+    max-width: 100%;
+  }
+  .device-header, .price-specs-row, .price-container, .device-name, .inspiration {
+    align-items: flex-start;
+    text-align: left;
   }
   .ctas {
     flex-direction: column;

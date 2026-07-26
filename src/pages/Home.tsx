@@ -143,7 +143,7 @@ export default function Home() {
           </div>
           
           <div className="fg-text font-heading">
-            Blade
+            Technical Server Shop
             <div className="subtitle">P e r f o r m a n c e  L a p t o p s</div>
           </div>
         </main>
@@ -175,17 +175,44 @@ export default function Home() {
           </div>
 
           <div className="info-panel" ref={infoRef}>
-            <div className="price-title-row">
-              <div className="price stagger-text text-accent">{formatPrice(activeColor.price)}</div>
-              <div className="title-area stagger-text">
-                <span className="badge">exclusive</span>
-                <h2 className="title font-heading">TSS BLADE X1</h2>
-                <div className="edition">GAMING EDITION</div>
+            <div className="device-header stagger-text">
+              <div className="device-badges">
+                <span className="badge badge-accent">EXCLUSIVE</span>
+                <span className="badge badge-outline">FLAGSHIP</span>
+              </div>
+              <h2 className="device-name font-heading">
+                TSS BLADE X1 <span className="device-edition-highlight">— GAMING EDITION</span>
+              </h2>
+            </div>
+
+            <div className="price-specs-row stagger-text">
+              <div className="price-container">
+                <span className="price-label">STARTING AT</span>
+                <div className="price text-accent">{formatPrice(activeColor.price)}</div>
+              </div>
+
+              <div className="mini-specs-grid">
+                <div className="spec-pill">
+                  <Cpu size={14} className="spec-icon" />
+                  <span>Intel Core i9 14th Gen</span>
+                </div>
+                <div className="spec-pill">
+                  <Monitor size={14} className="spec-icon" />
+                  <span>16" 240Hz QHD+ OLED</span>
+                </div>
+                <div className="spec-pill">
+                  <Zap size={14} className="spec-icon" />
+                  <span>RTX 4090 16GB TGP 175W</span>
+                </div>
+                <div className="spec-pill">
+                  <Shield size={14} className="spec-icon" />
+                  <span>Vapor Chamber Cooling</span>
+                </div>
               </div>
             </div>
-            
+
             <div className="inspiration stagger-text">
-              <h4>INSPIRATION</h4>
+              <h4>ENGINEERING EXCELLENCE</h4>
               <p>Engineered for elite performance. The TSS Blade X1 features a magnesium-alloy chassis, advanced vapor chamber cooling, and a 240Hz display to elevate your workflow and gaming.</p>
             </div>
           </div>

@@ -305,3 +305,21 @@ g:/TSS/src/
 - **Changes:**
   - src/components/Layout.tsx: Listen to introComplete custom event. Conditionally apply display: none to search bar, language pill, and navigation menu if on home page and intro is not finished.
   - src/pages/Home.tsx: Dispatch introComplete custom window event upon completion of the starting sequence.
+
+### Task 1 Update:
+- **Task:** Updated the hero section center text on the Home page (`src/pages/Home.tsx`).
+- **Changes:**
+  - `src/pages/Home.tsx`: Changed foreground text from `"Blade"` to `"Technical Server Shop"`. Preserved background overlay (`"QUANTUM"`) and laptop product container without disruption.
+  - `src/App.css`: Updated `.fg-text` CSS rule using `clamp(1.4rem, 4vw, 5rem)`, uppercase transform, text-shadow depth, and added `@media (max-width: 768px)` responsive formatting (`white-space: normal`, `word-break: keep-all`) for balanced and visually stunning display across all screen resolutions.
+
+
+- **Task 2:** Prominently position device name, badges, specs, and price in right-side info panel on Home page.
+- **Changes:**
+  - `src/pages/Home.tsx`: Overhauled `.info-panel` to feature prominent "TSS BLADE X1 — GAMING EDITION" title with `EXCLUSIVE` & `FLAGSHIP` badges, formatted price with "STARTING AT" label, and a 2x2 grid of hardware spec pills (CPU, Display, GPU, Cooling) alongside the price and summary text.
+  - `src/App.css`: Added modern typography, glow badge styling (`.badge-accent`, `.badge-outline`), grid layout for hardware spec pills (`.mini-specs-grid`, `.spec-pill`), and responsive left-alignment media query rules.
+
+- **Task 3:** Add social media links (Twitter, Instagram, YouTube, LinkedIn, GitHub) in global footer with Lucide icons.
+- **Changes:**
+  - `src/components/Layout.tsx`: Imported `Twitter`, `Instagram`, `Youtube`, `Linkedin`, `Github` icons from `lucide-react`. Rendered interactive social link icon buttons inside the footer container with `target="_blank"` and `rel="noopener noreferrer"`.
+  - `src/App.css`: Added `.footer-social-links` and `.social-icon-btn` styles with glassmorphic backdrop filter, neon cyan hover glow, smooth translateY scaling transitions, and mobile responsive alignment (`justify-content: center`).
+
