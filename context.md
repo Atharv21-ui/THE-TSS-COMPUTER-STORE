@@ -330,3 +330,8 @@ g:/TSS/src/
   - [NEW] src/pages/RelatedProducts.tsx: Recommendations page displaying item added confirmation banner, category filter pills (Laptops, Desktops, Printers, TVs, Accessories), and interactive ExpandableCardGrid.
   - [MODIFIED] src/App.tsx: Registered /related-products route under main Layout.
   - [MODIFIED] src/pages/Home.tsx: Updated handleAddToCart to add selected colorway laptop to cart state and navigate to /related-products with state payload.
+
+## 2026-07-26 Update
+- **Task:** Remove GitHub social icon link from footer.
+- **Changes:**
+  - [MODIFIED] src/components/Layout.tsx: Removed GithubIcon and GitHub link from socialLinks array in footer.
