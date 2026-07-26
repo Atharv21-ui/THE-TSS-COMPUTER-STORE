@@ -323,3 +323,10 @@ g:/TSS/src/
   - `src/components/Layout.tsx`: Imported `Twitter`, `Instagram`, `Youtube`, `Linkedin`, `Github` icons from `lucide-react`. Rendered interactive social link icon buttons inside the footer container with `target="_blank"` and `rel="noopener noreferrer"`.
   - `src/App.css`: Added `.footer-social-links` and `.social-icon-btn` styles with glassmorphic backdrop filter, neon cyan hover glow, smooth translateY scaling transitions, and mobile responsive alignment (`justify-content: center`).
 
+
+## 2026-07-26 Update
+- **Task:** Make Add To Cart button on Home page functional and redirect user to a new Related Products page displaying items from all sections.
+- **Changes:**
+  - [NEW] src/pages/RelatedProducts.tsx: Recommendations page displaying item added confirmation banner, category filter pills (Laptops, Desktops, Printers, TVs, Accessories), and interactive ExpandableCardGrid.
+  - [MODIFIED] src/App.tsx: Registered /related-products route under main Layout.
+  - [MODIFIED] src/pages/Home.tsx: Updated handleAddToCart to add selected colorway laptop to cart state and navigate to /related-products with state payload.

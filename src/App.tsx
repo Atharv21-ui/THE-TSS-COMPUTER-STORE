@@ -13,6 +13,7 @@ import Faq from './pages/Faq';
 import Checkout from './pages/Checkout';
 import Account from './pages/Account';
 import AdminDashboard from './pages/AdminDashboard';
+import RelatedProducts from './pages/RelatedProducts';
 import { CartProvider } from './context/CartContext';
 import { LanguageProvider } from './context/LanguageContext';
 import './App.css';
@@ -29,6 +30,7 @@ function App() {
           <Route path="printers" element={<Printers />} />
           <Route path="led-tv" element={<LedTv />} />
           <Route path="accessories" element={<Accessories />} />
+          <Route path="related-products" element={<RelatedProducts />} />
           <Route path="contact" element={<Contact />} />
           <Route path="warranty" element={<Warranty />} />
           <Route path="downloads" element={<Downloads />} />

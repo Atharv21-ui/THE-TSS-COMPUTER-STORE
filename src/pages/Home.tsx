@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import gsap from 'gsap';
 import { Cpu, Monitor, Zap, Shield, Wifi, Battery } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AnimatedButton from '../components/AnimatedButton';
 import { TracingBeam } from '../components/ui/tracing-beam';
 import StoreInfo from '../components/StoreInfo';
@@ -44,6 +44,7 @@ const colors: Colorway[] = [
 export default function Home() {
   const { formatPrice, t } = useLanguage();
   const { addToCart } = useCart();
+  const navigate = useNavigate();
   const [introFinished, setIntroFinished] = useState(() => {
     return sessionStorage.getItem('tss_intro_shown') === 'true';
   });
@@ -52,6 +53,17 @@ export default function Home() {
     sessionStorage.setItem('tss_intro_shown', 'true');
     setIntroFinished(true);
     window.dispatchEvent(new Event('introComplete'));
+  };
+
+  const handleAddToCart = () => {
+    const itemToAdd = {
+      id: `blade-${activeColor.id}`,
+      title: `TSS Blade X1 (${activeColor.name})`,
+      price: activeColor.price,
+      src: activeColor.image
+    };
+    addToCart(itemToAdd);
+    navigate('/related-products', { state: { addedProduct: itemToAdd } });
   };
 
   const [activeColorIndex, setActiveColorIndex] = useState(0);
@@ -167,7 +179,7 @@ export default function Home() {
           <div className="ctas" style={{ display: 'flex', gap: '20px' }}>
             <AnimatedButton 
               text={t('product.add_to_cart')} 
-              onClick={() => addToCart({ id: `blade-${activeColor.id}`, title: `TSS Blade X1 (${activeColor.name})`, price: activeColor.price, src: activeColor.image })}
+              onClick={handleAddToCart}
             />
             <Link to="/checkout">
               <AnimatedButton text="BUY NOW" className="outline-variant" />
