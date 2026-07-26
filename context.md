@@ -335,3 +335,9 @@ g:/TSS/src/
 - **Task:** Remove GitHub social icon link from footer.
 - **Changes:**
   - [MODIFIED] src/components/Layout.tsx: Removed GithubIcon and GitHub link from socialLinks array in footer.
+
+## 2026-07-26 Update
+- **Task:** Finishing touches: Add floating cart shortcut pill, route change auto scroll-to-top, and brand meta tags.
+- **Changes:**
+  - [MODIFIED] src/components/Layout.tsx: Added floating glassmorphic Cart Shortcut pill with dynamic badge count linking to /checkout, and window.scrollTo(0,0) on route change.
+  - [MODIFIED] index.html: Enhanced SEO description and updated document title to 'Technical Server Shop | Next-Gen Computing & Enterprise Hardware'.
