@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { ShoppingBag } from 'lucide-react';
 import StaggeredMenu from './StaggeredMenu';
 import { GooeyInput } from './ui/gooey-input';
 import FloatingInput from './FloatingInput';
 import SearchModal from './SearchModal';
 import { useLanguage } from '../context/LanguageContext';
-import { useCart } from '../context/CartContext';
 
 const TwitterIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
@@ -27,7 +25,6 @@ const LinkedinIcon = ({ size = 18 }: { size?: number }) => (
 export default function Layout() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
-  const { cartItems } = useCart();
   const location = useLocation();
   
   const [introFinished, setIntroFinished] = useState(() => {
@@ -69,53 +66,6 @@ export default function Layout() {
       >
         <GooeyInput placeholder={t('search.placeholder')} />
       </div>
-
-      {/* Floating Cart Shortcut Pill */}
-      <NavLink
-        to="/checkout"
-        style={{
-          position: 'fixed',
-          top: '25px',
-          right: '215px',
-          zIndex: 100,
-          display: showHeader ? 'flex' : 'none',
-          alignItems: 'center',
-          gap: '8px',
-          background: 'rgba(12, 12, 18, 0.85)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(0, 204, 255, 0.3)',
-          borderRadius: '24px',
-          padding: '6px 14px',
-          boxShadow: '0 4px 20px rgba(0, 204, 255, 0.25)',
-          textDecoration: 'none',
-          color: '#fff',
-          fontSize: '11px',
-          fontFamily: 'var(--font-heading, sans-serif)',
-          fontWeight: '700',
-          letterSpacing: '0.5px',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-        }}
-      >
-        <ShoppingBag size={14} style={{ color: 'var(--accent-color, #00ccff)' }} />
-        <span>{t('nav.cart')}</span>
-        {cartItems.length > 0 && (
-          <span style={{
-            background: 'var(--accent-color, #00ccff)',
-            color: '#000',
-            borderRadius: '50%',
-            width: '18px',
-            height: '18px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '10px',
-            fontWeight: '900',
-            marginLeft: '2px'
-          }}>
-            {cartItems.length}
-          </span>
-        )}
-      </NavLink>
 
       {/* Language Switcher Pill */}
       <div 

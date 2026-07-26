@@ -341,3 +341,8 @@ g:/TSS/src/
 - **Changes:**
   - [MODIFIED] src/components/Layout.tsx: Added floating glassmorphic Cart Shortcut pill with dynamic badge count linking to /checkout, and window.scrollTo(0,0) on route change.
   - [MODIFIED] index.html: Enhanced SEO description and updated document title to 'Technical Server Shop | Next-Gen Computing & Enterprise Hardware'.
+
+## 2026-07-26 Update
+- **Task:** Remove hovering cart pill.
+- **Changes:**
+  - [MODIFIED] src/components/Layout.tsx: Removed hovering cart pill element and its imports.
