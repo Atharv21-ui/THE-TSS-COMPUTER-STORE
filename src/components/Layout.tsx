@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import StaggeredMenu from './StaggeredMenu';
 import { GooeyInput } from './ui/gooey-input';
 import FloatingInput from './FloatingInput';
@@ -9,6 +9,21 @@ import { useLanguage } from '../context/LanguageContext';
 export default function Layout() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const location = useLocation();
+  
+  const [introFinished, setIntroFinished] = useState(() => {
+    return sessionStorage.getItem('tss_intro_shown') === 'true';
+  });
+
+  useEffect(() => {
+    const handleIntroComplete = () => setIntroFinished(true);
+    window.addEventListener('introComplete', handleIntroComplete);
+    return () => window.removeEventListener('introComplete', handleIntroComplete);
+  }, []);
+
+  const isHomePage = location.pathname === '/';
+  const showHeader = !isHomePage || introFinished;
+
 
   return (
     <div className="app-container">
@@ -21,7 +36,7 @@ export default function Layout() {
       {/* Global Search Bar */}
       <div 
         onClick={() => setIsSearchOpen(true)}
-        style={{ position: 'fixed', top: '25px', left: '40px', zIndex: 100, cursor: 'pointer' }}
+        style={{ position: 'fixed', top: '25px', left: '40px', zIndex: 100, cursor: 'pointer', display: showHeader ? 'block' : 'none' }}
       >
         <GooeyInput placeholder={t('search.placeholder')} />
       </div>
@@ -34,7 +49,7 @@ export default function Layout() {
           top: '25px',
           right: '110px',
           zIndex: 100,
-          display: 'flex',
+          display: showHeader ? 'flex' : 'none',
           alignItems: 'center',
           background: 'rgba(12, 12, 18, 0.85)',
           backdropFilter: 'blur(16px)',
@@ -86,30 +101,32 @@ export default function Layout() {
       </div>
       
       {/* Global Navigation - Staggered Menu */}
-      <StaggeredMenu
-        position="right"
-        isFixed={true}
-        onLogoClick={() => setIsSearchOpen(true)}
-        items={[
-          { label: t('nav.home'), ariaLabel: 'Go to home', link: '/' },
-          { label: t('nav.laptops'), ariaLabel: 'Shop laptops', link: '/laptops' },
-          { label: t('nav.desktops'), ariaLabel: 'Shop desktops', link: '/desktops' },
-          { label: t('nav.printers'), ariaLabel: 'Shop printers', link: '/printers' },
-          { label: t('nav.led_tv'), ariaLabel: 'Shop TVs', link: '/led-tv' },
-          { label: t('nav.accessories'), ariaLabel: 'Shop accessories', link: '/accessories' },
-          { label: t('nav.cart'), ariaLabel: 'View cart', link: '/checkout' },
-          { label: t('nav.account'), ariaLabel: 'Manage account', link: '/account' },
-        ]}
-        socialItems={[
-          { label: 'Twitter', link: 'https://twitter.com' },
-          { label: 'Instagram', link: 'https://instagram.com' },
-          { label: 'YouTube', link: 'https://youtube.com' }
-        ]}
-        colors={['#111', '#222']}
-        accentColor="var(--accent-color)"
-        menuButtonColor="#fff"
-        openMenuButtonColor="var(--accent-color)"
-      />
+      <div style={{ display: showHeader ? 'block' : 'none' }}>
+        <StaggeredMenu
+          position="right"
+          isFixed={true}
+          onLogoClick={() => setIsSearchOpen(true)}
+          items={[
+            { label: t('nav.home'), ariaLabel: 'Go to home', link: '/' },
+            { label: t('nav.laptops'), ariaLabel: 'Shop laptops', link: '/laptops' },
+            { label: t('nav.desktops'), ariaLabel: 'Shop desktops', link: '/desktops' },
+            { label: t('nav.printers'), ariaLabel: 'Shop printers', link: '/printers' },
+            { label: t('nav.led_tv'), ariaLabel: 'Shop TVs', link: '/led-tv' },
+            { label: t('nav.accessories'), ariaLabel: 'Shop accessories', link: '/accessories' },
+            { label: t('nav.cart'), ariaLabel: 'View cart', link: '/checkout' },
+            { label: t('nav.account'), ariaLabel: 'Manage account', link: '/account' },
+          ]}
+          socialItems={[
+            { label: 'Twitter', link: 'https://twitter.com' },
+            { label: 'Instagram', link: 'https://instagram.com' },
+            { label: 'YouTube', link: 'https://youtube.com' }
+          ]}
+          colors={['#111', '#222']}
+          accentColor="var(--accent-color)"
+          menuButtonColor="#fff"
+          openMenuButtonColor="var(--accent-color)"
+        />
+      </div>
 
       {/* Dynamic Page Content */}
       <main style={{ flexGrow: 1 }}>

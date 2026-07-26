@@ -51,6 +51,7 @@ export default function Home() {
   const handleIntroComplete = () => {
     sessionStorage.setItem('tss_intro_shown', 'true');
     setIntroFinished(true);
+    window.dispatchEvent(new Event('introComplete'));
   };
 
   const [activeColorIndex, setActiveColorIndex] = useState(0);

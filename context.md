@@ -9,7 +9,6 @@
 - Added a new `CUSTOMERS` tab in the `AdminDashboard` to manage users and toggle their ban status.
 - **ADDRESS CAPTURE**: Updated `Account.tsx` registration form to capture the user's `address`, saved securely to the backend on sign-up.
 - **SMART CHECKOUT**: Updated `Checkout.tsx` to fetch the logged-in user profile, automatically pre-fill the saved `address`, and offer dynamic Payment Channels (Credit Card, Saved Card, COD, UPI). Successfully completing checkout on a new card securely saves the card number and expiry to the user's account for future auto-fill, strictly excluding the CVV.
-- **SERVERLESS FUNCTIONS**: Initialized Netlify Go serverless functions capability. Created `netlify.toml` config, initialized Go modules in `netlify/functions`, and added a sample `hello.go` endpoint ready to be built and deployed via Netlify CI/CD.
 
 ## Current File Structure
 ```
@@ -300,3 +299,9 @@ g:/TSS/src/
   - `[MODIFIED]` `src/App.tsx`, `src/components/Layout.tsx`, `src/components/StaggeredMenu.tsx`, `src/components/ExpandableCard.tsx`, `src/components/SearchModal.tsx`, `src/components/ProductFilterSort.tsx`, `src/pages/*.tsx`, `backend/src/server.ts`, `backend/seed-firestore.ts`
 
 
+
+## 2026-07-26 Update
+- **Task:** Hide header elements (Search, Language Menu, Navigation Menu, TSS Logo) during the landing page starting sequence.
+- **Changes:**
+  - src/components/Layout.tsx: Listen to introComplete custom event. Conditionally apply display: none to search bar, language pill, and navigation menu if on home page and intro is not finished.
+  - src/pages/Home.tsx: Dispatch introComplete custom window event upon completion of the starting sequence.
