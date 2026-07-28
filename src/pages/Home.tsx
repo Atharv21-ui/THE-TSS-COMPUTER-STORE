@@ -185,15 +185,16 @@ export default function Home() {
           <main className="hero-section">
             <div className="bg-text font-heading">QUANTUM</div>
             
-            <div className="product-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="product-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '85vw', maxWidth: '1250px', height: '680px' }}>
               <img 
                 ref={productRef} 
                 src={activeProduct.image} 
                 alt={activeProduct.name} 
                 className="product-image"
                 style={{
-                  maxWidth: '720px',
-                  maxHeight: '460px',
+                  width: '100%',
+                  maxWidth: '1150px',
+                  maxHeight: '680px',
                   objectFit: 'contain',
                   background: 'transparent',
                   mixBlendMode: 'normal',

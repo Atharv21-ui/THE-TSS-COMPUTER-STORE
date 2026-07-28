@@ -197,8 +197,9 @@
 .product-container {
   position: relative;
   z-index: 2;
-  width: 60vw;
-  max-width: 900px;
+  width: 85vw;
+  max-width: 1250px;
+  height: 680px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,11 +207,14 @@
 
 .product-image {
   width: 100%;
+  max-width: 1150px;
+  max-height: 680px;
   height: auto;
   object-fit: contain;
   filter: none;
   mix-blend-mode: normal;
   background: transparent;
+  transition: transform 0.4s ease;
 }
 
 .fg-text {
