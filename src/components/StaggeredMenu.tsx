@@ -64,7 +64,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const iconRef = useRef<HTMLSpanElement | null>(null);
   const textInnerRef = useRef<HTMLSpanElement | null>(null);
   const textWrapRef = useRef<HTMLSpanElement | null>(null);
-  const { t } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const [textLines, setTextLines] = useState<string[]>([t('nav.menu'), t('nav.close')]);
 
   React.useEffect(() => {
@@ -413,37 +413,106 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
         <Link to="/" className="sm-logo" aria-label="Logo" onClick={(e) => { if (onLogoClick) { e.preventDefault(); onLogoClick(); } closeMenu(); }} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', color: '#fff' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--accent-color, #ff0000)' }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--accent-color, #00ccff)' }}>
             <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
             <line x1="12" y1="22" x2="12" y2="12"></line>
             <line x1="22" y1="8.5" x2="12" y2="12"></line>
             <line x1="2" y1="8.5" x2="12" y2="12"></line>
           </svg>
-          <span className="font-heading" style={{ fontSize: '15px', fontWeight: 'bold', letterSpacing: '1px' }}>THE TSS COMPUTER STORE</span>
+          <span className="font-heading" style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '2px' }}>TSS</span>
         </Link>
-        <button
-          ref={toggleBtnRef}
-          className="sm-toggle"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls="staggered-menu-panel"
-          onClick={toggleMenu}
-          type="button"
-        >
-          <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
-            <span ref={textInnerRef} className="sm-toggle-textInner">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line" key={i}>
-                  {l}
-                </span>
-              ))}
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          {/* Language Switcher */}
+          <div 
+            className="lang-switcher-pill"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              background: 'rgba(12, 12, 18, 0.85)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              borderRadius: '24px',
+              padding: '3px 4px',
+              gap: '4px',
+              fontSize: '11px',
+              fontFamily: 'var(--font-heading, sans-serif)',
+              fontWeight: '700',
+              letterSpacing: '1px'
+            }}
+          >
+            <button
+              onClick={() => setLanguage('en')}
+              style={{
+                padding: '4px 10px',
+                borderRadius: '16px',
+                border: 'none',
+                cursor: 'pointer',
+                background: language === 'en' ? 'var(--accent-color, #00ccff)' : 'transparent',
+                color: language === 'en' ? '#000' : '#888',
+                transition: 'all 0.3s ease',
+                fontWeight: '800'
+              }}
+              aria-label="Switch language to English"
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage('hi')}
+              style={{
+                padding: '4px 10px',
+                borderRadius: '16px',
+                border: 'none',
+                cursor: 'pointer',
+                background: language === 'hi' ? 'var(--accent-color, #00ccff)' : 'transparent',
+                color: language === 'hi' ? '#000' : '#888',
+                transition: 'all 0.3s ease',
+                fontWeight: '800'
+              }}
+              aria-label="हिन्दी भाषा चुनें"
+            >
+              हिन्दी
+            </button>
+          </div>
+
+          {/* Menu Toggle Button (Menu + grouped close together) */}
+          <button
+            ref={toggleBtnRef}
+            className="sm-toggle"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="staggered-menu-panel"
+            onClick={toggleMenu}
+            type="button"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '8px 16px',
+              background: 'rgba(12, 12, 18, 0.85)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              borderRadius: '24px',
+              color: '#fff',
+              fontSize: '13px',
+              fontWeight: '700'
+            }}
+          >
+            <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
+              <span ref={textInnerRef} className="sm-toggle-textInner">
+                {textLines.map((l, i) => (
+                  <span className="sm-toggle-line" key={i}>
+                    {l}
+                  </span>
+                ))}
+              </span>
             </span>
-          </span>
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
-          </span>
-        </button>
+            <span ref={iconRef} className="sm-icon" aria-hidden="true" style={{ marginLeft: '2px' }}>
+              <span ref={plusHRef} className="sm-icon-line" />
+              <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+            </span>
+          </button>
+        </div>
       </header>
 
       <aside id="staggered-menu-panel" ref={panelRef} className="staggered-menu-panel" aria-hidden={!open}>

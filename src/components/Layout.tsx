@@ -78,65 +78,6 @@ export default function Layout() {
         <GooeyInput placeholder={t('search.placeholder')} />
       </div>
 
-      {/* Language Switcher Pill */}
-      <div 
-        className="lang-switcher-pill"
-        style={{
-          position: 'fixed',
-          top: '25px',
-          right: '110px',
-          zIndex: 100,
-          display: showHeader ? 'flex' : 'none',
-          alignItems: 'center',
-          background: 'rgba(12, 12, 18, 0.85)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.18)',
-          borderRadius: '24px',
-          padding: '4px 6px',
-          gap: '4px',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
-          fontSize: '11px',
-          fontFamily: 'var(--font-heading, sans-serif)',
-          fontWeight: '700',
-          letterSpacing: '1px'
-        }}
-      >
-        <button
-          onClick={() => setLanguage('en')}
-          style={{
-            padding: '5px 12px',
-            borderRadius: '16px',
-            border: 'none',
-            cursor: 'pointer',
-            background: language === 'en' ? 'var(--accent-color, #00ccff)' : 'transparent',
-            color: language === 'en' ? '#000' : '#888',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            fontWeight: '800',
-            boxShadow: language === 'en' ? '0 0 10px rgba(0, 204, 255, 0.4)' : 'none'
-          }}
-          aria-label="Switch language to English"
-        >
-          EN
-        </button>
-        <button
-          onClick={() => setLanguage('hi')}
-          style={{
-            padding: '5px 12px',
-            borderRadius: '16px',
-            border: 'none',
-            cursor: 'pointer',
-            background: language === 'hi' ? 'var(--accent-color, #00ccff)' : 'transparent',
-            color: language === 'hi' ? '#000' : '#888',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            fontWeight: '800',
-            boxShadow: language === 'hi' ? '0 0 10px rgba(0, 204, 255, 0.4)' : 'none'
-          }}
-          aria-label="हिन्दी भाषा चुनें"
-        >
-          हिन्दी
-        </button>
-      </div>
-      
       {/* Global Navigation - Staggered Menu */}
       <div style={{ display: showHeader ? 'block' : 'none' }}>
         <StaggeredMenu

@@ -100,6 +100,17 @@ export default function Home() {
     addToCart(itemToAdd);
     navigate('/related-products', { state: { addedProduct: itemToAdd } });
   };
+
+  const handleBuyNow = () => {
+    const itemToAdd = {
+      id: activeProduct.id,
+      title: activeProduct.name,
+      price: activeProduct.price,
+      src: activeProduct.image
+    };
+    addToCart(itemToAdd);
+    navigate('/checkout');
+  };
   
   const productRef = useRef<HTMLImageElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
@@ -219,9 +230,7 @@ export default function Home() {
                 text={t('product.add_to_cart')} 
                 onClick={handleAddToCart}
               />
-              <Link to="/checkout">
-                <AnimatedButton text="BUY NOW" className="outline-variant" />
-              </Link>
+              <AnimatedButton text="BUY NOW" className="outline-variant" onClick={handleBuyNow} />
             </div>
 
             <div className="info-panel" ref={infoRef}>
