@@ -9,35 +9,67 @@ import IntroScroll from '../components/IntroScroll';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 
-type Colorway = {
+import heroLaptopOne from '../assets/hero_laptop_one.png';
+import heroLaptopTwo from '../assets/hero_laptop_two.png';
+import heroKeyboard from '../assets/hero_keyboard.png';
+
+type HeroProduct = {
   id: string;
   name: string;
+  subtitle: string;
   hex: string;
   price: string;
   image: string;
+  specs: {
+    cpu: string;
+    display: string;
+    gpu: string;
+    cooling: string;
+  };
 };
 
-const colors: Colorway[] = [
+const heroProducts: HeroProduct[] = [
   {
-    id: 'red',
-    name: 'Crimson Red',
-    hex: '#ff0000',
-    price: '₹1,299',
-    image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: 'green',
-    name: 'Neon Green',
-    hex: '#00ff00',
-    price: '₹1,349',
-    image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: 'blue',
-    name: 'Cyber Blue',
+    id: 'laptop-1',
+    name: 'TSS Blade X1 Gaming Laptop',
+    subtitle: 'GAMING EDITION',
     hex: '#00ccff',
-    price: '₹1,499',
-    image: 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&q=80&w=800'
+    price: '₹1,49,999',
+    image: heroLaptopOne,
+    specs: {
+      cpu: 'Intel Core i9 14th Gen',
+      display: '16" 240Hz QHD+ OLED',
+      gpu: 'RTX 4090 16GB TGP 175W',
+      cooling: 'Vapor Chamber Cooling'
+    }
+  },
+  {
+    id: 'laptop-2',
+    name: 'TSS Studio Pro Workstation',
+    subtitle: 'TITANIUM WORKSTATION',
+    hex: '#ff3300',
+    price: '₹1,29,999',
+    image: heroLaptopTwo,
+    specs: {
+      cpu: 'Intel Core i7 14th Gen',
+      display: '15.6" 165Hz 4K OLED',
+      gpu: 'RTX 4080 12GB TGP 150W',
+      cooling: 'Dual Liquid Metal Tech'
+    }
+  },
+  {
+    id: 'keyboard-1',
+    name: 'TSS Quantum Mech RGB Keyboard',
+    subtitle: 'TACTICAL MECHANICAL',
+    hex: '#00ff88',
+    price: '₹8,999',
+    image: heroKeyboard,
+    specs: {
+      cpu: 'Hot-Swappable Switches',
+      display: 'Full RGB Per-Key Lighting',
+      gpu: 'Ultra-Low Latency Wireless',
+      cooling: 'Aircraft Aluminum Chassis'
+    }
   }
 ];
 
@@ -55,48 +87,47 @@ export default function Home() {
     window.dispatchEvent(new Event('introComplete'));
   };
 
+  const [activeProductIndex, setActiveProductIndex] = useState(0);
+  const activeProduct = heroProducts[activeProductIndex];
+
   const handleAddToCart = () => {
     const itemToAdd = {
-      id: `blade-${activeColor.id}`,
-      title: `THE TSS Blade X1 (${activeColor.name})`,
-      price: activeColor.price,
-      src: activeColor.image
+      id: activeProduct.id,
+      title: activeProduct.name,
+      price: activeProduct.price,
+      src: activeProduct.image
     };
     addToCart(itemToAdd);
     navigate('/related-products', { state: { addedProduct: itemToAdd } });
   };
-
-  const [activeColorIndex, setActiveColorIndex] = useState(0);
-  const activeColor = colors[activeColorIndex];
   
   const productRef = useRef<HTMLImageElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
   
-  const handleColorChange = (index: number) => {
-    if (index === activeColorIndex) return;
+  const handleProductChange = (index: number) => {
+    if (index === activeProductIndex) return;
     
-    const newColor = colors[index];
+    const newProduct = heroProducts[index];
     
     gsap.to(productRef.current, {
       scale: 0.85,
-      rotation: 55,
-      x: -200,
+      y: 20,
       opacity: 0,
-      duration: 0.4,
+      duration: 0.35,
       ease: 'power2.in',
       onComplete: () => {
-        setActiveColorIndex(index);
+        setActiveProductIndex(index);
         
-        document.documentElement.style.setProperty('--accent-color', newColor.hex);
+        document.documentElement.style.setProperty('--accent-color', newProduct.hex);
         
-        const r = parseInt(newColor.hex.slice(1, 3), 16);
-        const g = parseInt(newColor.hex.slice(3, 5), 16);
-        const b = parseInt(newColor.hex.slice(5, 7), 16);
+        const r = parseInt(newProduct.hex.slice(1, 3), 16);
+        const g = parseInt(newProduct.hex.slice(3, 5), 16);
+        const b = parseInt(newProduct.hex.slice(5, 7), 16);
         document.documentElement.style.setProperty('--accent-color-rgb', `${r}, ${g}, ${b}`);
         
         gsap.fromTo(productRef.current, 
-          { scale: 1.15, rotation: 30, x: 200, opacity: 0 },
-          { scale: 1, rotation: 45, x: 0, opacity: 1, duration: 0.6, ease: 'back.out(1.5)' }
+          { scale: 1.1, y: -20, opacity: 0 },
+          { scale: 1, y: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.4)' }
         );
       }
     });
@@ -136,20 +167,25 @@ export default function Home() {
           transition: 'opacity 0.8s ease'
         }}
       >
-        {/* 1. HERO SECTION (100vh ORIGINAL FULL-SCREEN CANVAS) */}
+        {/* 1. HERO SECTION (CENTER ALIGNED WITH NEW GENERATED IMAGES) */}
         <div className="hero-wrapper">
           <div style={{ height: '32px' }}></div>
 
           <main className="hero-section">
             <div className="bg-text font-heading">QUANTUM</div>
             
-            <div className="product-container">
+            <div className="product-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <img 
                 ref={productRef} 
-                src={activeColor.image} 
-                alt="TSS Blade Laptop" 
+                src={activeProduct.image} 
+                alt={activeProduct.name} 
                 className="product-image"
-                style={{ transform: 'rotate(45deg)' }}
+                style={{
+                  maxWidth: '720px',
+                  maxHeight: '460px',
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 30px 45px rgba(0, 0, 0, 0.95))'
+                }}
               />
             </div>
             
@@ -161,15 +197,18 @@ export default function Home() {
 
           <footer className="footer-panels">
             <div className="color-selection">
-              <h3 className="choose-color">CHOOSE COLOR :</h3>
+              <h3 className="choose-color">SELECT MODEL / ITEM :</h3>
               <div className="thumbnails">
-                {colors.map((color, index) => (
+                {heroProducts.map((prod, index) => (
                   <div 
-                    key={color.id} 
-                    className={`thumbnail ${index === activeColorIndex ? 'active' : ''}`}
-                    onClick={() => handleColorChange(index)}
+                    key={prod.id} 
+                    className={`thumbnail ${index === activeProductIndex ? 'active' : ''}`}
+                    onClick={() => handleProductChange(index)}
+                    title={prod.name}
                   >
-                    <div className="thumb-laptop" style={{ borderColor: color.hex, boxShadow: index === activeColorIndex ? `0 0 10px ${color.hex}` : 'none' }}></div>
+                    <div className="thumb-laptop" style={{ borderColor: prod.hex, boxShadow: index === activeProductIndex ? `0 0 12px ${prod.hex}` : 'none', overflow: 'hidden' }}>
+                      <img src={prod.image} alt={prod.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -192,52 +231,51 @@ export default function Home() {
                   <span className="badge badge-outline">FLAGSHIP</span>
                 </div>
                 <h2 className="device-name font-heading">
-                  TSS BLADE X1 <span className="device-edition-highlight">— GAMING EDITION</span>
+                  {activeProduct.name} <span className="device-edition-highlight">— {activeProduct.subtitle}</span>
                 </h2>
               </div>
 
               <div className="price-specs-row stagger-text">
                 <div className="price-container">
                   <span className="price-label">STARTING AT</span>
-                  <div className="price text-accent">{formatPrice(activeColor.price)}</div>
+                  <div className="price text-accent">{formatPrice(activeProduct.price)}</div>
                 </div>
 
                 <div className="mini-specs-grid">
                   <div className="spec-pill">
                     <Cpu size={14} className="spec-icon" />
-                    <span>Intel Core i9 14th Gen</span>
+                    <span>{activeProduct.specs.cpu}</span>
                   </div>
                   <div className="spec-pill">
                     <Monitor size={14} className="spec-icon" />
-                    <span>16" 240Hz QHD+ OLED</span>
+                    <span>{activeProduct.specs.display}</span>
                   </div>
                   <div className="spec-pill">
                     <Zap size={14} className="spec-icon" />
-                    <span>RTX 4090 16GB TGP 175W</span>
+                    <span>{activeProduct.specs.gpu}</span>
                   </div>
                   <div className="spec-pill">
                     <Shield size={14} className="spec-icon" />
-                    <span>Vapor Chamber Cooling</span>
+                    <span>{activeProduct.specs.cooling}</span>
                   </div>
                 </div>
               </div>
 
               <div className="inspiration stagger-text">
                 <h4>ENGINEERING EXCELLENCE</h4>
-                <p>Engineered for elite performance. The TSS Blade X1 features a magnesium-alloy chassis, advanced vapor chamber cooling, and a 240Hz display to elevate your workflow and gaming.</p>
+                <p>Engineered for elite performance. THE TSS COMPUTER STORE offers flagship workstations, laptops, monitors, and peripherals designed to elevate your workflow and gaming experience.</p>
               </div>
             </div>
           </footer>
 
           <div className="pagination">
-            {colors.map((_, index) => (
+            {heroProducts.map((_, index) => (
               <div 
                 key={index} 
-                className={`dot ${index === activeColorIndex ? 'active' : ''}`}
-                onClick={() => handleColorChange(index)}
+                className={`dot ${index === activeProductIndex ? 'active' : ''}`}
+                onClick={() => handleProductChange(index)}
               ></div>
             ))}
-            <div className="dot"></div>
           </div>
         </div>
 

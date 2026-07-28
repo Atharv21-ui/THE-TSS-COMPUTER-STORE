@@ -5,6 +5,7 @@
 - **GitHub Pages Deployment URL**: [https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/](https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/)
 
 ## Changes Made
+- **CENTERED HERO SWAPPER WITH NEW ASSETS**: Updated `Home.tsx` and `App.css` to center-align the 3D product showcase on the hero screen using the 3 generated assets (`hero_laptop_one.png`, `hero_laptop_two.png`, `hero_keyboard.png`). Integrated interactive item/model swapper thumbnails with full specs info panel.
 - **UI REVERT & FOOTER CONTACT FORM**: Reverted hero section to the original full-screen hero layout with color swapper and GSAP 400vh IntroScroll sequence in `Home.tsx`. Embedded the complete interactive **Customer Contact Form** directly into the global footer in `Layout.tsx` in place of the newsletter subscription form. Kept all 8 other requirements (THE TSS COMPUTER STORE branding, LED TV & MONITORS, Refurbished Items category, support hotlines 7317605285 & 9795535285, and Jhansi warranty terms & policies).
 - **FIREBASE AUTH & FALLBACK FIX**: Added safe default fallbacks and exception handling in `src/config/firebase.ts` and `.github/workflows/deploy.yml` to prevent `auth/invalid-api-key` error from crashing the application on GitHub Pages.
 - **GITHUB PAGES OPTIMIZATION**: Configured `vite.config.ts` base path to `/THE-TSS-COMPUTER-STORE/`, added `public/404.html` SPA routing fallback, ensured `main.tsx` dynamic `HashRouter` toggle for `*.github.io`, and updated `.github/workflows/deploy.yml` for automated GitHub Pages deployment.
