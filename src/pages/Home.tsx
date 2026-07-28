@@ -195,7 +195,9 @@ export default function Home() {
                   maxWidth: '720px',
                   maxHeight: '460px',
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 30px 45px rgba(0, 0, 0, 0.95))'
+                  background: 'transparent',
+                  mixBlendMode: 'normal',
+                  filter: 'none'
                 }}
               />
             </div>
@@ -217,8 +219,8 @@ export default function Home() {
                     onClick={() => handleProductChange(index)}
                     title={prod.name}
                   >
-                    <div className="thumb-laptop" style={{ borderColor: prod.hex, boxShadow: index === activeProductIndex ? `0 0 12px ${prod.hex}` : 'none', overflow: 'hidden' }}>
-                      <img src={prod.image} alt={prod.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div className="thumb-laptop" style={{ borderColor: prod.hex, boxShadow: index === activeProductIndex ? `0 0 12px ${prod.hex}` : 'none', overflow: 'hidden', background: 'transparent' }}>
+                      <img src={prod.image} alt={prod.name} style={{ width: '100%', height: '100%', objectFit: 'contain', background: 'transparent' }} />
                     </div>
                   </div>
                 ))}
