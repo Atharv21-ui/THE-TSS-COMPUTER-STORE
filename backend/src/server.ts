@@ -396,69 +396,10 @@ const seedDatabase = async () => {
 
       console.log('Seeded default products into Firestore!');
     }
-
-    // 3. Seed default orders if none exist
-    const { ordersCollection } = await import('./models/Order');
-    const ordersSnapshot = await ordersCollection.limit(1).get();
-    if (ordersSnapshot.empty) {
-      const defaultOrders = [
-        {
-          orderId: 'ORD-9842A',
-          userId: 'user_01',
-          customerName: 'Aarav Sharma',
-          customerEmail: 'aarav.sharma@example.com',
-          customerPhone: '+91 98765 43210',
-          shippingAddress: '42 MG Road, Cyber City, Gurugram, Haryana 122002',
-          items: [
-            { id: 'l1', title: 'TSS BLADE X1 (Crimson Red)', price: '₹1,299', quantity: 1, src: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=600' }
-          ],
-          totalAmount: 1299,
-          status: 'Delivered',
-          paymentId: 'pay_Lx93J1kLq02a9',
-          paymentStatus: 'Paid',
-          createdAt: new Date(Date.now() - 15 * 86400000).toISOString()
-        },
-        {
-          orderId: 'ORD-9843B',
-          userId: 'user_02',
-          customerName: 'Priya Patel',
-          customerEmail: 'priya.p@example.com',
-          customerPhone: '+91 91234 56789',
-          shippingAddress: '78 Brigade Road, Bengaluru, Karnataka 560001',
-          items: [
-            { id: 'd1', title: 'TSS MONOLITH RIG', price: '₹2,499', quantity: 1, src: 'https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&q=80&w=600' },
-            { id: 'a1', title: 'TSS APEX WIRELESS HEADSET', price: '₹199', quantity: 1, src: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600' }
-          ],
-          totalAmount: 2698,
-          status: 'Shipped',
-          paymentId: 'pay_Mx94K2mMr03b0',
-          paymentStatus: 'Paid',
-          createdAt: new Date(Date.now() - 5 * 86400000).toISOString()
-        },
-        {
-          orderId: 'ORD-9844C',
-          userId: 'user_03',
-          customerName: 'Rohan Verma',
-          customerEmail: 'rohan.verma@example.com',
-          customerPhone: '+91 99887 76655',
-          shippingAddress: '15 Bandra Kurla Complex, Mumbai, Maharashtra 400051',
-          items: [
-            { id: 'l2', title: 'TSS STUDIO 16', price: '₹1,599', quantity: 1, src: 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=600' }
-          ],
-          totalAmount: 1599,
-          status: 'Processing',
-          paymentId: 'pay_Nx95L3nNs04c1',
-          paymentStatus: 'Paid',
-          createdAt: new Date(Date.now() - 1 * 86400000).toISOString()
-        }
-      ];
-
-      for (const order of defaultOrders) {
-        await ordersCollection.add(order);
-      }
-      console.log('Seeded default orders into Firestore!');
-    }
   } catch (error) {
+    console.error('Error seeding database:', error);
+  }
+};
     console.error('Error seeding database:', error);
   }
 };

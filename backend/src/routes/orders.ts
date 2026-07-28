@@ -13,6 +13,16 @@ router.get('/', authenticateToken, requireAdmin, async (req: AuthRequest, res: R
     
     snapshot.forEach(doc => {
       const data = doc.data();
+      
+      // Auto-purge demo seeded orders from Firestore
+      if (
+        ['ORD-9842A', 'ORD-9843B', 'ORD-9844C'].includes(data.orderId) ||
+        ['user_01', 'user_02', 'user_03'].includes(data.userId)
+      ) {
+        ordersCollection.doc(doc.id).delete().catch(() => {});
+        return;
+      }
+
       let formattedDate = new Date().toISOString();
       if (data.createdAt && typeof data.createdAt.toDate === 'function') {
         formattedDate = data.createdAt.toDate().toISOString();
