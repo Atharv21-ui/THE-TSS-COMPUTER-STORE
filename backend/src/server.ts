@@ -400,9 +400,6 @@ const seedDatabase = async () => {
     console.error('Error seeding database:', error);
   }
 };
-    console.error('Error seeding database:', error);
-  }
-};
 
 // Serve frontend static files in production (only if dist exists)
 const distPath = path.join(__dirname, '../../dist');
