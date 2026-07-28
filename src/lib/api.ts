@@ -3,9 +3,10 @@ import { auth } from '../config/firebase';
 const getApiBase = () => {
   if (typeof window === 'undefined') return '/api';
   
-  const isLocal = window.location.hostname === 'localhost' || 
-                  window.location.hostname === '127.0.0.1' || 
-                  window.location.hostname.startsWith('192.168.');
+  const host = window.location.hostname;
+  const isLocal = host === 'localhost' || 
+                  host === '127.0.0.1' || 
+                  /^192\.168\.\d{1,3}\.\d{1,3}$/.test(host);
   
   if (isLocal) {
     return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';

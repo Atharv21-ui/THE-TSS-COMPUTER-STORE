@@ -321,7 +321,7 @@ export default function AdminDashboard() {
   const handleEditInit = (product: Product) => {
     setEditingId(product._id);
     setTitle(product.title);
-    setPrice(product.price.replace('$', '').replace('₹', ''));
+    setPrice(product.price.replace(/[\$₹,]/g, ''));
     setSrc(product.src);
     setImageFile(null);
     setBadge(product.badge || '');

@@ -29,7 +29,11 @@
   },
   "overrides": {
     "cloudinary": "^2.10.0",
-    "uuid": "^11.1.1"
+    "uuid": "^11.1.1",
+    "brace-expansion": "^2.0.1",
+    "fast-xml-parser": "^4.4.1",
+    "protobufjs": "^7.2.5",
+    "rimraf": "^5.0.10"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
