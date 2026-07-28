@@ -34,9 +34,10 @@
     "vite": "^8.1.0"
   },
   "overrides": {
-    "postcss": "^8.4.31",
+    "react-router": "^7.18.0",
+    "postcss": "^8.4.38",
     "brace-expansion": "^2.0.1",
-    "fast-xml-parser": "^4.4.1",
-    "protobufjs": "^7.2.5"
+    "fast-xml-parser": "^4.5.2",
+    "protobufjs": "^7.3.2"
   }
 }

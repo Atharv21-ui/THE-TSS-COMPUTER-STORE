@@ -208,7 +208,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     onClick={() => handleProductClick(cat)}
                     className="hover:text-[#00ccff] transition-colors uppercase text-[10px] tracking-wider font-semibold"
                   >
-                    {cat.replace('-', ' ')}
+                    {cat.replace(/-/g, ' ')}
                   </button>
                 ))}
               </div>
