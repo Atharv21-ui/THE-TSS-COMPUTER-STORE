@@ -346,3 +346,8 @@ g:/TSS/src/
 - **Task:** Remove hovering cart pill.
 - **Changes:**
   - [MODIFIED] src/components/Layout.tsx: Removed hovering cart pill element and its imports.
+
+## 2026-07-28 Update
+- **Task:** Retrieve Live Razorpay keys from src/assets/rzp-key.csv and update ackend/.env.
+- **Changes:**
+  - Updated ackend/.env with Live Key ID (zp_live_TInSYB3MROGCfz) and Secret (Hvg9CIT9lc4KPFC2nUuVqYoF).
