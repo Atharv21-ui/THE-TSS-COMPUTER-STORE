@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import FloatingInput from '../components/FloatingInput';
 import { useLanguage } from '../context/LanguageContext';
+import { auth } from '../config/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import { 
   Database, 
   Plus, 
@@ -117,36 +119,40 @@ export default function AdminDashboard() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   useEffect(() => {
-    // Check if logged in user is admin
-    const checkAdmin = async () => {
-      try {
-        const user: any = await api.get('/auth/me');
-        if (user && user.role === 'admin') {
-          setIsAdmin(true);
-          fetchProducts();
-          fetchUsers();
-          fetchOrders();
-        } else {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        try {
+          const userProfile: any = await api.get('/auth/me');
+          if (userProfile && userProfile.role === 'admin') {
+            setIsAdmin(true);
+            await Promise.allSettled([fetchProducts(), fetchUsers(), fetchOrders()]);
+          } else {
+            setIsAdmin(false);
+            navigate('/account');
+          }
+        } catch (error) {
+          console.error('Admin verification error:', error);
           setIsAdmin(false);
           navigate('/account');
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
+      } else {
         setIsAdmin(false);
+        setLoading(false);
         navigate('/account');
       }
-    };
-    checkAdmin();
+    });
+
+    return () => unsubscribe();
   }, [navigate]);
 
   const fetchProducts = async () => {
-    setLoading(true);
     try {
       const data = await api.get<Product[]>('/products');
       setProducts(data);
     } catch (err) {
       console.error('Error fetching products:', err);
-    } finally {
-      setLoading(false);
     }
   };
 

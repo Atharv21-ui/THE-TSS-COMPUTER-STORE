@@ -1,38 +1,12 @@
 import { Router, Request, Response } from 'express';
-import { ordersCollection, IOrder } from '../models/Order';
+import { ordersCollection } from '../models/Order';
 import { FieldValue } from 'firebase-admin/firestore';
-import { getAuth } from 'firebase-admin/auth';
-import { usersCollection } from '../models/User';
+import { authenticateToken, requireAdmin, AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
-// Middleware: Authenticate user & check Admin role
-const verifyAdmin = async (req: Request, res: Response, next: Function): Promise<void> => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(401).json({ message: 'Unauthorized - Missing or invalid token' });
-    return;
-  }
-
-  const token = authHeader.split(' ')[1];
-  try {
-    const decodedToken = await getAuth().verifyIdToken(token);
-    const userDoc = await usersCollection.doc(decodedToken.uid).get();
-
-    if (!userDoc.exists || userDoc.data()?.role !== 'admin') {
-      res.status(403).json({ message: 'Forbidden - Requires Admin role' });
-      return;
-    }
-
-    (req as any).user = decodedToken;
-    next();
-  } catch (error) {
-    res.status(401).json({ message: 'Unauthorized - Invalid token' });
-  }
-};
-
 // GET /api/orders - Fetch all orders (Admin only)
-router.get('/', verifyAdmin, async (req: Request, res: Response): Promise<void> => {
+router.get('/', authenticateToken, requireAdmin, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const snapshot = await ordersCollection.get();
     const orders: any[] = [];
@@ -117,7 +91,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 });
 
 // PATCH /api/orders/:id/status - Update order status (Admin only)
-router.patch('/:id/status', verifyAdmin, async (req: Request, res: Response): Promise<void> => {
+router.patch('/:id/status', authenticateToken, requireAdmin, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const id = String(req.params.id);
     const { status } = req.body;
@@ -148,7 +122,7 @@ router.patch('/:id/status', verifyAdmin, async (req: Request, res: Response): Pr
 });
 
 // DELETE /api/orders/:id - Delete order (Admin only)
-router.delete('/:id', verifyAdmin, async (req: Request, res: Response): Promise<void> => {
+router.delete('/:id', authenticateToken, requireAdmin, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const id = String(req.params.id);
     const docRef = ordersCollection.doc(id);
