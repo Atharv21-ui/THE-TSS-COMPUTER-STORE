@@ -106,6 +106,28 @@ export default function Checkout() {
             });
 
             if (verifyRes.success) {
+              try {
+                await api.post('/orders', {
+                  orderId: response.razorpay_order_id || `ORD-${Date.now().toString(36).toUpperCase()}`,
+                  userId: user?.uid || 'guest',
+                  customerName: `${firstName} ${lastName}`.trim() || user?.name || 'Valued Customer',
+                  customerEmail: user?.email || email || 'customer@example.com',
+                  customerPhone: phone || '',
+                  shippingAddress: `${address}, ${city}, ${state} ${pincode}`.trim(),
+                  items: cartItems.map(item => ({
+                    id: item.id,
+                    title: item.title,
+                    price: item.price,
+                    quantity: item.quantity || 1,
+                    src: item.src
+                  })),
+                  totalAmount: total,
+                  paymentId: response.razorpay_payment_id || `pay_${Date.now()}`,
+                  paymentStatus: 'Paid'
+                });
+              } catch (orderErr) {
+                console.error('Failed to save order record:', orderErr);
+              }
               // MultiStepLoader handles transition to complete state
             } else {
               setLoading(false);

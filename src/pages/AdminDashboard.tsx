@@ -18,7 +18,16 @@ import {
   Users,
   Percent,
   Calendar,
-  PlusCircle
+  PlusCircle,
+  Package,
+  Eye,
+  X,
+  CheckCircle2,
+  MapPin,
+  Clock,
+  CreditCard,
+  Search,
+  FileText
 } from 'lucide-react';
 
 interface Spec {
@@ -38,14 +47,33 @@ interface Product {
   specs: Spec[];
 }
 
+interface OrderItem {
+  id?: string;
+  title: string;
+  price: string;
+  quantity: number;
+  src?: string;
+}
+
 interface Order {
-  id: string;
-  customer: string;
-  email: string;
-  date: string;
-  total: number;
+  _id?: string;
+  id?: string;
+  orderId?: string;
+  customer?: string;
+  customerName?: string;
+  email?: string;
+  customerEmail?: string;
+  customerPhone?: string;
+  shippingAddress?: string;
+  date?: string;
+  createdAt?: string;
+  total?: number;
+  totalAmount?: number;
   status: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
-  item: string;
+  item?: string;
+  items?: OrderItem[];
+  paymentId?: string;
+  paymentStatus?: 'Paid' | 'Pending' | 'Failed';
 }
 
 interface IUser {
@@ -64,7 +92,7 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'inventory' | 'add' | 'customers'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'products' | 'inventory' | 'add' | 'customers'>('overview');
   const [timeframe, setTimeframe] = useState<'24h' | '7d' | '30d' | '12m'>('30d');
 
   // Form State
@@ -84,6 +112,9 @@ export default function AdminDashboard() {
 
   // Orders State
   const [orders, setOrders] = useState<Order[]>([]);
+  const [orderStatusFilter, setOrderStatusFilter] = useState<'all' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled'>('all');
+  const [orderSearch, setOrderSearch] = useState('');
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   useEffect(() => {
     // Check if logged in user is admin
@@ -94,6 +125,7 @@ export default function AdminDashboard() {
           setIsAdmin(true);
           fetchProducts();
           fetchUsers();
+          fetchOrders();
         } else {
           setIsAdmin(false);
           navigate('/account');
@@ -124,6 +156,40 @@ export default function AdminDashboard() {
       setUsers(data);
     } catch (err) {
       console.error('Error fetching users:', err);
+    }
+  };
+
+  const fetchOrders = async () => {
+    try {
+      const data = await api.get<Order[]>('/orders');
+      setOrders(data);
+    } catch (err) {
+      console.error('Error fetching orders:', err);
+    }
+  };
+
+  const handleUpdateOrderStatus = async (orderId: string, newStatus: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled') => {
+    try {
+      await api.patch(`/orders/${orderId}/status`, { status: newStatus });
+      setOrders(orders.map(o => (o._id === orderId || o.id === orderId) ? { ...o, status: newStatus } : o));
+      if (selectedOrder && (selectedOrder._id === orderId || selectedOrder.id === orderId)) {
+        setSelectedOrder({ ...selectedOrder, status: newStatus });
+      }
+    } catch (err: any) {
+      alert(err.message || 'Error updating order status');
+    }
+  };
+
+  const handleDeleteOrder = async (orderId: string) => {
+    if (!window.confirm('Are you sure you want to delete this order record?')) return;
+    try {
+      await api.delete(`/orders/${orderId}`);
+      setOrders(orders.filter(o => o._id !== orderId && o.id !== orderId));
+      if (selectedOrder && (selectedOrder._id === orderId || selectedOrder.id === orderId)) {
+        setSelectedOrder(null);
+      }
+    } catch (err: any) {
+      alert(err.message || 'Error deleting order');
     }
   };
 
@@ -325,6 +391,13 @@ export default function AdminDashboard() {
             >
               <TrendingUp className="w-3.5 h-3.5" />
               OVERVIEW
+            </button>
+            <button 
+              onClick={() => { resetForm(); setActiveTab('orders'); }}
+              className={`flex-1 lg:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-heading font-semibold tracking-wider transition-all duration-300 ${activeTab === 'orders' ? 'bg-zinc-900 text-[#00ccff] shadow-[0_2px_10px_rgba(0,204,255,0.1)] border border-zinc-800' : 'text-zinc-400 hover:text-zinc-200'}`}
+            >
+              <Package className="w-3.5 h-3.5" />
+              ORDERS ({orders.length})
             </button>
             <button 
               onClick={() => { resetForm(); setActiveTab('products'); }}
@@ -640,12 +713,8 @@ export default function AdminDashboard() {
                       </div>
                     ))}
                   </div>
-                </div>
-
               </div>
-
             </div>
-
           </div>
         )}
 

@@ -351,3 +351,12 @@ g:/TSS/src/
 - **Task:** Retrieve Live Razorpay keys from src/assets/rzp-key.csv and update ackend/.env.
 - **Changes:**
   - Updated ackend/.env with Live Key ID (zp_live_TInSYB3MROGCfz) and Secret (Hvg9CIT9lc4KPFC2nUuVqYoF).
+
+## 2026-07-28 Update
+- **Task:** Create Orders management page in CMS displaying all historical orders from every user since the beginning.
+- **Changes:**
+  - [NEW] ackend/src/models/Order.ts: Created Order interface and Firestore collection definition.
+  - [NEW] ackend/src/routes/orders.ts: Created endpoints for fetching all orders (GET /api/orders), persisting checkout orders (POST /api/orders), and updating order fulfillment status (PATCH /api/orders/:id/status).
+  - [MODIFIED] ackend/src/server.ts: Registered /api/orders routes and added database seeder for historical orders.
+  - [MODIFIED] src/pages/Checkout.tsx: Configured Checkout to persist orders to Firestore upon payment verification.
+  - [MODIFIED] src/pages/AdminDashboard.tsx: Added dedicated Orders tab with order search, status filter pills (Processing, Shipped, Delivered, Cancelled), live status update dropdowns, and an interactive Order Invoice Modal.
