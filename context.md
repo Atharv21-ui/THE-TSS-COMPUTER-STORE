@@ -1,5 +1,8 @@
 # Context File
 
+## Repository Link
+- **GitHub Repository**: [https://github.com/Atharv21-ui/THE-TSS-COMPUTER-STORE](https://github.com/Atharv21-ui/THE-TSS-COMPUTER-STORE)
+
 ## Changes Made
 - **COMPREHENSIVE STORE UPDATES & REBRANDING**: Rebranded store to **THE TSS COMPUTER STORE**, updated menu to **LED TV & MONITORS**, re-architected homepage hero with **IMAGE RIGHT DIRECTION** using 3 generated assets in `src/assets/`, added **Refurbished Items** category & route (`/refurbished`), embedded **Customer Contact Form** below hero image, updated contact numbers (**7317605285** & **9795535285**), and added full Jhansi Jurisdiction warranty terms and store policies.
 
