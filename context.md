@@ -5,6 +5,7 @@
 - **GitHub Pages Deployment URL**: [https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/](https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/)
 
 ## Changes Made
+- **ASSETS PNG PATH UPDATE**: Updated `Home.tsx` image imports to load directly from `src/assets/png/` (`hero_laptop_one.png`, `hero_laptop_two.png`, `hero_keyboard.png`).
 - **NAV TSS LOGO & MENU ICON FIX**: Updated `StaggeredMenu.tsx` and `Layout.tsx` to display **TSS** in the nav logo. Grouped the language switcher pill `[EN | हिन्दी]` and `Menu +` toggle button together so the `+` icon is right next to the `Menu` text without any gap or separation.
 - **DIRECT BUY LOGIC**: Implemented direct buy handler across `Home.tsx`, `RefurbishedItems.tsx`, and product listings to immediately call `addToCart(item)` and `navigate('/checkout')` when clicking `BUY NOW`.
 - **CENTERED HERO SWAPPER WITH NEW ASSETS**: Updated `Home.tsx` and `App.css` to center-align the 3D product showcase on the hero screen using the 3 generated assets (`hero_laptop_one.png`, `hero_laptop_two.png`, `hero_keyboard.png`). Integrated interactive item/model swapper thumbnails with full specs info panel.

@@ -9,9 +9,9 @@ import IntroScroll from '../components/IntroScroll';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 
-import heroLaptopOne from '../assets/hero_laptop_one.png';
-import heroLaptopTwo from '../assets/hero_laptop_two.png';
-import heroKeyboard from '../assets/hero_keyboard.png';
+import heroLaptopOne from '../assets/png/hero_laptop_one.png';
+import heroLaptopTwo from '../assets/png/hero_laptop_two.png';
+import heroKeyboard from '../assets/png/hero_keyboard.png';
 
 type HeroProduct = {
   id: string;
