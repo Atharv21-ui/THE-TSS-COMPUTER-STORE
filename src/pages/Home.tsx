@@ -121,10 +121,11 @@ export default function Home() {
     const newProduct = heroProducts[index];
     
     gsap.to(productRef.current, {
-      scale: 0.85,
-      y: 20,
+      scale: 0.8,
+      rotation: -25,
+      x: -250,
       opacity: 0,
-      duration: 0.35,
+      duration: 0.4,
       ease: 'power2.in',
       onComplete: () => {
         setActiveProductIndex(index);
@@ -137,24 +138,24 @@ export default function Home() {
         document.documentElement.style.setProperty('--accent-color-rgb', `${r}, ${g}, ${b}`);
         
         gsap.fromTo(productRef.current, 
-          { scale: 1.1, y: -20, opacity: 0 },
-          { scale: 1, y: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.4)' }
+          { scale: 1.15, rotation: 25, x: 250, opacity: 0 },
+          { scale: 1, rotation: 0, x: 0, opacity: 1, duration: 0.6, ease: 'back.out(1.5)' }
         );
       }
     });
 
     gsap.to('.stagger-text', {
-      y: 10,
+      y: 12,
       opacity: 0,
       duration: 0.2,
-      stagger: 0.05,
+      stagger: 0.04,
       onComplete: () => {
         gsap.to('.stagger-text', {
           y: 0,
           opacity: 1,
-          duration: 0.4,
-          stagger: 0.1,
-          delay: 0.1
+          duration: 0.45,
+          stagger: 0.08,
+          delay: 0.05
         });
       }
     });

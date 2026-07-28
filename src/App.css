@@ -214,7 +214,6 @@
   filter: none;
   mix-blend-mode: normal;
   background: transparent;
-  transition: transform 0.4s ease;
 }
 
 .fg-text {

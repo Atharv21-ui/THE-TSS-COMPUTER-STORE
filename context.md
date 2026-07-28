@@ -5,6 +5,7 @@
 - **GitHub Pages Deployment URL**: [https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/](https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/)
 
 ## Changes Made
+- **3D ITEM CHANGE ANIMATION**: Re-enabled the full GSAP 3D rotational slide-and-spring animation (`rotation`, `x` slide-out to left, `x` slide-in from right with `back.out(1.5)` spring curve) in `Home.tsx` and removed conflicting CSS `transition: transform` from `App.css`.
 - **ENLARGED HERO PICTURE SIZE**: Updated `Home.tsx` and `App.css` to increase `.product-container` and `.product-image` to a prominent `85vw` width / `680px` max height, matching the user's reference layout.
 - **TRANSPARENT PNG BLEND MODE FIX**: Removed `mix-blend-mode: lighten` and heavy dark drop-shadow filters from `App.css` and `Home.tsx` that caused dark box halo background artifacts around transparent PNG images. Set `mix-blend-mode: normal`, `filter: none`, and `background: transparent`.
 - **ASSETS PNG PATH UPDATE**: Updated `Home.tsx` image imports to load directly from `src/assets/png/` (`hero_laptop_one.png`, `hero_laptop_two.png`, `hero_keyboard.png`).
