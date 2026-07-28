@@ -35,15 +35,7 @@ export default function Layout() {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   
-  const [introFinished, setIntroFinished] = useState(() => {
-    return sessionStorage.getItem('tss_intro_shown') === 'true';
-  });
-
-  useEffect(() => {
-    const handleIntroComplete = () => setIntroFinished(true);
-    window.addEventListener('introComplete', handleIntroComplete);
-    return () => window.removeEventListener('introComplete', handleIntroComplete);
-  }, []);
+  const [introFinished] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);

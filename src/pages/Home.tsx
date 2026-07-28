@@ -78,9 +78,7 @@ export default function Home() {
   const { formatPrice, t } = useLanguage();
   const { addToCart } = useCart();
   const navigate = useNavigate();
-  const [introFinished, setIntroFinished] = useState(() => {
-    return sessionStorage.getItem('tss_intro_shown') === 'true';
-  });
+  const [introFinished, setIntroFinished] = useState(true);
 
   const [activeProductIndex, setActiveProductIndex] = useState(0);
   const activeProduct = heroProducts[activeProductIndex];
@@ -176,15 +174,12 @@ export default function Home() {
       <div 
         className="home-main-content"
         style={{
-          opacity: introFinished ? 1 : 0,
-          pointerEvents: introFinished ? 'auto' : 'none',
-          position: introFinished ? 'relative' : 'fixed',
-          top: 0,
-          left: 0,
+          opacity: 1,
+          pointerEvents: 'auto',
+          position: 'relative',
           width: '100%',
-          height: introFinished ? 'auto' : '100vh',
-          overflow: introFinished ? 'visible' : 'hidden',
-          transition: 'opacity 0.8s ease'
+          height: 'auto',
+          overflow: 'visible'
         }}
       >
         {/* 1. HERO SECTION (100vh) - SPLIT LAYOUT WITH IMAGE IN RIGHT DIRECTION */}

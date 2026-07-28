@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: process.env.GITHUB_ACTIONS === 'true' ? '/THE-TSS-COMPUTER-STORE/' : './', // Use repo subpath for GitHub Pages, relative for local/other
+  base: './', // Universal relative base for GitHub Pages, Netlify, and local preview
   server: {
     host: true, // Allow mobile network access
     proxy: {
