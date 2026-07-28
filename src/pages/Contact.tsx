@@ -56,8 +56,18 @@ export default function Contact() {
               <Phone size={24} />
             </div>
             <div>
-              <h4 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '4px' }}>Global Hotline</h4>
-              <p className="text-muted">+1 (800) TSS-TECH</p>
+              <h4 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '4px' }}>Support & Technical Help</h4>
+              <p className="text-muted" style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#fff' }}>+91 7317605285</p>
+            </div>
+          </div>
+
+          <div className="contact-item" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+            <div style={{ padding: '16px', background: 'rgba(255,51,0,0.1)', borderRadius: '50%', color: 'var(--accent-color)' }}>
+              <Phone size={24} />
+            </div>
+            <div>
+              <h4 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '4px' }}>Sale's & AMC Taking Plan Help</h4>
+              <p className="text-muted" style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#fff' }}>+91 9795535285</p>
             </div>
           </div>
 
@@ -66,8 +76,8 @@ export default function Contact() {
               <MapPin size={24} />
             </div>
             <div>
-              <h4 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '4px' }}>Headquarters</h4>
-              <p className="text-muted">101 Silicon Avenue<br />Neo San Francisco, CA 94107</p>
+              <h4 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '4px' }}>THE TSS COMPUTER STORE</h4>
+              <p className="text-muted">B 6 Block, Shivpuri - Jhansi Rd,<br />Sangam Vihar, Jhansi, UP 284003</p>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import Desktops from './pages/Desktops';
 import Printers from './pages/Printers';
 import LedTv from './pages/LedTv';
 import Accessories from './pages/Accessories';
+import RefurbishedItems from './pages/RefurbishedItems';
 import Contact from './pages/Contact';
 import Warranty from './pages/Warranty';
 import Downloads from './pages/Downloads';
@@ -30,6 +31,7 @@ function App() {
           <Route path="printers" element={<Printers />} />
           <Route path="led-tv" element={<LedTv />} />
           <Route path="accessories" element={<Accessories />} />
+          <Route path="refurbished" element={<RefurbishedItems />} />
           <Route path="related-products" element={<RelatedProducts />} />
           <Route path="contact" element={<Contact />} />
           <Route path="warranty" element={<Warranty />} />

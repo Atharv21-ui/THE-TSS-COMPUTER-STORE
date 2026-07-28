@@ -62,6 +62,11 @@ export default function StoreInfo() {
               B 6 Block, Shivpuri - Jhansi Rd,<br/>
               Sangam Vihar, Jhansi, UP 284003
             </p>
+
+            <div style={{ margin: '14px 0', fontSize: '12px', color: '#ccc', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div>🕙 <strong>Timings:</strong> 10:00 AM – 8:00 PM (Off: Saturday)</div>
+              <div>📞 <strong>Support:</strong> 7317605285 | <strong>Sales:</strong> 9795535285</div>
+            </div>
             
             <div className="store-rating-box">
               <div className="rating-score-large font-heading">3.9</div>

@@ -86,12 +86,73 @@ export default function Warranty() {
         </div>
       </div>
 
-      <div className="warranty-text" style={{ marginTop: '80px', maxWidth: '800px', margin: '80px auto 0' }}>
-        <h3 className="font-heading" style={{ fontSize: '2rem', marginBottom: '20px', textAlign: 'center' }}>TERMS & CONDITIONS</h3>
-        <p className="text-muted" style={{ lineHeight: '1.8', fontSize: '14px', textAlign: 'justify' }}>
-          The TSS Global Warranty covers defects in materials and workmanship under normal use for the specified warranty period. The warranty period commences on the date of original purchase. Valid proof of purchase is required for any warranty claim. The warranty does not cover issues resulting from unauthorized modifications, extreme environmental conditions, natural disasters, or intentional damage.
+      {/* STORE TIMINGS & CONTACT HELPLINES */}
+      <div style={{ marginTop: '60px', background: 'rgba(15, 15, 22, 0.8)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '16px', padding: '35px' }}>
+        <h3 className="font-heading" style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '20px' }}>STORE TIMINGS & HELP LINES</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          <div style={{ background: '#0a0a10', padding: '20px', borderRadius: '10px', border: '1px solid #222' }}>
+            <h4 className="font-heading" style={{ color: 'var(--accent-color)', fontSize: '1.1rem', marginBottom: '10px' }}>STORE HOURS</h4>
+            <p style={{ color: '#ccc', fontSize: '14px', margin: '4px 0' }}>🕙 <strong>Store Opening Time:</strong> 10:00 AM</p>
+            <p style={{ color: '#ccc', fontSize: '14px', margin: '4px 0' }}>🕗 <strong>Store Closing Time:</strong> 8:00 PM</p>
+            <p style={{ color: '#ff4444', fontSize: '14px', margin: '4px 0', fontWeight: 'bold' }}>📅 <strong>Weekly Off:</strong> Saturday</p>
+          </div>
+          <div style={{ background: '#0a0a10', padding: '20px', borderRadius: '10px', border: '1px solid #222' }}>
+            <h4 className="font-heading" style={{ color: 'var(--accent-color)', fontSize: '1.1rem', marginBottom: '10px' }}>SUPPORT & TECHNICAL HELP</h4>
+            <p style={{ color: '#fff', fontSize: '1.4rem', fontWeight: 'bold' }}>7317605285</p>
+            <p style={{ color: '#888', fontSize: '12px' }}>Call / WhatsApp for technical assistance</p>
+          </div>
+          <div style={{ background: '#0a0a10', padding: '20px', borderRadius: '10px', border: '1px solid #222' }}>
+            <h4 className="font-heading" style={{ color: 'var(--accent-color)', fontSize: '1.1rem', marginBottom: '10px' }}>SALE'S & AMC PLAN HELP</h4>
+            <p style={{ color: '#fff', fontSize: '1.4rem', fontWeight: 'bold' }}>9795535285</p>
+            <p style={{ color: '#888', fontSize: '12px' }}>Call for sales, bulk orders & AMC coverage</p>
+          </div>
+        </div>
+      </div>
+
+      {/* IMPORTANT STORE POLICIES */}
+      <div style={{ marginTop: '50px' }}>
+        <h3 className="font-heading" style={{ fontSize: '2rem', marginBottom: '25px', color: '#fff' }}>IMPORTANT STORE POLICIES</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+          
+          <div style={{ background: '#111', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <h4 className="font-heading" style={{ color: '#ff4444', fontSize: '1.2rem', marginBottom: '10px' }}>NO REFUND POLICY</h4>
+            <p style={{ color: '#aaa', fontSize: '14px', lineHeight: '1.6' }}>
+              Once a product is sold, no refund will be provided under any circumstances.
+            </p>
+          </div>
+
+          <div style={{ background: '#111', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <h4 className="font-heading" style={{ color: 'var(--accent-color)', fontSize: '1.2rem', marginBottom: '10px' }}>REPLACEMENT POLICY</h4>
+            <p style={{ color: '#aaa', fontSize: '14px', lineHeight: '1.6' }}>
+              Products will be replaced only if they are covered under the manufacturer's warranty. Replacement will be processed through the Authorized Service Center only. The final decision regarding replacement is subject to the manufacturer's warranty terms and inspection.
+            </p>
+          </div>
+
+          <div style={{ background: '#111', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <h4 className="font-heading" style={{ color: '#ffaa00', fontSize: '1.2rem', marginBottom: '10px' }}>DAMAGED PRODUCTS & BURNT</h4>
+            <p style={{ color: '#aaa', fontSize: '14px', lineHeight: '1.6' }}>
+              Physically damaged, broken, burnt, liquid-damaged, track cut, or tampered products are not eligible for replacement or warranty. Such items will be handled only as per the Authorized Service Center's policy.
+            </p>
+          </div>
+
+          <div style={{ background: '#111', padding: '25px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <h4 className="font-heading" style={{ color: 'var(--accent-color)', fontSize: '1.2rem', marginBottom: '10px' }}>SERVICE & PICKUP TIMINGS</h4>
+            <p style={{ color: '#aaa', fontSize: '14px', lineHeight: '1.6' }}>
+              Device submission and pickup timings are 10:00 AM to 8:00 PM. Customers are requested to collect repaired devices within the informed period.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      {/* DETAILED WARRANTY TERMS & CONDITIONS */}
+      <div className="warranty-text" style={{ marginTop: '60px', background: 'rgba(10, 10, 15, 0.9)', padding: '40px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <h3 className="font-heading" style={{ fontSize: '2rem', marginBottom: '20px', color: '#fff' }}>WARRANTY TERMS & CONDITIONS</h3>
+        <p className="text-muted" style={{ lineHeight: '1.9', fontSize: '14px', color: '#ccc' }}>
+          <strong>All disputes subject to JHANSI Jurisdiction only.</strong><br />
+          Track Cut & Physical Damaged, No Warranty on Burnt. Only Manufacturers / Suppliers verdict would be final in matters of guarantee/warranty. Please check terms before accepting delivery. Warranty of parts by Authorised Service Center. E&OE. No Warranty of software.
           <br /><br />
-          For detailed legal information regarding your coverage, state-specific limitations, and dispute resolution, please download the full TSS Global Warranty PDF from our downloads section.
+          Warranty is applicable only as per the manufacturer's terms and conditions. Please keep the original invoice for any warranty claim.
         </p>
       </div>
     </div>

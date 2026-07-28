@@ -419,7 +419,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             <line x1="22" y1="8.5" x2="12" y2="12"></line>
             <line x1="2" y1="8.5" x2="12" y2="12"></line>
           </svg>
-          <span className="font-heading" style={{ fontSize: '20px', fontWeight: 'bold' }}>TSS</span>
+          <span className="font-heading" style={{ fontSize: '15px', fontWeight: 'bold', letterSpacing: '1px' }}>THE TSS COMPUTER STORE</span>
         </Link>
         <button
           ref={toggleBtnRef}

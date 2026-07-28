@@ -61,7 +61,7 @@ export default function LedTv() {
       <div className="page-header">
         <h1 className="font-heading" style={{ fontSize: '4rem', textTransform: 'uppercase' }}>{t('page.led_tv.title')}</h1>
         <p className="text-muted" style={{ maxWidth: '600px', marginTop: '20px', lineHeight: '1.6' }}>
-          Immersive visual displays. Experience cinema-grade 8K Quantum OLED panels and high-refresh-rate displays engineered for elite console gaming and professional media setups.
+          Immersive visual displays & high-refresh monitors. Experience cinema-grade 4K/8K OLED panels, curved gaming monitors, and high-refresh displays engineered for elite setups.
         </p>
       </div>
 

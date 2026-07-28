@@ -1,32 +1,35 @@
 # Context File
 
 ## Changes Made
-- Added a new `StoreInfo` component that integrates Google Maps iframe and live google reviews data.
-- **REDESIGNED**: Overhauled `StoreInfo` layout to fix UI issues. It now features a premium glassmorphic Store Location card with a 3D-filtered map, and a seamlessly infinite scrolling marquee carousel for the Google reviews. Added GSAP entrance animations.
-- Included the `StoreInfo` component in `Home.tsx` to render at the bottom of the home page.
-- Extracted the `/admin` route out of `<Layout>` in `App.tsx` so the dashboard spans the full screen without global constraints (footer/logo).
-- Added `isBanned` field to the User model and `GET /`, `PATCH /:id/ban` endpoints to a new `users.ts` route on the backend.
-- Added a new `CUSTOMERS` tab in the `AdminDashboard` to manage users and toggle their ban status.
-- **ADDRESS CAPTURE**: Updated `Account.tsx` registration form to capture the user's `address`, saved securely to the backend on sign-up.
-- **SMART CHECKOUT**: Updated `Checkout.tsx` to fetch the logged-in user profile, automatically pre-fill the saved `address`, and offer dynamic Payment Channels (Credit Card, Saved Card, COD, UPI). Successfully completing checkout on a new card securely saves the card number and expiry to the user's account for future auto-fill, strictly excluding the CVV.
+- **COMPREHENSIVE STORE UPDATES & REBRANDING**: Rebranded store to **THE TSS COMPUTER STORE**, updated menu to **LED TV & MONITORS**, re-architected homepage hero with **IMAGE RIGHT DIRECTION** using 3 generated assets in `src/assets/`, added **Refurbished Items** category & route (`/refurbished`), embedded **Customer Contact Form** below hero image, updated contact numbers (**7317605285** & **9795535285**), and added full Jhansi Jurisdiction warranty terms and store policies.
 
 ## Current File Structure
 ```
 g:/TSS/src/
-├── App.css
-├── App.tsx
+├── App.css            <-- [MODIFIED] Added hero right layout & contact form styles
+├── App.tsx            <-- [MODIFIED] Added /refurbished route
 ├── index.css
 ├── main.tsx
 ├── assets/
+│   ├── hero_keyboard.png   <-- [NEW] Generated hero keyboard asset
+│   ├── hero_laptop_one.png <-- [NEW] Generated hero laptop 1 asset
+│   └── hero_laptop_two.png <-- [NEW] Generated hero laptop 2 asset
 ├── components/
 │   ├── AnimatedButton.tsx
-│   ├── StoreInfo.tsx      <-- [NEW] Added StoreInfo component
+│   ├── Layout.tsx          <-- [MODIFIED] Updated logo, menu & social links
+│   ├── StaggeredMenu.tsx   <-- [MODIFIED] Updated logo & menu items
+│   ├── StoreInfo.tsx       <-- [MODIFIED] Updated store hours & hotline numbers
 │   └── ui/
 ├── context/
 ├── hooks/
 ├── lib/
+│   └── translations.ts     <-- [MODIFIED] Updated LED TV & MONITORS & Refurbished keys
 └── pages/
-    ├── Home.tsx           <-- [MODIFIED] Added StoreInfo integration
+    ├── Contact.tsx         <-- [MODIFIED] Updated support & sales numbers
+    ├── Home.tsx            <-- [MODIFIED] Right image layout & Customer Contact Form
+    ├── LedTv.tsx           <-- [MODIFIED] Updated LED TV & MONITORS heading
+    ├── RefurbishedItems.tsx<-- [NEW] Added Refurbished Items category page
+    ├── Warranty.tsx        <-- [MODIFIED] Added store policies & Jhansi jurisdiction
     └── ... (other pages)
 ```
 ## Recent Changes (2026-06-29)
