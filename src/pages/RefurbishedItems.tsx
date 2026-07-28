@@ -121,10 +121,17 @@ export default function RefurbishedItems() {
       src: product.image
     };
     addToCart(itemToAdd);
+    navigate('/related-products', { state: { addedProduct: itemToAdd } });
   };
 
   const handleBuyNow = (product: RefurbishedProduct) => {
-    handleAddToCart(product);
+    const itemToAdd = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      src: product.image
+    };
+    addToCart(itemToAdd);
     navigate('/checkout');
   };
 
@@ -253,7 +260,12 @@ export default function RefurbishedItems() {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <AnimatedButton 
+                    text={t('product.add_to_cart')} 
+                    className="outline-variant"
+                    onClick={() => handleAddToCart(product)} 
+                  />
                   <AnimatedButton text="BUY NOW" onClick={() => handleBuyNow(product)} />
                 </div>
               </div>
