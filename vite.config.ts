@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: process.env.GITHUB_ACTIONS === 'true' ? '/TSS1/' : '/', // Use subpath for GitHub Pages, root for Netlify/local
+  base: process.env.GITHUB_ACTIONS === 'true' ? '/THE-TSS-COMPUTER-STORE/' : './', // Use repo subpath for GitHub Pages, relative for local/other
   server: {
     host: true, // Allow mobile network access
     proxy: {
