@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import FloatingInput from '../components/FloatingInput';
 import { useLanguage } from '../context/LanguageContext';
-import { auth } from '../config/firebase';
+import { auth, db } from '../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { 
   Database, 
   Plus, 
@@ -119,13 +120,50 @@ export default function AdminDashboard() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    let unsubs: (() => void)[] = [];
+    let pollInterval: any = null;
+
+    const unsubscribeAuth = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         try {
           const userProfile: any = await api.get('/auth/me');
           if (userProfile && userProfile.role === 'admin') {
             setIsAdmin(true);
             await Promise.allSettled([fetchProducts(), fetchUsers(), fetchOrders()]);
+
+            // 1. Real-time Firestore Listeners
+            try {
+              const unsubProducts = onSnapshot(collection(db, 'products'), (snapshot) => {
+                const liveProducts: Product[] = [];
+                snapshot.forEach(doc => {
+                  liveProducts.push({ _id: doc.id, ...doc.data() } as Product);
+                });
+                if (liveProducts.length > 0) setProducts(liveProducts);
+              });
+
+              const unsubOrders = onSnapshot(collection(db, 'orders'), (snapshot) => {
+                const liveOrders: Order[] = [];
+                snapshot.forEach(doc => {
+                  const data = doc.data();
+                  if (!['ORD-9842A', 'ORD-9843B', 'ORD-9844C'].includes(data.orderId)) {
+                    liveOrders.push({ _id: doc.id, id: doc.id, ...data } as Order);
+                  }
+                });
+                if (liveOrders.length > 0) setOrders(liveOrders);
+              });
+
+              unsubs.push(unsubProducts, unsubOrders);
+            } catch (snapErr) {
+              console.warn('Real-time snapshot listener notice:', snapErr);
+            }
+
+            // 2. Real-time 5s Sync Fallback Polling
+            pollInterval = setInterval(() => {
+              fetchProducts();
+              fetchOrders();
+              fetchUsers();
+            }, 5000);
+
           } else {
             setIsAdmin(false);
             navigate('/account');
@@ -144,7 +182,11 @@ export default function AdminDashboard() {
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribeAuth();
+      unsubs.forEach(fn => fn());
+      if (pollInterval) clearInterval(pollInterval);
+    };
   }, [navigate]);
 
   const fetchProducts = async () => {

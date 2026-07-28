@@ -5,7 +5,8 @@ import { ShoppingBag, ArrowRight, CheckCircle2, Filter, Sparkles, Laptop, Monito
 import { ExpandableCardGrid, type ProductCardData } from '../components/ExpandableCard';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
-import { api } from '../lib/api';
+import { db } from '../config/firebase';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 const FALLBACK_ALL_PRODUCTS: ProductCardData[] = [
   // Laptops
@@ -136,10 +137,34 @@ export default function RelatedProducts() {
       { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: 'power3.out' }
     );
 
-    // Attempt to load live products from API if server is connected
-    const loadApiProducts = async () => {
+    // Real-time Firestore Snapshot Listener
+    let unsubscribeSnap: (() => void) | null = null;
+    try {
+      unsubscribeSnap = onSnapshot(collection(db, 'products'), (snapshot) => {
+        const liveProducts: ProductCardData[] = [];
+        snapshot.forEach(doc => {
+          const p = doc.data();
+          liveProducts.push({
+            id: doc.id,
+            badge: p.badge || p.category?.toUpperCase() || 'POPULAR',
+            title: p.title,
+            price: p.price,
+            src: p.src,
+            description: p.description,
+            specs: Array.isArray(p.specs) ? p.specs.map((s: any) => `${s.label}: ${s.value}`).join(' | ') : (p.specs || '')
+          });
+        });
+        if (liveProducts.length > 0) {
+          setProducts(liveProducts);
+        }
+      });
+    } catch (e) {
+      console.warn('Real-time listener notice:', e);
+    }
+
+    // 5s Background Polling Fallback
+    const pollInterval = setInterval(async () => {
       try {
-        setLoading(true);
         const data = await api.get<any[]>('/products');
         if (data && data.length > 0) {
           const formatted: ProductCardData[] = data.map(p => ({
@@ -153,14 +178,13 @@ export default function RelatedProducts() {
           }));
           setProducts(formatted);
         }
-      } catch (err) {
-        console.log('Using fallback static products for related recommendations');
-      } finally {
-        setLoading(false);
-      }
-    };
+      } catch (err) {}
+    }, 5000);
 
-    loadApiProducts();
+    return () => {
+      if (unsubscribeSnap) unsubscribeSnap();
+      clearInterval(pollInterval);
+    };
   }, []);
 
   const filteredProducts = products.filter(p => {
