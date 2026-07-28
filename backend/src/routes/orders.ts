@@ -119,7 +119,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 // PATCH /api/orders/:id/status - Update order status (Admin only)
 router.patch('/:id/status', verifyAdmin, async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { status } = req.body;
 
     if (!['Processing', 'Shipped', 'Delivered', 'Cancelled'].includes(status)) {
@@ -150,7 +150,7 @@ router.patch('/:id/status', verifyAdmin, async (req: Request, res: Response): Pr
 // DELETE /api/orders/:id - Delete order (Admin only)
 router.delete('/:id', verifyAdmin, async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const docRef = ordersCollection.doc(id);
     const doc = await docRef.get();
 
