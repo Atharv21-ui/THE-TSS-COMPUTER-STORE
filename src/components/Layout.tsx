@@ -32,10 +32,19 @@ const WhatsappIcon = ({ size = 18 }: { size?: number }) => (
 
 export default function Layout() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [footerSubmitted, setFooterSubmitted] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   
-  const [introFinished] = useState(true);
+  const [introFinished, setIntroFinished] = useState(() => {
+    return sessionStorage.getItem('tss_intro_shown') === 'true';
+  });
+
+  useEffect(() => {
+    const handleIntroComplete = () => setIntroFinished(true);
+    window.addEventListener('introComplete', handleIntroComplete);
+    return () => window.removeEventListener('introComplete', handleIntroComplete);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -214,12 +223,37 @@ export default function Layout() {
             </ul>
           </div>
         </div>
-        <div className="footer-col newsletter">
-          <h4>{t('footer.stay_updated')}</h4>
-          <div style={{ marginBottom: '15px' }}>
-            <FloatingInput label={t('footer.email_placeholder')} required type="email" bgContext="#111" />
-          </div>
-          <button className="btn-solid" style={{ width: '100%' }}>{t('footer.subscribe')}</button>
+        <div className="footer-col newsletter" style={{ minWidth: '320px', flex: '1.2' }}>
+          <h4 style={{ color: 'var(--accent-color, #00ccff)', fontSize: '1.1rem', letterSpacing: '2px', marginBottom: '15px' }}>
+            CUSTOMER CONTACT FORM
+          </h4>
+          {footerSubmitted ? (
+            <div style={{ padding: '20px', background: 'rgba(0, 255, 136, 0.1)', border: '1px solid #00ff88', borderRadius: '8px', textAlign: 'center' }}>
+              <div style={{ color: '#00ff88', fontWeight: 'bold', marginBottom: '6px' }}>✓ INQUIRY SENT SUCCESSFULLY</div>
+              <div style={{ fontSize: '12px', color: '#ccc' }}>Our team will contact you shortly. Thank you!</div>
+            </div>
+          ) : (
+            <form onSubmit={(e) => { e.preventDefault(); setFooterSubmitted(true); setTimeout(() => setFooterSubmitted(false), 4000); }} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <FloatingInput label="Full Name *" required type="text" bgContext="#111" />
+                <FloatingInput label="Phone / WhatsApp *" required type="tel" bgContext="#111" />
+              </div>
+              <FloatingInput label="Email Address" type="email" bgContext="#111" />
+              <select style={{ width: '100%', padding: '12px', background: '#0a0a0a', border: '1px solid #333', color: '#fff', borderRadius: '4px', fontSize: '12px', outline: 'none' }}>
+                <option value="Laptop">Laptop Inquiry (लैपटॉप)</option>
+                <option value="Desktop">Desktop Inquiry (डेस्कटॉप)</option>
+                <option value="LED TV & Monitors">LED TV & Monitors (एलईडी टीवी और मॉनिटर)</option>
+                <option value="Printer">Printer Inquiry (प्रिंटर)</option>
+                <option value="Accessories">Accessories Inquiry (एक्सेसरीज)</option>
+                <option value="Refurbished Items">Refurbished Items (रिफर्बिश्ड आइटम्स)</option>
+                <option value="Sales & AMC Plan">Sales & AMC Plan (सेल और एएमसी)</option>
+              </select>
+              <FloatingInput label="Message / Requirement *" required isTextArea rows={3} bgContext="#111" />
+              <button className="btn-solid" style={{ width: '100%', padding: '12px', marginTop: '4px', fontWeight: 'bold' }}>
+                SUBMIT CUSTOMER INQUIRY
+              </button>
+            </form>
+          )}
         </div>
       </footer>
     </div>
