@@ -125,8 +125,9 @@ export default function Home() {
       rotation: -25,
       x: -250,
       opacity: 0,
-      duration: 0.4,
+      duration: 0.35,
       ease: 'power2.in',
+      force3D: true,
       onComplete: () => {
         setActiveProductIndex(index);
         
@@ -138,8 +139,8 @@ export default function Home() {
         document.documentElement.style.setProperty('--accent-color-rgb', `${r}, ${g}, ${b}`);
         
         gsap.fromTo(productRef.current, 
-          { scale: 1.15, rotation: 25, x: 250, opacity: 0 },
-          { scale: 1, rotation: 0, x: 0, opacity: 1, duration: 0.6, ease: 'back.out(1.5)' }
+          { scale: 1.15, rotation: 25, x: 250, opacity: 0, force3D: true },
+          { scale: 1, rotation: 0, x: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.5)', force3D: true }
         );
       }
     });

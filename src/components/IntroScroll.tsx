@@ -80,32 +80,40 @@ export default function IntroScroll({ onComplete }: IntroScrollProps) {
       }
     };
 
+    let rafId: number | null = null;
+    let lastRenderedFrame = -1;
+
     const renderFrame = (index: number) => {
+      if (index === lastRenderedFrame) return;
+      lastRenderedFrame = index;
+      
       const img = imagesRef.current[index];
       if (!img || !img.complete || img.naturalWidth === 0) return;
 
-      // Draw object-fit: cover
-      const hRatio = canvas.width / img.width;
-      const vRatio = canvas.height / img.height;
-      const ratio = Math.max(hRatio, vRatio);
-      const centerShift_x = (canvas.width - img.width * ratio) / 2;
-      const centerShift_y = (canvas.height - img.height * ratio) / 2;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const hRatio = canvas.width / img.width;
+        const vRatio = canvas.height / img.height;
+        const ratio = Math.max(hRatio, vRatio);
+        const centerShift_x = (canvas.width - img.width * ratio) / 2;
+        const centerShift_y = (canvas.height - img.height * ratio) / 2;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(
-        img,
-        0,
-        0,
-        img.width,
-        img.height,
-        centerShift_x,
-        centerShift_y,
-        img.width * ratio,
-        img.height * ratio
-      );
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(
+          img,
+          0,
+          0,
+          img.width,
+          img.height,
+          centerShift_x,
+          centerShift_y,
+          img.width * ratio,
+          img.height * ratio
+        );
+      });
     };
 
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', resizeCanvas, { passive: true });
     resizeCanvas();
 
     // GSAP ScrollTrigger Sequence
@@ -114,25 +122,23 @@ export default function IntroScroll({ onComplete }: IntroScrollProps) {
     const st = ScrollTrigger.create({
       trigger: containerRef.current,
       start: 'top top',
-      end: '+=400%', // 400vh scrollable distance
+      end: '+=350%',
       pin: '.intro-pinned-section',
-      scrub: 0.5,
+      scrub: true,
       onUpdate: (self) => {
         const p = self.progress;
         setProgressPct(Math.floor(p * 100));
         
-        // Text Overlays
         if (p < 0.25) setHudText('INITIALIZING QUANTUM BLADE X1');
         else if (p < 0.55) setHudText('ENGINEERING SUPREMACY');
         else if (p < 0.85) setHudText('TACTILE PRECISION & PERFORMANCE');
         else setHudText('SYSTEM READY');
 
-        // Transition out
         if (p > 0.98 && !isFadingOut) {
           setIsFadingOut(true);
           gsap.to('.intro-pinned-section', {
             opacity: 0,
-            duration: 0.8,
+            duration: 0.5,
             ease: 'power2.out',
             onComplete: () => {
               onComplete();
@@ -151,8 +157,8 @@ export default function IntroScroll({ onComplete }: IntroScrollProps) {
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
-        end: '+=400%',
-        scrub: 0.5,
+        end: '+=350%',
+        scrub: true,
       },
       onUpdate: () => renderFrame(animationState.frame),
     });

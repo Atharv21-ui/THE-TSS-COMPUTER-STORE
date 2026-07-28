@@ -214,6 +214,9 @@
   filter: none;
   mix-blend-mode: normal;
   background: transparent;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .fg-text {
