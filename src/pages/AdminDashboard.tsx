@@ -736,6 +736,246 @@ export default function AdminDashboard() {
           </div>
         )}
 
+        {/* Tab: Orders Management */}
+        {activeTab === 'orders' && (
+          <div className="space-y-6">
+            {/* Orders Header & Search Bar */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-zinc-950/40 p-4 rounded-2xl border border-zinc-900 backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-[#00ccff]/10 rounded-xl border border-[#00ccff]/20">
+                  <Package className="w-5 h-5 text-[#00ccff]" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-lg text-white">ALL LOGISTICS & ORDERS</h3>
+                  <p className="text-zinc-400 text-xs">Complete transaction archive from all users since establishment.</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                <div className="relative flex-1 md:w-64">
+                  <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-3" />
+                  <input 
+                    type="text"
+                    placeholder="Search Order ID, Name, Email..."
+                    value={orderSearch}
+                    onChange={(e) => setOrderSearch(e.target.value)}
+                    className="w-full bg-zinc-950 border border-zinc-800 text-xs text-white rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-[#00ccff] transition-colors"
+                  />
+                </div>
+
+                <div className="flex bg-zinc-950 p-1 rounded-xl border border-zinc-800">
+                  {(['all', 'Processing', 'Shipped', 'Delivered', 'Cancelled'] as const).map((status) => (
+                    <button
+                      key={status}
+                      onClick={() => setOrderStatusFilter(status)}
+                      className={`px-3 py-1.5 rounded-lg text-[10px] font-heading font-bold uppercase tracking-wider transition-colors ${
+                        orderStatusFilter === status 
+                          ? 'bg-[#00ccff]/15 text-[#00ccff] border border-[#00ccff]/30' 
+                          : 'text-zinc-500 hover:text-zinc-300'
+                      }`}
+                    >
+                      {status}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Orders Table */}
+            <div className="relative bg-zinc-950/30 border border-zinc-900 rounded-3xl backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#00ccff]/40 to-transparent" />
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-zinc-900/80 bg-zinc-950/60 text-zinc-500 text-[10px] font-heading font-bold tracking-[0.2em] uppercase">
+                      <th className="p-5">ORDER ID</th>
+                      <th className="p-5">CUSTOMER & EMAIL</th>
+                      <th className="p-5">ITEMS PURCHASED</th>
+                      <th className="p-5">TOTAL AMOUNT</th>
+                      <th className="p-5">DATE & PAYMENT</th>
+                      <th className="p-5">FULFILLMENT STATUS</th>
+                      <th className="p-5 text-right">ACTIONS</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-900/50 text-sm">
+                    {orders
+                      .filter((o) => {
+                        const matchesFilter = orderStatusFilter === 'all' || o.status === orderStatusFilter;
+                        const query = orderSearch.toLowerCase();
+                        const matchesSearch = 
+                          (o.orderId || o._id || o.id || '').toLowerCase().includes(query) ||
+                          (o.customerName || o.customer || '').toLowerCase().includes(query) ||
+                          (o.customerEmail || o.email || '').toLowerCase().includes(query);
+                        return matchesFilter && matchesSearch;
+                      })
+                      .map((o) => {
+                        const orderCode = o.orderId || (o._id ? `ORD-${o._id.substring(0, 6).toUpperCase()}` : o.id || 'ORD-000');
+                        const cName = o.customerName || o.customer || 'Valued Customer';
+                        const cEmail = o.customerEmail || o.email || 'customer@example.com';
+                        const amt = Number(o.totalAmount ?? o.total ?? 0);
+                        const itemsCount = o.items ? o.items.length : 1;
+                        const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : (o.date || 'Recent');
+
+                        return (
+                          <tr key={o._id || o.id || orderCode} className="hover:bg-white/[0.015] transition-colors group">
+                            <td className="p-5 font-mono text-xs font-bold text-[#00ccff]">
+                              {orderCode}
+                            </td>
+                            <td className="p-5">
+                              <div className="font-semibold text-white group-hover:text-[#00ccff] transition-colors">{cName}</div>
+                              <div className="text-[10px] text-zinc-500 font-mono mt-0.5">{cEmail}</div>
+                            </td>
+                            <td className="p-5">
+                              <div className="flex items-center gap-2">
+                                {o.items && o.items[0]?.src && (
+                                  <img src={o.items[0].src} alt={o.items[0].title} className="w-8 h-8 rounded-lg object-cover border border-zinc-800" />
+                                )}
+                                <div>
+                                  <div className="text-xs text-zinc-200 line-clamp-1">
+                                    {o.items ? o.items[0]?.title : (o.item || 'Hardware Order')}
+                                  </div>
+                                  {itemsCount > 1 && (
+                                    <span className="text-[10px] text-[#00ccff] font-heading font-bold">
+                                      +{itemsCount - 1} MORE ITEMS
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </td>
+                            <td className="p-5 font-mono font-bold text-white">
+                              ₹{amt.toLocaleString()}
+                            </td>
+                            <td className="p-5">
+                              <div className="text-xs text-zinc-400 font-mono">{dateStr}</div>
+                              <span className="text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-heading font-bold tracking-wider inline-block mt-1">
+                                {o.paymentStatus || 'PAID VIA RAZORPAY'}
+                              </span>
+                            </td>
+                            <td className="p-5">
+                              <select 
+                                value={o.status}
+                                onChange={(e) => handleUpdateOrderStatus(o._id || o.id!, e.target.value as any)}
+                                className={`text-xs font-heading font-bold tracking-wider rounded-lg px-3 py-1.5 bg-zinc-950 border focus:outline-none cursor-pointer transition-colors ${
+                                  o.status === 'Delivered' 
+                                    ? 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10' 
+                                    : o.status === 'Shipped' 
+                                    ? 'text-[#00ccff] border-[#00ccff]/30 bg-[#00ccff]/10' 
+                                    : o.status === 'Cancelled' 
+                                    ? 'text-red-400 border-red-500/30 bg-red-500/10' 
+                                    : 'text-amber-400 border-amber-500/30 bg-amber-500/10'
+                                }`}
+                              >
+                                <option value="Processing" className="bg-zinc-950 text-amber-400">Processing</option>
+                                <option value="Shipped" className="bg-zinc-950 text-[#00ccff]">Shipped</option>
+                                <option value="Delivered" className="bg-zinc-950 text-emerald-400">Delivered</option>
+                                <option value="Cancelled" className="bg-zinc-950 text-red-400">Cancelled</option>
+                              </select>
+                            </td>
+                            <td className="p-5 text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <button 
+                                  onClick={() => setSelectedOrder(o)}
+                                  className="p-2 border border-zinc-800 hover:border-[#00ccff] text-zinc-400 hover:text-[#00ccff] rounded-lg bg-zinc-950 transition-colors"
+                                  title="View Order Details & Invoice"
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </button>
+                                <button 
+                                  onClick={() => handleDeleteOrder(o._id || o.id!)}
+                                  className="p-2 border border-zinc-800 hover:border-red-500 text-zinc-400 hover:text-red-500 rounded-lg bg-zinc-950 transition-colors"
+                                  title="Delete Record"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Selected Order Detailed Modal */}
+            {selectedOrder && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-[0_0_50px_rgba(0,204,255,0.2)]">
+                  <button 
+                    onClick={() => setSelectedOrder(null)}
+                    className="absolute top-6 right-6 p-2 text-zinc-400 hover:text-white bg-zinc-900 rounded-full border border-zinc-800 transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2.5 bg-[#00ccff]/10 rounded-xl border border-[#00ccff]/20">
+                      <FileText className="w-6 h-6 text-[#00ccff]" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-[#00ccff] font-heading font-bold tracking-widest uppercase">OFFICIAL ORDER INVOICE</span>
+                      <h2 className="text-2xl font-heading text-white">{selectedOrder.orderId || selectedOrder._id}</h2>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 bg-zinc-900/50 rounded-2xl border border-zinc-850/80 mb-6">
+                    <div>
+                      <div className="text-[10px] font-heading text-zinc-500 font-bold uppercase tracking-wider mb-1">Customer Details</div>
+                      <div className="text-sm font-bold text-white">{selectedOrder.customerName || selectedOrder.customer || 'Valued Customer'}</div>
+                      <div className="text-xs text-zinc-400">{selectedOrder.customerEmail || selectedOrder.email}</div>
+                      <div className="text-xs text-zinc-400">{selectedOrder.customerPhone || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-heading text-zinc-500 font-bold uppercase tracking-wider mb-1">Delivery Address</div>
+                      <div className="text-xs text-zinc-300 flex items-start gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-[#00ccff] shrink-0 mt-0.5" />
+                        <span>{selectedOrder.shippingAddress || 'Standard Shipping Address'}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 mb-6">
+                    <div className="text-[10px] font-heading text-zinc-500 font-bold uppercase tracking-wider">Itemized Hardware List</div>
+                    <div className="space-y-3">
+                      {selectedOrder.items ? (
+                        selectedOrder.items.map((item, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3 bg-zinc-900/30 rounded-xl border border-zinc-850">
+                            <div className="flex items-center gap-3">
+                              {item.src && <img src={item.src} alt={item.title} className="w-12 h-12 rounded-lg object-cover border border-zinc-800" />}
+                              <div>
+                                <div className="text-sm font-semibold text-white">{item.title}</div>
+                                <div className="text-xs text-zinc-500">Qty: {item.quantity}</div>
+                              </div>
+                            </div>
+                            <div className="font-mono font-bold text-white">{formatPrice(item.price)}</div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="p-3 bg-zinc-900/30 rounded-xl border border-zinc-850 text-sm font-semibold text-white">
+                          {selectedOrder.item}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-[#00ccff]/10 rounded-2xl border border-[#00ccff]/20">
+                    <div>
+                      <div className="text-[10px] font-heading text-[#00ccff] font-bold tracking-widest uppercase">Razorpay Payment ID</div>
+                      <div className="text-xs font-mono text-white">{selectedOrder.paymentId || 'pay_live_recorded'}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-[10px] font-heading text-zinc-400 font-bold tracking-widest uppercase">Total Paid</div>
+                      <div className="text-xl font-mono font-extrabold text-[#00ccff]">
+                        ₹{Number(selectedOrder.totalAmount ?? selectedOrder.total ?? 0).toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Tab: Products List */}
         {activeTab === 'products' && (
           <div className="relative bg-zinc-950/30 border border-zinc-900 rounded-3xl backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
