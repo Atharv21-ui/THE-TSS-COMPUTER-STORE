@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Target, Activity, Cpu, Code } from 'lucide-react';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -208,50 +208,14 @@ export default function IntroScroll({ onComplete }: IntroScrollProps) {
           
           {/* Cyberpunk HUD Overlay */}
           <div className="hud-overlay pointer-events-none">
-            {/* Top Left Corner */}
-            <div className="hud-element top-left">
-              <Target size={24} className="text-accent" />
-              <div className="hud-text">
-                <span className="label">SYS.LOC</span>
-                <span className="value">X: 24.11 Y: 99.02</span>
-              </div>
-            </div>
-            
-            {/* Top Right Corner */}
-            <div className="hud-element top-right">
-              <div className="hud-text text-right">
-                <span className="label">UPLINK</span>
-                <span className="value text-accent">SECURE</span>
-              </div>
-              <Activity size={24} className="text-accent" />
-            </div>
-
             {/* Center Reticle / Text */}
             <div className="hud-center">
               <div className="hud-main-text font-heading">{hudText}</div>
             </div>
-
-            {/* Bottom Left Corner */}
-            <div className="hud-element bottom-left">
-              <Cpu size={24} className="text-accent" />
-              <div className="hud-text">
-                <span className="label">MEMORY</span>
-                <span className="value">ALLOCATED</span>
-              </div>
-            </div>
-
-            {/* Bottom Right Corner */}
-            <div className="hud-element bottom-right">
-              <div className="hud-text text-right">
-                <span className="label">RENDER</span>
-                <span className="value">{progressPct}% COMPLETE</span>
-              </div>
-              <Code size={24} className="text-accent" />
-            </div>
             
             {/* Scroll Indicator */}
             <div className="scroll-indicator font-heading">
-              SCROLL TO DEPLOY
+              SCROLL TO ENTER
               <div className="scroll-line"></div>
             </div>
           </div>
