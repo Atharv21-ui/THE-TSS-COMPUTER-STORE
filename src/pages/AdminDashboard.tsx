@@ -508,7 +508,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Tab Selection */}
-          <div className="flex bg-zinc-950/80 p-1 rounded-xl border border-zinc-800/80 backdrop-blur-md w-full lg:w-auto self-stretch lg:self-auto overflow-x-auto">
+          <div className="flex flex-wrap bg-zinc-950/80 p-1 rounded-xl border border-zinc-800/80 backdrop-blur-md w-full lg:w-auto self-stretch lg:self-auto gap-1">
             <button 
               onClick={() => setActiveTab('overview')}
               className={`flex-1 lg:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-heading font-semibold tracking-wider transition-all duration-300 ${activeTab === 'overview' ? 'bg-zinc-900 text-[#00ccff] shadow-[0_2px_10px_rgba(0,204,255,0.1)] border border-zinc-800' : 'text-zinc-400 hover:text-zinc-200'}`}
