@@ -3,9 +3,11 @@
 ## Repository & Deployment Links
 - **GitHub Repository**: [https://github.com/Atharv21-ui/THE-TSS-COMPUTER-STORE](https://github.com/Atharv21-ui/THE-TSS-COMPUTER-STORE)
 - **Custom Domain URL**: [https://tsscomputer.in](https://tsscomputer.in) (also [https://www.tsscomputer.in](https://www.tsscomputer.in))
+- **Render Backend Live URL**: [https://the-tss-computer-store.onrender.com](https://the-tss-computer-store.onrender.com)
 - **GitHub Pages Deployment URL**: [https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/](https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/)
 
 ## Changes Made
+- **LIVE RENDER BACKEND INTEGRATION**: Connected frontend [src/lib/api.ts](file:///g:/TSS/src/lib/api.ts) directly to live Render web service `https://the-tss-computer-store.onrender.com/api`. Verified live health check (`{"status":"ok","message":"TSS Backend is running"}`).
 - **REFURBISHED ITEMS ADD TO CART**: Added an **ADD TO CART** button to every refurbished item card in `RefurbishedItems.tsx` enabling users to add certified refurbished laptops, desktops, printers, and accessories directly to their shopping cart before checking out.
 - **PERFORMANCE & GPU HARDWARE ACCELERATION**: Added `will-change: transform, opacity`, `transform: translateZ(0)`, and `backface-visibility: hidden` in `App.css` and `force3D: true` in `Home.tsx` to force dedicated GPU compositing layers for lag-free 60-120fps animations. Optimized `IntroScroll.tsx` canvas rendering with `requestAnimationFrame` and passive event listeners to eliminate scroll stutter.
 - **3D ITEM CHANGE ANIMATION**: Re-enabled the full GSAP 3D rotational slide-and-spring animation (`rotation`, `x` slide-out to left, `x` slide-in from right with `back.out(1.5)` spring curve) in `Home.tsx` and removed conflicting CSS `transition: transform` from `App.css`.

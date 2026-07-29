@@ -16,8 +16,8 @@ const getApiBase = () => {
     return 'http://localhost:5000/api';
   }
   
-  // Default Render deployment URL (Replace with your actual Render URL if different)
-  return 'https://tss-backend.onrender.com/api';
+  // Default Render deployment URL
+  return 'https://the-tss-computer-store.onrender.com/api';
 };
 
 const API_BASE = getApiBase();
