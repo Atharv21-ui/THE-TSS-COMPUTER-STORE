@@ -18,7 +18,7 @@ export const authenticateToken = async (req: AuthRequest, res: Response, next: N
   }
 
   try {
-    const decodedToken = await getAuth().verifyIdToken(token);
+    const decodedToken = await getAuth().verifyIdToken(token, true); // Verify & check if revoked
     
     // Fetch the user's role from Firestore
     const userDoc = await usersCollection.doc(decodedToken.uid).get();
@@ -35,9 +35,12 @@ export const authenticateToken = async (req: AuthRequest, res: Response, next: N
     };
     
     next();
-  } catch (error) {
-    console.error('Auth verification error:', error);
-    return res.status(403).json({ message: 'Invalid or expired token' });
+  } catch (error: any) {
+    console.error('Auth verification error:', error.message || error);
+    return res.status(403).json({ 
+      message: error.message || 'Invalid or expired token',
+      code: error.code || 'auth/invalid-token'
+    });
   }
 };
 
