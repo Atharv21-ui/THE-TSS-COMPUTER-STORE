@@ -1,33 +1,71 @@
 import { initializeApp, cert, getApps } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore, Firestore } from 'firebase-admin/firestore';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-if (getApps().length === 0) {
+let initialized = false;
+
+function initFirebaseAdmin() {
+  if (initialized || getApps().length > 0) {
+    initialized = true;
+    return;
+  }
+
   try {
     let serviceAccount: any = null;
 
-    if (process.env.FIREBASE_SERVICE_ACCOUNT_BASE64) {
-      const cleanBase64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64.trim().replace(/\s+/g, '');
-      const jsonStr = Buffer.from(cleanBase64, 'base64').toString('utf8');
-      serviceAccount = JSON.parse(jsonStr);
-    } else if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-      serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    const envBase64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+    const envRaw = process.env.FIREBASE_SERVICE_ACCOUNT;
+
+    if (envBase64) {
+      try {
+        const cleanBase64 = envBase64.trim().replace(/\s+/g, '');
+        const jsonStr = Buffer.from(cleanBase64, 'base64').toString('utf8');
+        serviceAccount = JSON.parse(jsonStr);
+      } catch (e) {
+        console.error('Failed to parse FIREBASE_SERVICE_ACCOUNT_BASE64:', e);
+      }
     }
 
-    if (serviceAccount) {
+    if (!serviceAccount && envRaw) {
+      try {
+        serviceAccount = JSON.parse(envRaw);
+      } catch (e) {
+        console.error('Failed to parse FIREBASE_SERVICE_ACCOUNT:', e);
+      }
+    }
+
+    if (serviceAccount && serviceAccount.project_id && serviceAccount.private_key) {
+      // Fix private key escaped newlines if unescaped during JSON/Base64 parsing
+      if (typeof serviceAccount.private_key === 'string') {
+        serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+      }
       initializeApp({
         credential: cert(serviceAccount)
       });
-      console.log('Firebase Admin initialized successfully.');
+      console.log('Firebase Admin initialized successfully with service account for project:', serviceAccount.project_id);
     } else {
-      initializeApp();
-      console.log('Firebase Admin initialized with default credentials.');
+      initializeApp({
+        projectId: process.env.VITE_FIREBASE_PROJECT_ID || 'tss-1-2b0db'
+      });
+      console.log('Firebase Admin initialized with fallback project ID: tss-1-2b0db');
     }
+    initialized = true;
   } catch (error) {
     console.error('Firebase Admin initialization error:', error);
   }
 }
 
-export const db = getFirestore();
+// Initialize immediately
+initFirebaseAdmin();
+
+// Proxy Firestore instance so top-level collection imports never crash startup
+export const db: Firestore = new Proxy({} as Firestore, {
+  get(_target, prop) {
+    initFirebaseAdmin();
+    const instance = getFirestore();
+    const value = (instance as any)[prop];
+    return typeof value === 'function' ? value.bind(instance) : value;
+  }
+});

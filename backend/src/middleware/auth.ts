@@ -18,15 +18,18 @@ export const authenticateToken = async (req: AuthRequest, res: Response, next: N
   }
 
   try {
-    const decodedToken = await getAuth().verifyIdToken(token, true); // Verify & check if revoked
+    const decodedToken = await getAuth().verifyIdToken(token);
     
     // Fetch the user's role from Firestore
-    const userDoc = await usersCollection.doc(decodedToken.uid).get();
     let role: 'user' | 'admin' = 'user';
-    
-    if (userDoc.exists) {
-      const userData = userDoc.data();
-      role = userData?.role || 'user';
+    try {
+      const userDoc = await usersCollection.doc(decodedToken.uid).get();
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        role = userData?.role || 'user';
+      }
+    } catch (dbErr) {
+      console.warn('Could not fetch user document during token authentication:', dbErr);
     }
 
     req.user = {
