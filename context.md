@@ -1,7 +1,8 @@
 # Context File
 
-## Repository Link
+## Repository & Deployment Links
 - **GitHub Repository**: [https://github.com/Atharv21-ui/THE-TSS-COMPUTER-STORE](https://github.com/Atharv21-ui/THE-TSS-COMPUTER-STORE)
+- **Custom Domain URL**: [https://tsscomputer.in](https://tsscomputer.in) (also [https://www.tsscomputer.in](https://www.tsscomputer.in))
 - **GitHub Pages Deployment URL**: [https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/](https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/)
 
 ## Changes Made
