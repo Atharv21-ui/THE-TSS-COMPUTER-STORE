@@ -155,7 +155,7 @@ export default function AdminDashboard() {
                 snapshot.forEach(doc => {
                   liveProducts.push({ _id: doc.id, ...doc.data() } as Product);
                 });
-                if (liveProducts.length > 0) setProducts(liveProducts);
+                setProducts(liveProducts);
               });
 
               const unsubOrders = onSnapshot(collection(db, 'orders'), (snapshot) => {
@@ -172,7 +172,7 @@ export default function AdminDashboard() {
                     liveOrders.push({ _id: doc.id, id: doc.id, ...data, createdAt: formattedDate } as Order);
                   }
                 });
-                if (liveOrders.length > 0) setOrders(liveOrders);
+                setOrders(liveOrders);
               });
 
               const unsubMessages = onSnapshot(collection(db, 'contacts'), (snapshot) => {
@@ -187,10 +187,8 @@ export default function AdminDashboard() {
                   }
                   liveMessages.push({ _id: doc.id, id: doc.id, ...data, createdAt: formattedDate } as ContactMessage);
                 });
-                if (liveMessages.length > 0) {
-                  liveMessages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-                  setMessages(liveMessages);
-                }
+                liveMessages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                setMessages(liveMessages);
               });
 
               unsubs.push(unsubProducts, unsubOrders, unsubMessages);
