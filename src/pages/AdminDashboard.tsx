@@ -196,12 +196,9 @@ export default function AdminDashboard() {
               console.warn('Real-time snapshot listener notice:', snapErr);
             }
 
-            // 2. Real-time 5s Sync Fallback Polling
+            // 2. Real-time 5s Sync Fallback Polling (Only for collections without listeners)
             pollInterval = setInterval(() => {
-              fetchProducts();
-              fetchOrders();
               fetchUsers();
-              fetchMessages();
             }, 5000);
 
           } else {

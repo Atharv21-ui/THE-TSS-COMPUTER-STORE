@@ -45,7 +45,8 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
   const config: RequestInit = {
     ...options,
     headers,
-    credentials: 'omit' // No longer rely on cookies, using Bearer tokens
+    credentials: 'omit', // No longer rely on cookies, using Bearer tokens
+    cache: 'no-store' // Prevent browser caching of GET requests to fix stale polling
   };
 
   const response = await fetch(`${API_BASE}${endpoint}`, config);
