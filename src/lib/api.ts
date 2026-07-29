@@ -1,6 +1,10 @@
 import { auth } from '../config/firebase';
 
 const getApiBase = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
   if (typeof window === 'undefined') return '/api';
   
   const host = window.location.hostname;
@@ -9,10 +13,11 @@ const getApiBase = () => {
                   /^192\.168\.\d{1,3}\.\d{1,3}$/.test(host);
   
   if (isLocal) {
-    return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    return 'http://localhost:5000/api';
   }
   
-  return 'https://tss1-production.up.railway.app/api';
+  // Default Render deployment URL (Replace with your actual Render URL if different)
+  return 'https://tss-backend.onrender.com/api';
 };
 
 const API_BASE = getApiBase();

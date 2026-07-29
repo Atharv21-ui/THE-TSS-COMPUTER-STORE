@@ -17,10 +17,21 @@
 - **UI REVERT & FOOTER CONTACT FORM**: Reverted hero section to the original full-screen hero layout with color swapper and GSAP 400vh IntroScroll sequence in `Home.tsx`. Embedded the complete interactive **Customer Contact Form** directly into the global footer in `Layout.tsx` in place of the newsletter subscription form. Kept all 8 other requirements (THE TSS COMPUTER STORE branding, LED TV & MONITORS, Refurbished Items category, support hotlines 7317605285 & 9795535285, and Jhansi warranty terms & policies).
 - **FIREBASE AUTH & FALLBACK FIX**: Added safe default fallbacks and exception handling in `src/config/firebase.ts` and `.github/workflows/deploy.yml` to prevent `auth/invalid-api-key` error from crashing the application on GitHub Pages.
 - **GITHUB PAGES OPTIMIZATION**: Configured `vite.config.ts` base path to `/THE-TSS-COMPUTER-STORE/`, added `public/404.html` SPA routing fallback, ensured `main.tsx` dynamic `HashRouter` toggle for `*.github.io`, and updated `.github/workflows/deploy.yml` for automated GitHub Pages deployment.
-- **COMPREHENSIVE STORE UPDATES & REBRANDING**: Rebranded store to **THE TSS COMPUTER STORE**, updated menu to **LED TV & MONITORS**, re-architected homepage hero with **IMAGE RIGHT DIRECTION** using 3 generated assets in `src/assets/`, added **Refurbished Items** category & route (`/refurbished`), embedded **Customer Contact Form** below hero image, updated contact numbers (**7317605285** & **9795535285**), and added full Jhansi Jurisdiction warranty terms and store policies.
+- **API ROUTING & RENDER INTEGRATION**: Updated [src/lib/api.ts](file:///g:/TSS/src/lib/api.ts) to prioritize `VITE_API_URL` environment variable and fallback seamlessly to the Render deployment endpoint (`https://tss-backend.onrender.com/api`).
+- **RENDER BACKEND DEPLOYMENT CONFIG**: Added [render.yaml](file:///g:/TSS/render.yaml) blueprint configuration file for 1-click or automated web service deployment on Render.com with Node.js runtime, build script (`npm install && npm run build`), and start script (`npm start`). Verified TypeScript compilation (`npm run build`).
 
 ## Current File Structure
 ```
+g:/TSS/
+├── render.yaml          <-- [NEW] Render Blueprint deployment configuration
+├── backend/
+│   ├── src/
+│   │   ├── server.ts    <-- Express server configured for dynamic PORT & CORS
+│   │   └── config/
+│   │       └── firebase.ts <-- Configured for FIREBASE_SERVICE_ACCOUNT_BASE64
+│   ├── package.json     <-- Includes build ("tsc") and start ("node dist/server.js")
+│   └── tsconfig.json
+
 g:/TSS/src/
 ├── App.css            <-- [MODIFIED] Added hero right layout & contact form styles
 ├── App.tsx            <-- [MODIFIED] Added /refurbished route
