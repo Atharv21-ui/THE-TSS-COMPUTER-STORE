@@ -113,8 +113,6 @@ export default function Home() {
   };
   
   const productRef = useRef<HTMLImageElement>(null);
-  const infoRef = useRef<HTMLDivElement>(null);
-  
   const handleProductChange = (index: number) => {
     if (index === activeProductIndex) return;
     
@@ -238,48 +236,7 @@ export default function Home() {
               <AnimatedButton text="BUY NOW" className="outline-variant" onClick={handleBuyNow} />
             </div>
 
-            <div className="info-panel" ref={infoRef}>
-              <div className="device-header stagger-text">
-                <div className="device-badges">
-                  <span className="badge badge-accent">EXCLUSIVE</span>
-                  <span className="badge badge-outline">FLAGSHIP</span>
-                </div>
-                <h2 className="device-name font-heading">
-                  {activeProduct.name} <span className="device-edition-highlight">— {activeProduct.subtitle}</span>
-                </h2>
-              </div>
 
-              <div className="price-specs-row stagger-text">
-                <div className="price-container">
-                  <span className="price-label">STARTING AT</span>
-                  <div className="price text-accent">{formatPrice(activeProduct.price)}</div>
-                </div>
-
-                <div className="mini-specs-grid">
-                  <div className="spec-pill">
-                    <Cpu size={14} className="spec-icon" />
-                    <span>{activeProduct.specs.cpu}</span>
-                  </div>
-                  <div className="spec-pill">
-                    <Monitor size={14} className="spec-icon" />
-                    <span>{activeProduct.specs.display}</span>
-                  </div>
-                  <div className="spec-pill">
-                    <Zap size={14} className="spec-icon" />
-                    <span>{activeProduct.specs.gpu}</span>
-                  </div>
-                  <div className="spec-pill">
-                    <Shield size={14} className="spec-icon" />
-                    <span>{activeProduct.specs.cooling}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="inspiration stagger-text">
-                <h4>ENGINEERING EXCELLENCE</h4>
-                <p>Engineered for elite performance. THE TSS COMPUTER STORE offers flagship workstations, laptops, monitors, and peripherals designed to elevate your workflow and gaming experience.</p>
-              </div>
-            </div>
           </footer>
 
           <div className="pagination">
@@ -304,7 +261,7 @@ export default function Home() {
             <span>•</span>
             <span>PRINTERS & ACCESSORIES</span>
             <span>•</span>
-            <span>REFURBISHED ITEMS</span>
+            <span>REFURBISHED CATEGORY</span>
             <span>•</span>
             <span>THE TSS COMPUTER STORE</span>
           </div>

@@ -70,20 +70,14 @@ export default function Layout() {
       {/* Global deep-space vector canvas */}
       <div className="vector-lines"></div>
 
-      {/* Global Search Bar */}
-      <div 
-        onClick={() => setIsSearchOpen(true)}
-        style={{ position: 'fixed', top: '25px', left: '40px', zIndex: 100, cursor: 'pointer', display: showHeader ? 'block' : 'none' }}
-      >
-        <GooeyInput placeholder={t('search.placeholder')} />
-      </div>
+
 
       {/* Global Navigation - Staggered Menu */}
       <div style={{ display: showHeader ? 'block' : 'none' }}>
         <StaggeredMenu
           position="right"
           isFixed={true}
-          onLogoClick={() => setIsSearchOpen(true)}
+          onSearchClick={() => setIsSearchOpen(true)}
           items={[
             { label: t('nav.home'), ariaLabel: 'Go to home', link: '/' },
             { label: t('nav.laptops'), ariaLabel: 'Shop laptops', link: '/laptops' },
@@ -186,7 +180,7 @@ export default function Layout() {
                 <option value="LED TV & Monitors">LED TV & Monitors (एलईडी टीवी और मॉनिटर)</option>
                 <option value="Printer">Printer Inquiry (प्रिंटर)</option>
                 <option value="Accessories">Accessories Inquiry (एक्सेसरीज)</option>
-                <option value="Refurbished Items">Refurbished Items (रिफर्बिश्ड आइटम्स)</option>
+                <option value="Refurbished Category">Refurbished Category (रिफर्बिश्ड श्रेणी)</option>
                 <option value="Sales & AMC Plan">Sales & AMC Plan (सेल और एएमसी)</option>
               </select>
               <FloatingInput label="Message / Requirement *" required isTextArea rows={3} bgContext="#111" />

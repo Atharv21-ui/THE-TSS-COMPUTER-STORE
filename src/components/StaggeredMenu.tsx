@@ -1,6 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import { GooeyInput } from './ui/gooey-input';
 import { useLanguage } from '../context/LanguageContext';
 import './StaggeredMenu.css';
@@ -33,6 +34,7 @@ export interface StaggeredMenuProps {
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
   onLogoClick?: () => void;
+  onSearchClick?: () => void;
   isFixed?: boolean;
 }
 
@@ -52,7 +54,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   closeOnClickAway = true,
   onMenuOpen,
   onMenuClose,
-  onLogoClick
+  onLogoClick,
+  onSearchClick
 }: StaggeredMenuProps) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
@@ -423,6 +426,37 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         </Link>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          {/* Search Icon */}
+          <button 
+            className="sm-search-btn"
+            onClick={onSearchClick}
+            aria-label="Search"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(12, 12, 18, 0.85)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              borderRadius: '50%',
+              width: '36px',
+              height: '36px',
+              color: '#fff',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = 'var(--accent-color, #00ccff)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            <Search size={18} />
+          </button>
+
           {/* Language Switcher */}
           <div 
             className="lang-switcher-pill"
