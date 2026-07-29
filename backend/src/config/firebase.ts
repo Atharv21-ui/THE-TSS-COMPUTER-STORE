@@ -41,19 +41,32 @@ function initFirebaseAdmin() {
       if (typeof serviceAccount.private_key === 'string') {
         serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
       }
-      initializeApp({
-        credential: cert(serviceAccount)
-      });
-      console.log('Firebase Admin initialized successfully with service account for project:', serviceAccount.project_id);
+      
+      try {
+        initializeApp({
+          credential: cert(serviceAccount)
+        });
+        console.log('Firebase Admin initialized successfully with service account for project:', serviceAccount.project_id);
+      } catch (certError) {
+        console.error('Failed to initialize Firebase Admin with provided credential. Corrupted key? Falling back to default project ID.', certError);
+        initializeApp({
+          projectId: process.env.VITE_FIREBASE_PROJECT_ID || 'tss-1-2b0db'
+        });
+      }
     } else {
       initializeApp({
         projectId: process.env.VITE_FIREBASE_PROJECT_ID || 'tss-1-2b0db'
       });
       console.log('Firebase Admin initialized with fallback project ID: tss-1-2b0db');
     }
-    initialized = true;
   } catch (error) {
     console.error('Firebase Admin initialization error:', error);
+    // Ensure we ALWAYS initialize an app so getFirestore() doesn't crash the server at startup
+    if (getApps().length === 0) {
+      initializeApp({ projectId: process.env.VITE_FIREBASE_PROJECT_ID || 'tss-1-2b0db' });
+    }
+  } finally {
+    initialized = true;
   }
 }
 
