@@ -376,6 +376,22 @@ g:/TSS/src/
 - **Task:** Finishing touches: Add floating cart shortcut pill, route change auto scroll-to-top, and brand meta tags.
 - **Changes:**
   - [MODIFIED] src/components/Layout.tsx: Added floating glassmorphic Cart Shortcut pill with dynamic badge count linking to /checkout, and window.scrollTo(0,0) on route change.
+## 2026-07-26 Update
+- **Task:** Make Add To Cart button on Home page functional and redirect user to a new Related Products page displaying items from all sections.
+- **Changes:**
+  - [NEW] src/pages/RelatedProducts.tsx: Recommendations page displaying item added confirmation banner, category filter pills (Laptops, Desktops, Printers, TVs, Accessories), and interactive ExpandableCardGrid.
+  - [MODIFIED] src/App.tsx: Registered /related-products route under main Layout.
+  - [MODIFIED] src/pages/Home.tsx: Updated handleAddToCart to add selected colorway laptop to cart state and navigate to /related-products with state payload.
+
+## 2026-07-26 Update
+- **Task:** Remove GitHub social icon link from footer.
+- **Changes:**
+  - [MODIFIED] src/components/Layout.tsx: Removed GithubIcon and GitHub link from socialLinks array in footer.
+
+## 2026-07-26 Update
+- **Task:** Finishing touches: Add floating cart shortcut pill, route change auto scroll-to-top, and brand meta tags.
+- **Changes:**
+  - [MODIFIED] src/components/Layout.tsx: Added floating glassmorphic Cart Shortcut pill with dynamic badge count linking to /checkout, and window.scrollTo(0,0) on route change.
   - [MODIFIED] index.html: Enhanced SEO description and updated document title to 'Technical Server Shop | Next-Gen Computing & Enterprise Hardware'.
 
 ## 2026-07-26 Update
@@ -384,15 +400,35 @@ g:/TSS/src/
   - [MODIFIED] src/components/Layout.tsx: Removed hovering cart pill element and its imports.
 
 ## 2026-07-28 Update
-- **Task:** Retrieve Live Razorpay keys from src/assets/rzp-key.csv and update ackend/.env.
+- **Task:** Retrieve Live Razorpay keys from src/assets/rzp-key.csv and update  ackend/.env.
 - **Changes:**
-  - Updated ackend/.env with Live Key ID (zp_live_TInSYB3MROGCfz) and Secret (Hvg9CIT9lc4KPFC2nUuVqYoF).
+  - Updated  ackend/.env with Live Key ID (zp_live_TInSYB3MROGCfz) and Secret (Hvg9CIT9lc4KPFC2nUuVqYoF).
 
 ## 2026-07-28 Update
 - **Task:** Create Orders management page in CMS displaying all historical orders from every user since the beginning.
 - **Changes:**
-  - [NEW] ackend/src/models/Order.ts: Created Order interface and Firestore collection definition.
-  - [NEW] ackend/src/routes/orders.ts: Created endpoints for fetching all orders (GET /api/orders), persisting checkout orders (POST /api/orders), and updating order fulfillment status (PATCH /api/orders/:id/status).
-  - [MODIFIED] ackend/src/server.ts: Registered /api/orders routes and added database seeder for historical orders.
+  - [NEW]  ackend/src/models/Order.ts: Created Order interface and Firestore collection definition.
+  - [NEW]  ackend/src/routes/orders.ts: Created endpoints for fetching all orders (GET /api/orders), persisting checkout orders (POST /api/orders), and updating order fulfillment status (PATCH /api/orders/:id/status).
+  - [MODIFIED]  ackend/src/server.ts: Registered /api/orders routes and added database seeder for historical orders.
   - [MODIFIED] src/pages/Checkout.tsx: Configured Checkout to persist orders to Firestore upon payment verification.
   - [MODIFIED] src/pages/AdminDashboard.tsx: Added dedicated Orders tab with order search, status filter pills (Processing, Shipped, Delivered, Cancelled), live status update dropdowns, and an interactive Order Invoice Modal.
+
+## 2026-07-29 Update
+- **Task:** Make grids fully responsive on small screens (mobiles only).
+- **Changes:**
+  - [MODIFIED] src/App.css: Updated grid-template-columns to 1fr for .hero-section-right-layout, .footer-panels, .mini-specs-grid, .categories-grid, .bento-grid, and .products-grid within the max-width: 768px media query.
+
+## 2026-07-29 Update
+- **Task:** Make the orders section working and fix inventory syncing.
+- **Changes:**
+  - [MODIFIED] src/pages/AdminDashboard.tsx: Fixed React crash on Orders view by parsing raw Firestore Timestamp objects into ISO strings during onSnapshot listener push.
+  - [MODIFIED] backend/src/routes/orders.ts: Added a Firestore batch update to decrement the stock level of each product purchased during order creation (`POST /api/orders`).
+
+## 2026-07-29 Update
+- **Task:** Make the Contact form fully functional and add it to the CMS.
+- **Changes:**
+  - [NEW] backend/src/models/Contact.ts: Created `IContactMessage` interface and Firestore `contactsCollection`.
+  - [NEW] backend/src/routes/contacts.ts: Added endpoints for creating messages, fetching them, updating statuses, and deleting them.
+  - [MODIFIED] backend/src/server.ts: Registered the `/api/contacts` router and increased the global rate limiter from 100 to 5000 requests/15m to prevent 429 Too Many Requests errors.
+  - [MODIFIED] src/pages/Contact.tsx: Wired up form data to submit to `POST /api/contacts` instead of showing a demo alert.
+  - [MODIFIED] src/pages/AdminDashboard.tsx: Added a new "MESSAGES" tab with a live data table, message detail modal, and status dropdowns (`Unread`, `Read`, `Replied`).

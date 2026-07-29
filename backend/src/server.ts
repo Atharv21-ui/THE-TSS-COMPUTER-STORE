@@ -21,12 +21,14 @@ import productRoutes from './routes/products';
 import usersRoutes from './routes/users';
 import paymentRoutes from './routes/payment';
 import orderRoutes from './routes/orders';
+import contactRoutes from './routes/contacts';
 import { IUser } from './models/User';
 import { IProduct } from './models/Product';
 
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1); // Trust first proxy (Render/Heroku) for correct rate limiting IP
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -49,7 +51,7 @@ app.use(express.json());
 // Global API Rate Limiter
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  max: 5000, // Increased limit from 100 to 5000 to prevent 429 errors during heavy usage/polling
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   message: { message: 'Too many requests from this IP, please try again later.' }
@@ -64,6 +66,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/contacts', contactRoutes);
 
 // Basic health check route
 app.get('/api/health', (req: Request, res: Response) => {

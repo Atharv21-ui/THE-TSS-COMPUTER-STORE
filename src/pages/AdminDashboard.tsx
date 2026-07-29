@@ -30,7 +30,8 @@ import {
   Clock,
   CreditCard,
   Search,
-  FileText
+  FileText,
+  Mail
 } from 'lucide-react';
 
 interface Spec {
@@ -88,6 +89,18 @@ interface IUser {
   createdAt: string;
 }
 
+interface ContactMessage {
+  _id?: string;
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  category: string;
+  message: string;
+  status: 'Unread' | 'Read' | 'Replied';
+  createdAt: string;
+}
+
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const { formatPrice, t } = useLanguage();
@@ -95,7 +108,7 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'products' | 'inventory' | 'add' | 'customers'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'products' | 'inventory' | 'add' | 'customers' | 'messages'>('overview');
   const [timeframe, setTimeframe] = useState<'24h' | '7d' | '30d' | '12m'>('30d');
 
   // Form State
@@ -119,6 +132,10 @@ export default function AdminDashboard() {
   const [orderSearch, setOrderSearch] = useState('');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
+  // Messages State
+  const [messages, setMessages] = useState<ContactMessage[]>([]);
+  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
+
   useEffect(() => {
     let unsubs: (() => void)[] = [];
     let pollInterval: any = null;
@@ -129,7 +146,7 @@ export default function AdminDashboard() {
           const userProfile: any = await api.get('/auth/me');
           if (userProfile && userProfile.role === 'admin') {
             setIsAdmin(true);
-            await Promise.allSettled([fetchProducts(), fetchUsers(), fetchOrders()]);
+            await Promise.allSettled([fetchProducts(), fetchUsers(), fetchOrders(), fetchMessages()]);
 
             // 1. Real-time Firestore Listeners
             try {
@@ -146,13 +163,37 @@ export default function AdminDashboard() {
                 snapshot.forEach(doc => {
                   const data = doc.data();
                   if (!['ORD-9842A', 'ORD-9843B', 'ORD-9844C'].includes(data.orderId)) {
-                    liveOrders.push({ _id: doc.id, id: doc.id, ...data } as Order);
+                    let formattedDate = new Date().toISOString();
+                    if (data.createdAt && typeof data.createdAt.toDate === 'function') {
+                      formattedDate = data.createdAt.toDate().toISOString();
+                    } else if (data.createdAt) {
+                      try { formattedDate = new Date(data.createdAt).toISOString(); } catch(e){}
+                    }
+                    liveOrders.push({ _id: doc.id, id: doc.id, ...data, createdAt: formattedDate } as Order);
                   }
                 });
                 if (liveOrders.length > 0) setOrders(liveOrders);
               });
 
-              unsubs.push(unsubProducts, unsubOrders);
+              const unsubMessages = onSnapshot(collection(db, 'contacts'), (snapshot) => {
+                const liveMessages: ContactMessage[] = [];
+                snapshot.forEach(doc => {
+                  const data = doc.data();
+                  let formattedDate = new Date().toISOString();
+                  if (data.createdAt && typeof data.createdAt.toDate === 'function') {
+                    formattedDate = data.createdAt.toDate().toISOString();
+                  } else if (data.createdAt) {
+                    try { formattedDate = new Date(data.createdAt).toISOString(); } catch(e){}
+                  }
+                  liveMessages.push({ _id: doc.id, id: doc.id, ...data, createdAt: formattedDate } as ContactMessage);
+                });
+                if (liveMessages.length > 0) {
+                  liveMessages.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                  setMessages(liveMessages);
+                }
+              });
+
+              unsubs.push(unsubProducts, unsubOrders, unsubMessages);
             } catch (snapErr) {
               console.warn('Real-time snapshot listener notice:', snapErr);
             }
@@ -162,6 +203,7 @@ export default function AdminDashboard() {
               fetchProducts();
               fetchOrders();
               fetchUsers();
+              fetchMessages();
             }, 5000);
 
           } else {
@@ -204,6 +246,37 @@ export default function AdminDashboard() {
       setUsers(data);
     } catch (err) {
       console.error('Error fetching users:', err);
+    }
+  };
+
+  const fetchMessages = async () => {
+    try {
+      const data = await api.get<ContactMessage[]>('/contacts');
+      setMessages(data);
+    } catch (err) {
+      console.error('Error fetching messages:', err);
+    }
+  };
+
+  const handleUpdateMessageStatus = async (id: string, status: 'Unread' | 'Read' | 'Replied') => {
+    try {
+      await api.patch(`/contacts/${id}/status`, { status });
+      setMessages(messages.map(m => (m._id === id || m.id === id) ? { ...m, status } : m));
+    } catch (err) {
+      console.error('Error updating message status:', err);
+    }
+  };
+
+  const handleDeleteMessage = async (id: string) => {
+    if (!window.confirm('Are you sure you want to delete this message?')) return;
+    try {
+      await api.delete(`/contacts/${id}`);
+      setMessages(messages.filter(m => m._id !== id && m.id !== id));
+      if (selectedMessage?._id === id || selectedMessage?.id === id) {
+        setSelectedMessage(null);
+      }
+    } catch (err) {
+      console.error('Error deleting message:', err);
     }
   };
 
@@ -449,6 +522,13 @@ export default function AdminDashboard() {
             >
               <Package className="w-3.5 h-3.5" />
               ORDERS ({orders.length})
+            </button>
+            <button 
+              onClick={() => { resetForm(); setActiveTab('messages'); }}
+              className={`flex-1 lg:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-heading font-semibold tracking-wider transition-all duration-300 ${activeTab === 'messages' ? 'bg-zinc-900 text-[#00ccff] shadow-[0_2px_10px_rgba(0,204,255,0.1)] border border-zinc-800' : 'text-zinc-400 hover:text-zinc-200'}`}
+            >
+              <Mail className="w-3.5 h-3.5" />
+              MESSAGES ({messages.length})
             </button>
             <button 
               onClick={() => { resetForm(); setActiveTab('products'); }}
@@ -1010,6 +1090,131 @@ export default function AdminDashboard() {
                       <div className="text-xl font-mono font-extrabold text-[#00ccff]">
                         ₹{Number(selectedOrder.totalAmount ?? selectedOrder.total ?? 0).toLocaleString()}
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Tab: Messages List */}
+        {activeTab === 'messages' && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <h2 className="font-heading text-2xl text-white tracking-wider">CONTACT MESSAGES</h2>
+            </div>
+            
+            <div className="bg-zinc-950/50 border border-zinc-900 rounded-2xl overflow-hidden backdrop-blur-md">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-zinc-900 bg-zinc-950/80">
+                      <th className="p-5 text-xs font-heading font-semibold text-zinc-500 tracking-wider">DATE</th>
+                      <th className="p-5 text-xs font-heading font-semibold text-zinc-500 tracking-wider">NAME</th>
+                      <th className="p-5 text-xs font-heading font-semibold text-zinc-500 tracking-wider">CATEGORY</th>
+                      <th className="p-5 text-xs font-heading font-semibold text-zinc-500 tracking-wider">STATUS</th>
+                      <th className="p-5 text-xs font-heading font-semibold text-zinc-500 tracking-wider text-right">ACTIONS</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-900/50">
+                    {messages.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="p-10 text-center text-zinc-500">No contact messages found.</td>
+                      </tr>
+                    ) : (
+                      messages.map((msg) => {
+                        const dateStr = msg.createdAt ? new Date(msg.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Recent';
+                        return (
+                          <tr key={msg._id || msg.id} className="hover:bg-zinc-900/30 transition-colors group">
+                            <td className="p-5">
+                              <span className="text-sm text-zinc-400">{dateStr}</span>
+                            </td>
+                            <td className="p-5">
+                              <div className="font-bold text-zinc-200">{msg.firstName} {msg.lastName}</div>
+                              <div className="text-[10px] text-zinc-500">{msg.email}</div>
+                            </td>
+                            <td className="p-5 text-zinc-400">{msg.category}</td>
+                            <td className="p-5">
+                              <select 
+                                value={msg.status}
+                                onChange={(e) => handleUpdateMessageStatus(msg._id || msg.id!, e.target.value as any)}
+                                className={`text-xs font-heading font-bold tracking-wider rounded-lg px-3 py-1.5 bg-zinc-950 border focus:outline-none cursor-pointer transition-colors ${
+                                  msg.status === 'Replied' ? 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10' 
+                                  : msg.status === 'Read' ? 'text-[#00ccff] border-[#00ccff]/30 bg-[#00ccff]/10' 
+                                  : 'text-amber-400 border-amber-500/30 bg-amber-500/10'
+                                }`}
+                              >
+                                <option value="Unread" className="bg-zinc-950 text-amber-400">Unread</option>
+                                <option value="Read" className="bg-zinc-950 text-[#00ccff]">Read</option>
+                                <option value="Replied" className="bg-zinc-950 text-emerald-400">Replied</option>
+                              </select>
+                            </td>
+                            <td className="p-5 text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <button 
+                                  onClick={() => setSelectedMessage(msg)}
+                                  className="p-2 border border-zinc-800 hover:border-[#00ccff] text-zinc-400 hover:text-[#00ccff] rounded-lg bg-zinc-950 transition-colors"
+                                  title="View Message"
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </button>
+                                <button 
+                                  onClick={() => handleDeleteMessage(msg._id || msg.id!)}
+                                  className="p-2 border border-zinc-800 hover:border-red-500 text-zinc-400 hover:text-red-500 rounded-lg bg-zinc-950 transition-colors"
+                                  title="Delete Message"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Selected Message Modal */}
+            {selectedMessage && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                <div className="bg-zinc-950 border border-zinc-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+                  <div className="p-6 border-b border-zinc-900 flex justify-between items-center sticky top-0 bg-zinc-950/90 backdrop-blur-sm z-10">
+                    <h3 className="font-heading text-xl text-white tracking-widest flex items-center gap-3">
+                      <Mail className="w-5 h-5 text-[#00ccff]" />
+                      MESSAGE DETAILS
+                    </h3>
+                    <button 
+                      onClick={() => setSelectedMessage(null)}
+                      className="p-2 hover:bg-zinc-900 rounded-lg transition-colors text-zinc-400 hover:text-white"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                  
+                  <div className="p-6 space-y-6">
+                    <div className="grid grid-cols-2 gap-6 bg-zinc-900/50 p-6 rounded-xl border border-zinc-800">
+                      <div>
+                        <div className="text-[10px] text-zinc-500 font-heading tracking-widest uppercase mb-1">From</div>
+                        <div className="font-bold text-white">{selectedMessage.firstName} {selectedMessage.lastName}</div>
+                        <div className="text-sm text-[#00ccff]">{selectedMessage.email}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-zinc-500 font-heading tracking-widest uppercase mb-1">Category</div>
+                        <div className="font-bold text-white">{selectedMessage.category}</div>
+                        <div className="text-sm text-zinc-400">
+                          {selectedMessage.createdAt ? new Date(selectedMessage.createdAt).toLocaleString() : 'N/A'}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-zinc-900/30 p-6 rounded-xl border border-zinc-800">
+                      <div className="text-[10px] text-zinc-500 font-heading tracking-widest uppercase mb-4">Message Body</div>
+                      <p className="text-zinc-300 whitespace-pre-wrap leading-relaxed">
+                        {selectedMessage.message}
+                      </p>
                     </div>
                   </div>
                 </div>

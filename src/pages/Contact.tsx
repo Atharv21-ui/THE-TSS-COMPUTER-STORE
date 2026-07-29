@@ -1,12 +1,45 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import AnimatedButton from '../components/AnimatedButton';
 import FloatingInput from '../components/FloatingInput';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { api } from '../lib/api';
 
 export default function Contact() {
   const { t } = useLanguage();
+  
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    category: 'General Inquiry',
+    message: ''
+  });
+  
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitStatus('loading');
+    
+    try {
+      await api.post('/contacts', formData);
+      setSubmitStatus('success');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        category: 'General Inquiry',
+        message: ''
+      });
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    } catch (err) {
+      console.error('Error sending message:', err);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    }
+  };
   useEffect(() => {
     // Set accent color to Neon Orange
     document.documentElement.style.setProperty('--accent-color', '#ff3300');
@@ -83,7 +116,7 @@ export default function Contact() {
         </div>
 
         {/* Contact Form (Right Column) */}
-        <form className="contact-form" onSubmit={(e) => { e.preventDefault(); alert("Message sent successfully (Demo Mode)"); }} style={{
+        <form className="contact-form" onSubmit={handleSubmit} style={{
           background: 'rgba(10, 10, 10, 0.6)',
           backdropFilter: 'blur(10px)',
           border: '1px solid rgba(255,255,255,0.05)',
@@ -95,24 +128,39 @@ export default function Contact() {
         }}>
           <h3 className="font-heading" style={{ fontSize: '2rem', marginBottom: '10px' }}>SEND A MESSAGE</h3>
           
+          {submitStatus === 'success' && (
+            <div style={{ padding: '12px', background: 'rgba(0, 255, 100, 0.1)', border: '1px solid #00ff64', color: '#00ff64', borderRadius: '4px' }}>
+              Your message has been sent successfully. We will get back to you soon.
+            </div>
+          )}
+          {submitStatus === 'error' && (
+            <div style={{ padding: '12px', background: 'rgba(255, 50, 50, 0.1)', border: '1px solid #ff3232', color: '#ff3232', borderRadius: '4px' }}>
+              Failed to send your message. Please try again later.
+            </div>
+          )}
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-            <FloatingInput label="First Name" required type="text" bgContext="#111" />
-            <FloatingInput label="Last Name" required type="text" bgContext="#111" />
+            <FloatingInput label="First Name" required type="text" bgContext="#111" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} />
+            <FloatingInput label="Last Name" type="text" bgContext="#111" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} />
           </div>
           
-          <FloatingInput label="Email Address" required type="email" bgContext="#111" />
+          <FloatingInput label="Email Address" required type="email" bgContext="#111" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
           
-          <select style={{ width: '100%', padding: '16px', background: '#111', border: '1px solid #333', color: '#fff', borderRadius: '4px', appearance: 'none' }}>
+          <select 
+            value={formData.category} 
+            onChange={e => setFormData({...formData, category: e.target.value})}
+            style={{ width: '100%', padding: '16px', background: '#111', border: '1px solid #333', color: '#fff', borderRadius: '4px', appearance: 'none' }}
+          >
             <option>General Inquiry</option>
             <option>Technical Support</option>
             <option>Warranty Claim</option>
             <option>Sales & Enterprise</option>
           </select>
           
-          <FloatingInput label="How can we help you?" required isTextArea rows={5} bgContext="#111" />
+          <FloatingInput label="How can we help you?" required isTextArea rows={5} bgContext="#111" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} />
           
           <div style={{ marginTop: '10px', alignSelf: 'flex-start' }}>
-            <AnimatedButton text="SEND MESSAGE" />
+            <AnimatedButton text={submitStatus === 'loading' ? 'SENDING...' : 'SEND MESSAGE'} />
           </div>
         </form>
 

@@ -213,4 +213,31 @@ g:/TSS/src/
 - **Current File Structure Changes:**
   - `[MODIFIED]` `backend/src/routes/payment.ts`, `backend/src/server.ts`
 
+### 22. Made grids fully responsive on small screens
+- **What happened:** Modified App.css to set grid-template-columns to 1fr for all grid layouts on screens smaller than 768px.
+- **Changes in Frontend:**
+  - Updated .hero-section-right-layout, .footer-panels, .mini-specs-grid, .categories-grid, .bento-grid, and .products-grid to 1 column in mobile view.
+- **Current File Structure Changes:**
+  - `[MODIFIED]` `src/App.css`
 
+### 23. Fixed Orders Dashboard and Inventory Syncing
+- **What happened:** Fixed a React crash in `AdminDashboard.tsx` caused by parsing raw Firestore Timestamp objects, and added backend logic to decrement product stock during order creation.
+- **Changes in Frontend:**
+  - Safely parsed `createdAt` timestamps in `onSnapshot` inside `src/pages/AdminDashboard.tsx`.
+- **Changes in Backend:**
+  - Used Firestore batch updates in `backend/src/routes/orders.ts` to deduct item quantities from product `stock`.
+- **Current File Structure Changes:**
+  - `[MODIFIED]` `src/pages/AdminDashboard.tsx`, `backend/src/routes/orders.ts`
+
+### 24. Added Contact Messages CMS Integration
+- **What happened:** Connected the `/contact` page form to Firestore and added a Messages tab in the Admin Dashboard to manage inquiries.
+- **Changes in Frontend:**
+  - `src/pages/Contact.tsx` modified to use real state and submit payload to `/api/contacts`.
+  - `src/pages/AdminDashboard.tsx` gained a new MESSAGES tab with dynamic CRUD capabilities for contact messages.
+- **Changes in Backend:**
+  - Created `backend/src/models/Contact.ts`.
+  - Added `backend/src/routes/contacts.ts` for handling CRUD operations.
+  - Registered `/api/contacts` in `backend/src/server.ts` and increased API rate limiter limit.
+- **Current File Structure Changes:**
+  - `[NEW]` `backend/src/models/Contact.ts`, `backend/src/routes/contacts.ts`
+  - `[MODIFIED]` `backend/src/server.ts`, `src/pages/Contact.tsx`, `src/pages/AdminDashboard.tsx`

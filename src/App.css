@@ -1294,10 +1294,12 @@
   .section {
     padding: 60px 20px;
   }
-  .categories-grid {
-    grid-template-columns: 1fr;
-  }
-  .bento-grid {
+  .hero-section-right-layout,
+  .footer-panels,
+  .mini-specs-grid,
+  .categories-grid,
+  .bento-grid,
+  .products-grid {
     grid-template-columns: 1fr;
   }
   .footer {

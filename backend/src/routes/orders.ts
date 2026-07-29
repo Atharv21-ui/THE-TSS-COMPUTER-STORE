@@ -48,6 +48,9 @@ router.get('/', authenticateToken, requireAdmin, async (req: AuthRequest, res: R
   }
 });
 
+import { productsCollection } from '../models/Product';
+import { db } from '../config/firebase';
+
 // POST /api/orders - Create a new order (Public / Authenticated users on checkout)
 router.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
@@ -86,6 +89,29 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
     };
 
     const docRef = await ordersCollection.add(newOrder);
+
+    // Update inventory for each purchased item
+    try {
+      const batch = db.batch();
+      let hasUpdates = false;
+
+      for (const item of items) {
+        if (item.id && item.quantity) {
+          const productRef = productsCollection.doc(String(item.id));
+          batch.update(productRef, {
+            stock: FieldValue.increment(-Number(item.quantity))
+          });
+          hasUpdates = true;
+        }
+      }
+
+      if (hasUpdates) {
+        await batch.commit();
+      }
+    } catch (invError) {
+      console.error('Failed to update inventory:', invError);
+      // Proceed without failing the order
+    }
 
     res.status(201).json({
       message: 'Order recorded successfully',
