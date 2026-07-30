@@ -482,7 +482,11 @@ g:/TSS/src/
   - [MODIFIED] [src/components/StoreInfo.tsx](file:///g:/TSS/src/components/StoreInfo.tsx): Converted timings details into an HTML `<table>` with inline helpline links.
   - [MODIFIED] [src/App.css](file:///g:/TSS/src/App.css): Appended styles for the floating CTA banner, pulse keyframes, and mobile responsiveness.
 
-
+## 2026-07-30 Update
+- **Task:** Fix orders not appearing in CMS after successful Razorpay payment.
+- **Root Cause:** The `api.post('/orders', ...)` call in `Checkout.tsx` referenced undefined variables (`email`, `phone`, `state`, `pincode`, `total`) that caused a silent ReferenceError. The error was caught and logged but the order was never saved to Firestore.
+- **Changes:**
+  - [MODIFIED] [src/pages/Checkout.tsx](file:///g:/TSS/src/pages/Checkout.tsx): Fixed the order POST payload to use actual in-scope variables: `user?.email` instead of `email`, `postalCode` instead of `pincode`, `cartTotal` instead of `total`, and removed references to nonexistent `phone` and `state` fields.
 
 
 
