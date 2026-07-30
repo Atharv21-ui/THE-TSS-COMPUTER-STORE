@@ -256,7 +256,7 @@ export default function Home() {
                   borderRadius: '50%',
                   display: 'inline-block'
                 }}></span>
-                Store Pickup Available in Jhansi
+                Store Pickup Available
               </div>
             </div>
 

@@ -493,6 +493,7 @@ g:/TSS/src/
 - **Changes:**
   - [MODIFIED] [src/pages/AdminDashboard.tsx](file:///g:/TSS/src/pages/AdminDashboard.tsx): Replaced `DollarSign` and `Percent` icons with `IndianRupee` in the Total Revenue and Avg Order Value (AOV) cards.
 
-
-
-
+## 2026-07-30 Update
+- **Task:** Changed "Store pickup in Jhansi" to "Store pickup Available".
+- **Changes:**
+  - [MODIFIED] [src/pages/Home.tsx](file:///g:/TSS/src/pages/Home.tsx): Changed "Store Pickup Available in Jhansi" to "Store Pickup Available".
