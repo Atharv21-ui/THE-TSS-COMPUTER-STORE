@@ -92,9 +92,22 @@ export default function Warranty() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
           <div style={{ background: '#0a0a10', padding: '20px', borderRadius: '10px', border: '1px solid #222' }}>
             <h4 className="font-heading" style={{ color: 'var(--accent-color)', fontSize: '1.1rem', marginBottom: '10px' }}>STORE HOURS</h4>
-            <p style={{ color: '#ccc', fontSize: '14px', margin: '4px 0' }}>🕙 <strong>Store Opening Time:</strong> 10:00 AM</p>
-            <p style={{ color: '#ccc', fontSize: '14px', margin: '4px 0' }}>🕗 <strong>Store Closing Time:</strong> 8:00 PM</p>
-            <p style={{ color: '#ff4444', fontSize: '14px', margin: '4px 0', fontWeight: 'bold' }}>📅 <strong>Weekly Off:</strong> Saturday</p>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px', color: '#ccc' }}>
+              <tbody>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <td style={{ padding: '6px 0' }}>🕙 <strong>Opening Time:</strong></td>
+                  <td style={{ padding: '6px 0', textAlign: 'right' }}>10:00 AM</td>
+                </tr>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <td style={{ padding: '6px 0' }}>🕗 <strong>Closing Time:</strong></td>
+                  <td style={{ padding: '6px 0', textAlign: 'right' }}>8:00 PM</td>
+                </tr>
+                <tr>
+                  <td style={{ padding: '6px 0', color: '#ff4444' }}>📅 <strong>Weekly Off:</strong></td>
+                  <td style={{ padding: '6px 0', textAlign: 'right', fontWeight: 'bold', color: '#ff4444' }}>Saturday</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div style={{ background: '#0a0a10', padding: '20px', borderRadius: '10px', border: '1px solid #222' }}>
             <h4 className="font-heading" style={{ color: 'var(--accent-color)', fontSize: '1.1rem', marginBottom: '10px' }}>SUPPORT & TECHNICAL HELP</h4>

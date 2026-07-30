@@ -228,12 +228,36 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="ctas" style={{ display: 'flex', gap: '20px' }}>
+            <div className="ctas" style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
               <AnimatedButton 
                 text={t('product.add_to_cart')} 
                 onClick={handleAddToCart}
               />
               <AnimatedButton text="BUY NOW" className="outline-variant" onClick={handleBuyNow} />
+              <div style={{
+                fontSize: '11px',
+                color: 'var(--accent-color)',
+                border: '1px solid rgba(var(--accent-color-rgb), 0.3)',
+                padding: '4px 10px',
+                borderRadius: '4px',
+                fontWeight: 'bold',
+                letterSpacing: '1px',
+                boxShadow: '0 0 10px rgba(var(--accent-color-rgb), 0.1)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'rgba(var(--accent-color-rgb), 0.05)',
+                textTransform: 'uppercase'
+              }}>
+                <span style={{
+                  width: '6px',
+                  height: '6px',
+                  backgroundColor: 'var(--accent-color)',
+                  borderRadius: '50%',
+                  display: 'inline-block'
+                }}></span>
+                Store Pickup Available in Jhansi
+              </div>
             </div>
 
 

@@ -63,10 +63,22 @@ export default function StoreInfo() {
               Sangam Vihar, Jhansi, UP 284003
             </p>
 
-            <div style={{ margin: '14px 0', fontSize: '12px', color: '#ccc', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <div>🕙 <strong>Timings:</strong> 10:00 AM – 8:00 PM (Off: Saturday)</div>
-              <div>📞 <strong>Support:</strong> 73176-05285 | <strong>Sales:</strong> 94541-84285</div>
-            </div>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', color: '#ccc', margin: '14px 0' }}>
+              <tbody>
+                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <td style={{ padding: '4px 0' }}>🕙 <strong>Timings:</strong></td>
+                  <td style={{ padding: '4px 0', textAlign: 'right' }}>10:00 AM – 8:00 PM (Off: Saturday)</td>
+                </tr>
+                <tr>
+                  <td style={{ padding: '4px 0' }}>📞 <strong>Helpline:</strong></td>
+                  <td style={{ padding: '4px 0', textAlign: 'right' }}>
+                    <a href="tel:+917317605285" style={{ color: 'var(--accent-color)', textDecoration: 'none' }}>73176-05285</a>
+                    {' | '}
+                    <strong>Sales:</strong> <a href="tel:+919454184285" style={{ color: 'var(--accent-color)', textDecoration: 'none' }}>94541-84285</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
             
             <div className="store-rating-box">
               <div className="rating-score-large font-heading">3.9</div>

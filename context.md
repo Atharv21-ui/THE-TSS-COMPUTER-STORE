@@ -56,9 +56,11 @@ g:/TSS/src/
 │   ├── Layout.tsx          <-- [MODIFIED] Updated logo, menu & social links
 │   ├── StaggeredMenu.tsx   <-- [MODIFIED] Updated logo & menu items
 │   ├── StoreInfo.tsx       <-- [MODIFIED] Updated store hours & hotline numbers
+│   ├── StructuredData.tsx  <-- [NEW] Generates JSON-LD dynamic Schema metadata
 │   └── ui/
 ├── context/
 ├── hooks/
+│   └── useSEO.ts           <-- [NEW] Dynamic page title and meta description hook
 ├── lib/
 │   └── translations.ts     <-- [MODIFIED] Updated LED TV & MONITORS & Refurbished keys
 └── pages/
@@ -468,6 +470,18 @@ g:/TSS/src/
 - **Task:** Create CTA, SEO, GEO, and AEO optimization plan (no execution).
 - **Changes:**
   - [NEW] [implementation_plan.md](file:///C:/Users/opedi/.gemini/antigravity-ide/brain/d7fa385d-e66d-4287-8af8-fdae3295f00b/implementation_plan.md): Drafted technical proposal covering Call to Action adjustments, dynamic SEO page titles & descriptions, Generative Engine Optimization structures, and JSON-LD local schema.
+
+## 2026-07-30 Update
+- **Task:** Execute CTA, SEO, GEO, and AEO optimization plan.
+- **Changes:**
+  - [NEW] [src/hooks/useSEO.ts](file:///g:/TSS/src/hooks/useSEO.ts): Custom react hook for dynamic title and description tag insertion on route transition.
+  - [NEW] [src/components/StructuredData.tsx](file:///g:/TSS/src/components/StructuredData.tsx): Dynamic script injection component for LocalBusiness & FAQPage schema.
+  - [MODIFIED] [src/components/Layout.tsx](file:///g:/TSS/src/components/Layout.tsx): Integrated useSEO and StructuredData, added a sticky glassmorphic floating helpline/WhatsApp CTA banner with animation.
+  - [MODIFIED] [src/pages/Home.tsx](file:///g:/TSS/src/pages/Home.tsx): Integrated local assurance store pickup badge next to main hero CTAs.
+  - [MODIFIED] [src/pages/Warranty.tsx](file:///g:/TSS/src/pages/Warranty.tsx): Converted store hours section into an HTML `<table>` for easy AI scrapability.
+  - [MODIFIED] [src/components/StoreInfo.tsx](file:///g:/TSS/src/components/StoreInfo.tsx): Converted timings details into an HTML `<table>` with inline helpline links.
+  - [MODIFIED] [src/App.css](file:///g:/TSS/src/App.css): Appended styles for the floating CTA banner, pulse keyframes, and mobile responsiveness.
+
 
 
 
