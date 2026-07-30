@@ -33,8 +33,12 @@ g:/TSS/
 ├── backend/
 │   ├── src/
 │   │   ├── server.ts    <-- Express server configured for dynamic PORT & CORS
-│   │   └── config/
-│   │       └── firebase.ts <-- Configured for FIREBASE_SERVICE_ACCOUNT_BASE64
+│   │   ├── config/
+│   │   │   └── firebase.ts <-- Configured for FIREBASE_SERVICE_ACCOUNT_BASE64
+│   │   ├── models/
+│   │   │   └── Message.ts  <-- [NEW] Message interface & Firestore mapping (replaces Contact.ts)
+│   │   └── routes/
+│   │       └── messages.ts <-- [NEW] Endpoints for CRUD operations on messages (replaces contacts.ts)
 │   ├── package.json     <-- Includes build ("tsc") and start ("node dist/server.js")
 │   └── tsconfig.json
 
@@ -432,3 +436,14 @@ g:/TSS/src/
   - [MODIFIED] backend/src/server.ts: Registered the `/api/contacts` router and increased the global rate limiter from 100 to 5000 requests/15m to prevent 429 Too Many Requests errors.
   - [MODIFIED] src/pages/Contact.tsx: Wired up form data to submit to `POST /api/contacts` instead of showing a demo alert.
   - [MODIFIED] src/pages/AdminDashboard.tsx: Added a new "MESSAGES" tab with a live data table, message detail modal, and status dropdowns (`Unread`, `Read`, `Replied`).
+
+## 2026-07-30 Update
+- **Task:** Rename contacts collection and endpoints to messages in alignment with database requirements.
+- **Changes:**
+  - [NEW] backend/src/models/Message.ts: Created `IMessage` interface and Firestore `messagesCollection` definition (replaces Contact.ts).
+  - [DELETE] backend/src/models/Contact.ts: Removed the old contact model.
+  - [NEW] backend/src/routes/messages.ts: Created router for message CRUD operations under `/api/messages` (replaces contacts.ts).
+  - [DELETE] backend/src/routes/contacts.ts: Removed old contacts router.
+  - [MODIFIED] backend/src/server.ts: Registered the `/api/messages` router and removed the `/api/contacts` router.
+  - [MODIFIED] src/pages/Contact.tsx: Configured the contact form to post messages to `POST /api/messages`.
+  - [MODIFIED] src/pages/AdminDashboard.tsx: Updated real-time listeners and API endpoints from `/contacts` to `/messages`.

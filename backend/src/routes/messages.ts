@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express';
-import { contactsCollection } from '../models/Contact';
+import { messagesCollection } from '../models/Message';
 import { FieldValue } from 'firebase-admin/firestore';
 import { authenticateToken, requireAdmin, AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
-// POST /api/contacts - Create a new contact message (Public)
+// POST /api/messages - Create a new contact message (Public)
 router.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const { firstName, lastName, email, category, message } = req.body;
@@ -26,7 +26,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
       updatedAt: FieldValue.serverTimestamp()
     };
 
-    const docRef = await contactsCollection.add(newMessage);
+    const docRef = await messagesCollection.add(newMessage);
 
     res.status(201).json({
       ...newMessage,
@@ -36,15 +36,15 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
       createdAt: new Date().toISOString()
     });
   } catch (error: any) {
-    console.error('Error saving contact message:', error);
+    console.error('Error saving message:', error);
     res.status(500).json({ message: 'Failed to send message', error: error.message });
   }
 });
 
-// GET /api/contacts - Fetch all contact messages (Admin only)
+// GET /api/messages - Fetch all contact messages (Admin only)
 router.get('/', authenticateToken, requireAdmin, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const snapshot = await contactsCollection.get();
+    const snapshot = await messagesCollection.get();
     const messages: any[] = [];
     
     snapshot.forEach(doc => {
@@ -75,7 +75,7 @@ router.get('/', authenticateToken, requireAdmin, async (req: AuthRequest, res: R
   }
 });
 
-// PATCH /api/contacts/:id/status - Update message status (Admin only)
+// PATCH /api/messages/:id/status - Update message status (Admin only)
 router.patch('/:id/status', authenticateToken, requireAdmin, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const id = String(req.params.id);
@@ -86,7 +86,7 @@ router.patch('/:id/status', authenticateToken, requireAdmin, async (req: AuthReq
       return;
     }
 
-    const docRef = contactsCollection.doc(id);
+    const docRef = messagesCollection.doc(id);
     const doc = await docRef.get();
 
     if (!doc.exists) {
@@ -106,11 +106,11 @@ router.patch('/:id/status', authenticateToken, requireAdmin, async (req: AuthReq
   }
 });
 
-// DELETE /api/contacts/:id - Delete message (Admin only)
+// DELETE /api/messages/:id - Delete message (Admin only)
 router.delete('/:id', authenticateToken, requireAdmin, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const id = String(req.params.id);
-    const docRef = contactsCollection.doc(id);
+    const docRef = messagesCollection.doc(id);
     const doc = await docRef.get();
 
     if (!doc.exists) {

@@ -21,7 +21,7 @@ import productRoutes from './routes/products';
 import usersRoutes from './routes/users';
 import paymentRoutes from './routes/payment';
 import orderRoutes from './routes/orders';
-import contactRoutes from './routes/contacts';
+import messageRoutes from './routes/messages';
 import { IUser } from './models/User';
 import { IProduct } from './models/Product';
 
@@ -66,7 +66,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/orders', orderRoutes);
-app.use('/api/contacts', contactRoutes);
+app.use('/api/messages', messageRoutes);
 
 // Basic health check route
 app.get('/api/health', (req: Request, res: Response) => {

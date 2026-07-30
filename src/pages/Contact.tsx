@@ -24,7 +24,7 @@ export default function Contact() {
     setSubmitStatus('loading');
     
     try {
-      await api.post('/contacts', formData);
+      await api.post('/messages', formData);
       setSubmitStatus('success');
       setFormData({
         firstName: '',

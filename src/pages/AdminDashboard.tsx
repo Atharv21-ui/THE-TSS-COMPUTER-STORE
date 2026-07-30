@@ -175,7 +175,7 @@ export default function AdminDashboard() {
                 setOrders(liveOrders);
               });
 
-              const unsubMessages = onSnapshot(collection(db, 'contacts'), (snapshot) => {
+              const unsubMessages = onSnapshot(collection(db, 'messages'), (snapshot) => {
                 const liveMessages: ContactMessage[] = [];
                 snapshot.forEach(doc => {
                   const data = doc.data();
@@ -246,7 +246,7 @@ export default function AdminDashboard() {
 
   const fetchMessages = async () => {
     try {
-      const data = await api.get<ContactMessage[]>('/contacts');
+      const data = await api.get<ContactMessage[]>('/messages');
       setMessages(data);
     } catch (err) {
       console.error('Error fetching messages:', err);
@@ -255,7 +255,7 @@ export default function AdminDashboard() {
 
   const handleUpdateMessageStatus = async (id: string, status: 'Unread' | 'Read' | 'Replied') => {
     try {
-      await api.patch(`/contacts/${id}/status`, { status });
+      await api.patch(`/messages/${id}/status`, { status });
       setMessages(messages.map(m => (m._id === id || m.id === id) ? { ...m, status } : m));
     } catch (err) {
       console.error('Error updating message status:', err);
@@ -265,7 +265,7 @@ export default function AdminDashboard() {
   const handleDeleteMessage = async (id: string) => {
     if (!window.confirm('Are you sure you want to delete this message?')) return;
     try {
-      await api.delete(`/contacts/${id}`);
+      await api.delete(`/messages/${id}`);
       setMessages(messages.filter(m => m._id !== id && m.id !== id));
       if (selectedMessage?._id === id || selectedMessage?.id === id) {
         setSelectedMessage(null);

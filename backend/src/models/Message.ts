@@ -1,7 +1,7 @@
 import { db } from '../config/firebase';
 import { Timestamp, FieldValue } from 'firebase-admin/firestore';
 
-export interface IContactMessage {
+export interface IMessage {
   id?: string;
   firstName: string;
   lastName: string;
@@ -13,4 +13,4 @@ export interface IContactMessage {
   updatedAt: Timestamp | FieldValue;
 }
 
-export const contactsCollection = db.collection('contacts');
+export const messagesCollection = db.collection('messages');
