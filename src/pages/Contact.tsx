@@ -100,7 +100,7 @@ export default function Contact() {
             </div>
             <div>
               <h4 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '4px' }}>Sale's & AMC Taking Plan Help</h4>
-              <p className="text-muted" style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#fff' }}>+91 9795535285</p>
+              <p className="text-muted" style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#fff' }}>+91 94541-84285</p>
             </div>
           </div>
 

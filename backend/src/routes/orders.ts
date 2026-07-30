@@ -145,6 +145,29 @@ router.patch('/:id/status', authenticateToken, requireAdmin, async (req: AuthReq
       return;
     }
 
+    const docData = doc.data();
+
+    // Restock inventory if status changed to Cancelled
+    if (docData && docData.status !== 'Cancelled' && status === 'Cancelled') {
+      try {
+        const batch = db.batch();
+        let hasUpdates = false;
+        const items = docData.items || [];
+        for (const item of items) {
+          if (item.id && item.quantity) {
+            const productRef = productsCollection.doc(String(item.id));
+            batch.update(productRef, {
+              stock: FieldValue.increment(Number(item.quantity))
+            });
+            hasUpdates = true;
+          }
+        }
+        if (hasUpdates) await batch.commit();
+      } catch (invError) {
+        console.error('Failed to restock inventory:', invError);
+      }
+    }
+
     await docRef.update({
       status,
       updatedAt: FieldValue.serverTimestamp()
@@ -167,6 +190,29 @@ router.delete('/:id', authenticateToken, requireAdmin, async (req: AuthRequest, 
     if (!doc.exists) {
       res.status(404).json({ message: 'Order not found' });
       return;
+    }
+
+    const docData = doc.data();
+
+    if (docData && docData.status !== 'Cancelled') {
+      // Restock inventory if it wasn't already cancelled
+      try {
+        const batch = db.batch();
+        let hasUpdates = false;
+        const items = docData.items || [];
+        for (const item of items) {
+          if (item.id && item.quantity) {
+            const productRef = productsCollection.doc(String(item.id));
+            batch.update(productRef, {
+              stock: FieldValue.increment(Number(item.quantity))
+            });
+            hasUpdates = true;
+          }
+        }
+        if (hasUpdates) await batch.commit();
+      } catch (invError) {
+        console.error('Failed to restock inventory:', invError);
+      }
     }
 
     await docRef.delete();

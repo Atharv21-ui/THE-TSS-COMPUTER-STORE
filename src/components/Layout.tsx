@@ -5,7 +5,7 @@ import { GooeyInput } from './ui/gooey-input';
 import FloatingInput from './FloatingInput';
 import SearchModal from './SearchModal';
 import { useLanguage } from '../context/LanguageContext';
-
+import { api } from '../lib/api';
 const TwitterIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
 );
@@ -33,6 +33,15 @@ const WhatsappIcon = ({ size = 18 }: { size?: number }) => (
 export default function Layout() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [footerSubmitted, setFooterSubmitted] = useState(false);
+  const [footerSubmitting, setFooterSubmitting] = useState(false);
+  const [footerForm, setFooterForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    category: 'Laptop',
+    message: ''
+  });
+
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   
@@ -49,6 +58,28 @@ export default function Layout() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  const handleFooterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFooterSubmitting(true);
+    try {
+      await api.post('/messages', {
+        firstName: footerForm.name,
+        lastName: '',
+        email: footerForm.email || 'No email provided',
+        category: `Customer Form: ${footerForm.category}`,
+        message: `Phone: ${footerForm.phone}\n\n${footerForm.message}`
+      });
+      setFooterSubmitted(true);
+      setFooterForm({ name: '', phone: '', email: '', category: 'Laptop', message: '' });
+      setTimeout(() => setFooterSubmitted(false), 4000);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setFooterSubmitting(false);
+    }
+  };
 
   const isHomePage = location.pathname === '/';
   const showHeader = !isHomePage || introFinished;
@@ -116,7 +147,7 @@ export default function Layout() {
           </p>
           <div style={{ marginTop: '12px', fontSize: '12px', color: '#aaa', display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <div><strong>Support Hotline:</strong> +91 7317605285</div>
-            <div><strong>Sales & AMC Help:</strong> +91 9795535285</div>
+            <div><strong>Sales & AMC Help:</strong> +91 94541-84285</div>
           </div>
           <div className="footer-social-links" style={{ marginTop: '16px' }}>
             {socialLinks.map((item) => {
@@ -168,13 +199,17 @@ export default function Layout() {
               <div style={{ fontSize: '12px', color: '#ccc' }}>Our team will contact you shortly. Thank you!</div>
             </div>
           ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setFooterSubmitted(true); setTimeout(() => setFooterSubmitted(false), 4000); }} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <form onSubmit={handleFooterSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                <FloatingInput label="Full Name *" required type="text" bgContext="#111" />
-                <FloatingInput label="Phone / WhatsApp *" required type="tel" bgContext="#111" />
+                <FloatingInput label="Full Name *" required type="text" bgContext="#111" value={footerForm.name} onChange={(e) => setFooterForm({ ...footerForm, name: e.target.value })} />
+                <FloatingInput label="Phone / WhatsApp *" required type="tel" bgContext="#111" value={footerForm.phone} onChange={(e) => setFooterForm({ ...footerForm, phone: e.target.value })} />
               </div>
-              <FloatingInput label="Email Address" type="email" bgContext="#111" />
-              <select style={{ width: '100%', padding: '12px', background: '#0a0a0a', border: '1px solid #333', color: '#fff', borderRadius: '4px', fontSize: '12px', outline: 'none' }}>
+              <FloatingInput label="Email Address" type="email" bgContext="#111" value={footerForm.email} onChange={(e) => setFooterForm({ ...footerForm, email: e.target.value })} />
+              <select 
+                value={footerForm.category}
+                onChange={(e) => setFooterForm({ ...footerForm, category: e.target.value })}
+                style={{ width: '100%', padding: '12px', background: '#0a0a0a', border: '1px solid #333', color: '#fff', borderRadius: '4px', fontSize: '12px', outline: 'none' }}
+              >
                 <option value="Laptop">Laptop Inquiry (लैपटॉप)</option>
                 <option value="Desktop">Desktop Inquiry (डेस्कटॉप)</option>
                 <option value="LED TV & Monitors">LED TV & Monitors (एलईडी टीवी और मॉनिटर)</option>
@@ -183,9 +218,9 @@ export default function Layout() {
                 <option value="Refurbished Category">Refurbished Category (रिफर्बिश्ड श्रेणी)</option>
                 <option value="Sales & AMC Plan">Sales & AMC Plan (सेल और एएमसी)</option>
               </select>
-              <FloatingInput label="Message / Requirement *" required isTextArea rows={3} bgContext="#111" />
-              <button className="btn-solid" style={{ width: '100%', padding: '12px', marginTop: '4px', fontWeight: 'bold' }}>
-                SUBMIT CUSTOMER INQUIRY
+              <FloatingInput label="Message / Requirement *" required isTextArea rows={3} bgContext="#111" value={footerForm.message} onChange={(e) => setFooterForm({ ...footerForm, message: e.target.value })} />
+              <button disabled={footerSubmitting} className="btn-solid" style={{ width: '100%', padding: '12px', marginTop: '4px', fontWeight: 'bold', opacity: footerSubmitting ? 0.7 : 1 }}>
+                {footerSubmitting ? 'SUBMITTING...' : 'SUBMIT CUSTOMER INQUIRY'}
               </button>
             </form>
           )}

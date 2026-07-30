@@ -447,3 +447,13 @@ g:/TSS/src/
   - [MODIFIED] backend/src/server.ts: Registered the `/api/messages` router and removed the `/api/contacts` router.
   - [MODIFIED] src/pages/Contact.tsx: Configured the contact form to post messages to `POST /api/messages`.
   - [MODIFIED] src/pages/AdminDashboard.tsx: Updated real-time listeners and API endpoints from `/contacts` to `/messages`.
+
+## 2026-07-30 Update
+- **Task:** Update the AMC and Sales hotline number to 94541-84285.
+- **Changes:**
+  - [MODIFIED] [src/pages/Warranty.tsx](file:///g:/TSS/src/pages/Warranty.tsx): Updated Sales & AMC plan help number from 9795535285 to 94541-84285.
+  - [MODIFIED] [src/pages/Contact.tsx](file:///g:/TSS/src/pages/Contact.tsx): Updated Sales & AMC contact helpline number from +91 9795535285 to +91 94541-84285.
+  - [MODIFIED] [src/components/StoreInfo.tsx](file:///g:/TSS/src/components/StoreInfo.tsx): Updated Store Sales helpline number from 9795535285 to 94541-84285.
+  - [MODIFIED] [src/components/Layout.tsx](file:///g:/TSS/src/components/Layout.tsx): Updated global footer Sales & AMC help number to +91 94541-84285.
+
+

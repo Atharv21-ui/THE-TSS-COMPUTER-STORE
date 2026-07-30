@@ -103,7 +103,7 @@ export default function Warranty() {
           </div>
           <div style={{ background: '#0a0a10', padding: '20px', borderRadius: '10px', border: '1px solid #222' }}>
             <h4 className="font-heading" style={{ color: 'var(--accent-color)', fontSize: '1.1rem', marginBottom: '10px' }}>SALE'S & AMC PLAN HELP</h4>
-            <p style={{ color: '#fff', fontSize: '1.4rem', fontWeight: 'bold' }}>9795535285</p>
+            <p style={{ color: '#fff', fontSize: '1.4rem', fontWeight: 'bold' }}>94541-84285</p>
             <p style={{ color: '#888', fontSize: '12px' }}>Call for sales, bulk orders & AMC coverage</p>
           </div>
         </div>
