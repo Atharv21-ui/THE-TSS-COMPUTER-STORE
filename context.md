@@ -456,4 +456,13 @@ g:/TSS/src/
   - [MODIFIED] [src/components/StoreInfo.tsx](file:///g:/TSS/src/components/StoreInfo.tsx): Updated Store Sales helpline number from 9795535285 to 94541-84285.
   - [MODIFIED] [src/components/Layout.tsx](file:///g:/TSS/src/components/Layout.tsx): Updated global footer Sales & AMC help number to +91 94541-84285.
 
+## 2026-07-30 Update
+- **Task:** Format all phone numbers with a dash, change "Hotline" label to "Helpline", and remove Twitter and LinkedIn social links.
+- **Changes:**
+  - [MODIFIED] [src/components/Layout.tsx](file:///g:/TSS/src/components/Layout.tsx): Removed Twitter and LinkedIn from socialLinks array, renamed "Support Hotline" to "Support Helpline", and formatted support phone number as `+91 73176-05285`.
+  - [MODIFIED] [src/pages/Contact.tsx](file:///g:/TSS/src/pages/Contact.tsx): Formatted support phone number as `+91 73176-05285`.
+  - [MODIFIED] [src/pages/Warranty.tsx](file:///g:/TSS/src/pages/Warranty.tsx): Formatted support phone number as `73176-05285`.
+  - [MODIFIED] [src/components/StoreInfo.tsx](file:///g:/TSS/src/components/StoreInfo.tsx): Formatted support phone number as `73176-05285`.
+
+
 

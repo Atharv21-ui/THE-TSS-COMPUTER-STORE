@@ -65,7 +65,7 @@ export default function StoreInfo() {
 
             <div style={{ margin: '14px 0', fontSize: '12px', color: '#ccc', display: 'flex', flexDirection: 'column', gap: '4px' }}>
               <div>🕙 <strong>Timings:</strong> 10:00 AM – 8:00 PM (Off: Saturday)</div>
-              <div>📞 <strong>Support:</strong> 7317605285 | <strong>Sales:</strong> 94541-84285</div>
+              <div>📞 <strong>Support:</strong> 73176-05285 | <strong>Sales:</strong> 94541-84285</div>
             </div>
             
             <div className="store-rating-box">

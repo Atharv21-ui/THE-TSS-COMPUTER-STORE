@@ -90,7 +90,7 @@ export default function Contact() {
             </div>
             <div>
               <h4 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '4px' }}>Support & Technical Help</h4>
-              <p className="text-muted" style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#fff' }}>+91 7317605285</p>
+              <p className="text-muted" style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#fff' }}>+91 73176-05285</p>
             </div>
           </div>
 

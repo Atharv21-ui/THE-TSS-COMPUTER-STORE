@@ -89,8 +89,6 @@ export default function Layout() {
     { name: 'WhatsApp Help', icon: WhatsappIcon, href: 'https://wa.me/917317605285' },
     { name: 'Instagram', icon: InstagramIcon, href: 'https://instagram.com' },
     { name: 'YouTube', icon: YoutubeIcon, href: 'https://youtube.com' },
-    { name: 'Twitter', icon: TwitterIcon, href: 'https://twitter.com' },
-    { name: 'LinkedIn', icon: LinkedinIcon, href: 'https://linkedin.com' },
   ];
 
   return (
@@ -146,7 +144,7 @@ export default function Layout() {
             {t('footer.desc')}
           </p>
           <div style={{ marginTop: '12px', fontSize: '12px', color: '#aaa', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <div><strong>Support Hotline:</strong> +91 7317605285</div>
+            <div><strong>Support Helpline:</strong> +91 73176-05285</div>
             <div><strong>Sales & AMC Help:</strong> +91 94541-84285</div>
           </div>
           <div className="footer-social-links" style={{ marginTop: '16px' }}>
