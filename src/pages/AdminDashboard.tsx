@@ -16,10 +16,9 @@ import {
   RefreshCw, 
   Minus,
   Check,
-  DollarSign,
+  IndianRupee,
   ShoppingCart,
   Users,
-  Percent,
   Calendar,
   PlusCircle,
   Package,
@@ -596,7 +595,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 <div className="p-3 bg-zinc-900/80 border border-zinc-800/80 rounded-xl text-[#00ccff] group-hover:scale-115 transition-transform duration-300">
-                  <DollarSign className="w-5 h-5" />
+                  <IndianRupee className="w-5 h-5" />
                 </div>
               </div>
 
@@ -644,7 +643,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 <div className="p-3 bg-zinc-900/80 border border-zinc-800/80 rounded-xl text-[#00ccff] group-hover:scale-115 transition-transform duration-300">
-                  <Percent className="w-5 h-5" />
+                  <IndianRupee className="w-5 h-5" />
                 </div>
               </div>
             </div>

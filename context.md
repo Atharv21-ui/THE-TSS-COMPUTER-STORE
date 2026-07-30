@@ -488,5 +488,11 @@ g:/TSS/src/
 - **Changes:**
   - [MODIFIED] [src/pages/Checkout.tsx](file:///g:/TSS/src/pages/Checkout.tsx): Fixed the order POST payload to use actual in-scope variables: `user?.email` instead of `email`, `postalCode` instead of `pincode`, `cartTotal` instead of `total`, and removed references to nonexistent `phone` and `state` fields.
 
+## 2026-07-30 Update
+- **Task:** Swap DollarSign ($) and Percent (%) icons with IndianRupee (₹) in the CMS Admin Dashboard overview metrics.
+- **Changes:**
+  - [MODIFIED] [src/pages/AdminDashboard.tsx](file:///g:/TSS/src/pages/AdminDashboard.tsx): Replaced `DollarSign` and `Percent` icons with `IndianRupee` in the Total Revenue and Avg Order Value (AOV) cards.
+
+
 
 
