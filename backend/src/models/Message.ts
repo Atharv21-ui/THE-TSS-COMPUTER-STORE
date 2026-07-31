@@ -5,6 +5,7 @@ export interface IMessage {
   id?: string;
   firstName: string;
   lastName: string;
+  phone?: string;
   email: string;
   category: string;
   message: string;

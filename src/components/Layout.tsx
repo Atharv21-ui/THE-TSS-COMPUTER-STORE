@@ -70,9 +70,10 @@ export default function Layout() {
       await api.post('/messages', {
         firstName: footerForm.name,
         lastName: '',
+        phone: footerForm.phone,
         email: footerForm.email || 'No email provided',
         category: `Customer Form: ${footerForm.category}`,
-        message: `Phone: ${footerForm.phone}\n\n${footerForm.message}`
+        message: footerForm.message
       });
       setFooterSubmitted(true);
       setFooterForm({ name: '', phone: '', email: '', category: 'Laptop', message: '' });

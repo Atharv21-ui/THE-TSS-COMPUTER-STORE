@@ -8,17 +8,18 @@ const router = Router();
 // POST /api/messages - Create a new contact message (Public)
 router.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
-    const { firstName, lastName, email, category, message } = req.body;
+    const { firstName, lastName, phone, email, category, message } = req.body;
 
-    if (!firstName || !email || !message) {
-      res.status(400).json({ message: 'First name, email, and message are required' });
+    if (!firstName || (!email && !phone) || !message) {
+      res.status(400).json({ message: 'First name, phone number or email, and message are required' });
       return;
     }
 
     const newMessage = {
       firstName,
       lastName: lastName || '',
-      email,
+      phone: phone || '',
+      email: email || '',
       category: category || 'General Inquiry',
       message,
       status: 'Unread',

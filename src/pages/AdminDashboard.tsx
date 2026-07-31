@@ -93,6 +93,7 @@ interface ContactMessage {
   id?: string;
   firstName: string;
   lastName: string;
+  phone?: string;
   email: string;
   category: string;
   message: string;
@@ -1126,6 +1127,7 @@ export default function AdminDashboard() {
                             </td>
                             <td className="p-5">
                               <div className="font-bold text-zinc-200">{msg.firstName} {msg.lastName}</div>
+                              {msg.phone && <div className="text-xs text-[#00ccff] font-mono font-semibold">📞 {msg.phone}</div>}
                               <div className="text-[10px] text-zinc-500">{msg.email}</div>
                             </td>
                             <td className="p-5 text-zinc-400">{msg.category}</td>
@@ -1193,7 +1195,10 @@ export default function AdminDashboard() {
                       <div>
                         <div className="text-[10px] text-zinc-500 font-heading tracking-widest uppercase mb-1">From</div>
                         <div className="font-bold text-white">{selectedMessage.firstName} {selectedMessage.lastName}</div>
-                        <div className="text-sm text-[#00ccff]">{selectedMessage.email}</div>
+                        {selectedMessage.phone && (
+                          <div className="text-xs text-[#00ccff] font-mono font-bold mt-1">📞 {selectedMessage.phone}</div>
+                        )}
+                        <div className="text-sm text-zinc-400 mt-0.5">{selectedMessage.email}</div>
                       </div>
                       <div>
                         <div className="text-[10px] text-zinc-500 font-heading tracking-widest uppercase mb-1">Category</div>

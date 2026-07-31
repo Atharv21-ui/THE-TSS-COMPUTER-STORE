@@ -12,6 +12,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    phone: '',
     email: '',
     category: 'General Inquiry',
     message: ''
@@ -29,6 +30,7 @@ export default function Contact() {
       setFormData({
         firstName: '',
         lastName: '',
+        phone: '',
         email: '',
         category: 'General Inquiry',
         message: ''
@@ -140,11 +142,14 @@ export default function Contact() {
           )}
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-            <FloatingInput label="First Name" required type="text" bgContext="#111" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} />
+            <FloatingInput label="First Name *" required type="text" bgContext="#111" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} />
             <FloatingInput label="Last Name" type="text" bgContext="#111" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} />
           </div>
-          
-          <FloatingInput label="Email Address" required type="email" bgContext="#111" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+            <FloatingInput label="Mobile / Phone Number *" required type="tel" bgContext="#111" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
+            <FloatingInput label="Email Address *" required type="email" bgContext="#111" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+          </div>
           
           <select 
             value={formData.category} 
