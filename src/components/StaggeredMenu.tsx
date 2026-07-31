@@ -1,6 +1,6 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { GooeyInput } from './ui/gooey-input';
 import { useLanguage } from '../context/LanguageContext';
@@ -67,6 +67,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const iconRef = useRef<HTMLSpanElement | null>(null);
   const textInnerRef = useRef<HTMLSpanElement | null>(null);
   const textWrapRef = useRef<HTMLSpanElement | null>(null);
+  const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const [textLines, setTextLines] = useState<string[]>([t('nav.menu'), t('nav.close')]);
 
@@ -415,7 +416,21 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         })()}
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
-        <Link to="/" className="sm-logo" aria-label="Logo" onClick={(e) => { if (onLogoClick) { e.preventDefault(); onLogoClick(); } closeMenu(); }} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', color: '#fff' }}>
+        <Link 
+          to="/" 
+          className="sm-logo" 
+          aria-label="Logo" 
+          onClick={(e) => { 
+            if (onLogoClick) { 
+              onLogoClick(); 
+            } 
+            if (location.pathname === '/') {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            closeMenu(); 
+          }} 
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', color: '#fff' }}
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--accent-color, #00ccff)' }}>
             <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
             <line x1="12" y1="22" x2="12" y2="12"></line>
@@ -558,7 +573,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             {items && items.length ? (
               items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <Link className="sm-panel-item" to={it.link} aria-label={it.ariaLabel} data-index={idx + 1} onClick={() => closeMenu()}>
+                  <Link 
+                    className="sm-panel-item" 
+                    to={it.link} 
+                    aria-label={it.ariaLabel} 
+                    data-index={idx + 1} 
+                    onClick={() => {
+                      if (it.link === '/' && location.pathname === '/') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
+                      closeMenu();
+                    }}
+                  >
                     <span className="sm-panel-itemLabel">{it.label}</span>
                   </Link>
                 </li>

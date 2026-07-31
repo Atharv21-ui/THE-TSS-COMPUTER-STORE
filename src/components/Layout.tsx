@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet, NavLink, useLocation } from 'react-router-dom';
+import { Outlet, NavLink, Link, useLocation } from 'react-router-dom';
 import StaggeredMenu from './StaggeredMenu';
 import { GooeyInput } from './ui/gooey-input';
 import FloatingInput from './FloatingInput';
@@ -144,7 +144,17 @@ export default function Layout() {
       {/* Global Footer */}
       <footer className="footer">
         <div className="footer-col">
-          <h2 className="footer-logo font-heading" style={{ fontSize: '1.4rem' }}>THE TSS COMPUTER STORE</h2>
+          <Link 
+            to="/" 
+            onClick={() => {
+              if (location.pathname === '/') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }} 
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <h2 className="footer-logo font-heading" style={{ fontSize: '1.4rem', cursor: 'pointer' }}>THE TSS COMPUTER STORE</h2>
+          </Link>
           <p className="text-muted" style={{ fontSize: '12px', lineHeight: '1.6' }}>
             {t('footer.desc')}
           </p>

@@ -7,6 +7,7 @@
 - **GitHub Pages Deployment URL**: [https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/](https://atharv21-ui.github.io/THE-TSS-COMPUTER-STORE/)
 
 ## Changes Made
+- **TSS LOGO & HOME SCROLL TO TOP**: Updated [src/components/StaggeredMenu.tsx](file:///g:/TSS/src/components/StaggeredMenu.tsx) and [src/components/Layout.tsx](file:///g:/TSS/src/components/Layout.tsx) to smoothly scroll to the top of the page (`window.scrollTo({ top: 0, behavior: 'smooth' })`) whenever the TSS header logo, TSS footer logo, or Home navigation link is clicked while on the home page (`/`).
 - **LIVE RENDER BACKEND INTEGRATION**: Connected frontend [src/lib/api.ts](file:///g:/TSS/src/lib/api.ts) directly to live Render web service `https://the-tss-computer-store.onrender.com/api`. Verified live health check (`{"status":"ok","message":"TSS Backend is running"}`).
 - **REFURBISHED ITEMS ADD TO CART**: Added an **ADD TO CART** button to every refurbished item card in `RefurbishedItems.tsx` enabling users to add certified refurbished laptops, desktops, printers, and accessories directly to their shopping cart before checking out.
 - **PERFORMANCE & GPU HARDWARE ACCELERATION**: Added `will-change: transform, opacity`, `transform: translateZ(0)`, and `backface-visibility: hidden` in `App.css` and `force3D: true` in `Home.tsx` to force dedicated GPU compositing layers for lag-free 60-120fps animations. Optimized `IntroScroll.tsx` canvas rendering with `requestAnimationFrame` and passive event listeners to eliminate scroll stutter.
