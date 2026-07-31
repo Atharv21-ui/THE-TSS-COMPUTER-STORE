@@ -115,11 +115,9 @@ export default function Layout() {
           hideControls={isHomePage && !introFinished}
           onSearchClick={() => setIsSearchOpen(true)}
           onLogoClick={() => {
-            if (!introFinished) {
-              sessionStorage.setItem('tss_intro_shown', 'true');
-              setIntroFinished(true);
-              window.dispatchEvent(new Event('introComplete'));
-            }
+            sessionStorage.setItem('tss_intro_shown', 'true');
+            setIntroFinished(true);
+            window.dispatchEvent(new Event('introComplete'));
             if (location.pathname === '/') {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }

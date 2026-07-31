@@ -423,6 +423,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           className="sm-logo" 
           aria-label="Logo" 
           onClick={(e) => { 
+            sessionStorage.setItem('tss_intro_shown', 'true');
+            window.dispatchEvent(new Event('introComplete'));
             if (onLogoClick) { 
               onLogoClick(); 
             } 
