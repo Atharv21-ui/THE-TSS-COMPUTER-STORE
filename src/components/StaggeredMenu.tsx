@@ -36,6 +36,7 @@ export interface StaggeredMenuProps {
   onLogoClick?: () => void;
   onSearchClick?: () => void;
   isFixed?: boolean;
+  hideControls?: boolean;
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -51,6 +52,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   changeMenuColorOnOpen = true,
   accentColor = '#5227FF',
   isFixed = false,
+  hideControls = false,
   closeOnClickAway = true,
   onMenuOpen,
   onMenuClose,
@@ -440,7 +442,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           <span className="font-heading" style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '2px' }}>TSS</span>
         </Link>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        {!hideControls && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           {/* Search Icon */}
           <button 
             className="sm-search-btn"
@@ -560,8 +563,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               <span ref={plusHRef} className="sm-icon-line" />
               <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
             </span>
-          </button>
-        </div>
+          </div>
+        )}
       </header>
 
       <aside id="staggered-menu-panel" ref={panelRef} className="staggered-menu-panel" aria-hidden={!open}>

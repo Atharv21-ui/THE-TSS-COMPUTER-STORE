@@ -112,6 +112,7 @@ export default function Layout() {
         <StaggeredMenu
           position="right"
           isFixed={true}
+          hideControls={isHomePage && !introFinished}
           onSearchClick={() => setIsSearchOpen(true)}
           onLogoClick={() => {
             if (!introFinished) {
