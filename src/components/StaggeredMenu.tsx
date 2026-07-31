@@ -579,8 +579,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     aria-label={it.ariaLabel} 
                     data-index={idx + 1} 
                     onClick={() => {
-                      if (it.link === '/' && location.pathname === '/') {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      if (it.link === '/') {
+                        if (sessionStorage.getItem('tss_intro_shown') !== 'true') {
+                          sessionStorage.setItem('tss_intro_shown', 'true');
+                          window.dispatchEvent(new Event('introComplete'));
+                        }
+                        if (location.pathname === '/') {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
                       }
                       closeMenu();
                     }}

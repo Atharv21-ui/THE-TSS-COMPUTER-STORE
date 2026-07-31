@@ -86,7 +86,7 @@ export default function Layout() {
   };
 
   const isHomePage = location.pathname === '/';
-  const showHeader = !isHomePage || introFinished;
+  const showHeader = true;
 
   const socialLinks = [
     { name: 'Website', icon: GlobeIcon, href: 'https://tsscomputerstore.com' },
@@ -112,6 +112,16 @@ export default function Layout() {
           position="right"
           isFixed={true}
           onSearchClick={() => setIsSearchOpen(true)}
+          onLogoClick={() => {
+            if (!introFinished) {
+              sessionStorage.setItem('tss_intro_shown', 'true');
+              setIntroFinished(true);
+              window.dispatchEvent(new Event('introComplete'));
+            }
+            if (location.pathname === '/') {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
           items={[
             { label: t('nav.home'), ariaLabel: 'Go to home', link: '/' },
             { label: t('nav.laptops'), ariaLabel: 'Shop laptops', link: '/laptops' },
