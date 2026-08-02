@@ -30,20 +30,6 @@ type HeroProduct = {
 
 const heroProducts: HeroProduct[] = [
   {
-    id: 'laptop-1',
-    name: 'TSS Blade X1 Gaming Laptop',
-    subtitle: 'GAMING EDITION',
-    hex: '#00ccff',
-    price: '₹1,49,999',
-    image: heroLaptopOne,
-    specs: {
-      cpu: 'Intel Core i9 14th Gen',
-      display: '16" 240Hz QHD+ OLED',
-      gpu: 'RTX 4090 16GB TGP 175W',
-      cooling: 'Vapor Chamber Cooling'
-    }
-  },
-  {
     id: 'laptop-2',
     name: 'TSS Studio Pro Workstation',
     subtitle: 'TITANIUM WORKSTATION',
@@ -55,6 +41,20 @@ const heroProducts: HeroProduct[] = [
       display: '15.6" 165Hz 4K OLED',
       gpu: 'RTX 4080 12GB TGP 150W',
       cooling: 'Dual Liquid Metal Tech'
+    }
+  },
+  {
+    id: 'laptop-1',
+    name: 'TSS Blade X1 Gaming Laptop',
+    subtitle: 'GAMING EDITION',
+    hex: '#00ccff',
+    price: '₹1,49,999',
+    image: heroLaptopOne,
+    specs: {
+      cpu: 'Intel Core i9 14th Gen',
+      display: '16" 240Hz QHD+ OLED',
+      gpu: 'RTX 4090 16GB TGP 175W',
+      cooling: 'Vapor Chamber Cooling'
     }
   },
   {
