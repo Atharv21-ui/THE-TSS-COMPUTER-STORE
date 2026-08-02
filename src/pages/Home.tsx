@@ -239,43 +239,49 @@ export default function Home() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
-              <div className="ctas" style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                <AnimatedButton 
-                  text={t('product.add_to_cart')} 
-                  onClick={handleAddToCart}
-                />
-                <AnimatedButton text="BUY NOW" className="outline-variant" onClick={handleBuyNow} />
-              </div>
-              <div style={{
-                fontSize: '11px',
-                color: 'var(--accent-color)',
-                border: '1px solid rgba(var(--accent-color-rgb), 0.3)',
-                padding: '4px 10px',
-                borderRadius: '4px',
-                fontWeight: 'bold',
-                letterSpacing: '1px',
-                boxShadow: '0 0 10px rgba(var(--accent-color-rgb), 0.1)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: 'rgba(var(--accent-color-rgb), 0.05)',
-                textTransform: 'uppercase',
-                alignSelf: 'center'
-              }}>
-                <span style={{
-                  width: '6px',
-                  height: '6px',
-                  backgroundColor: 'var(--accent-color)',
-                  borderRadius: '50%',
-                  display: 'inline-block'
-                }}></span>
-                Store Pickup Available
-              </div>
+            <div className="ctas">
+              <AnimatedButton 
+                text={t('product.add_to_cart')} 
+                onClick={handleAddToCart}
+              />
+              <AnimatedButton text="BUY NOW" className="outline-variant" onClick={handleBuyNow} />
             </div>
 
-
           </footer>
+
+          {/* Store Pickup - below the footer-panels grid */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            paddingTop: '12px',
+            paddingBottom: '8px'
+          }}>
+            <div style={{
+              fontSize: '11px',
+              color: 'var(--accent-color)',
+              border: '1px solid rgba(var(--accent-color-rgb), 0.3)',
+              padding: '5px 14px',
+              borderRadius: '4px',
+              fontWeight: 'bold',
+              letterSpacing: '1px',
+              boxShadow: '0 0 10px rgba(var(--accent-color-rgb), 0.1)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'rgba(var(--accent-color-rgb), 0.05)',
+              textTransform: 'uppercase'
+            }}>
+              <span style={{
+                width: '6px',
+                height: '6px',
+                backgroundColor: 'var(--accent-color)',
+                borderRadius: '50%',
+                display: 'inline-block',
+                flexShrink: 0
+              }}></span>
+              Store Pickup Available
+            </div>
+          </div>
 
           <div className="pagination">
             {heroProducts.map((_, index) => (
