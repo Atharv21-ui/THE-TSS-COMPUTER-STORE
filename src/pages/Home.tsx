@@ -98,6 +98,15 @@ export default function Home() {
     return () => window.removeEventListener('introComplete', onIntroComplete);
   }, []);
 
+  useEffect(() => {
+    if (window.location.hash === '#home') {
+      const el = document.getElementById('home');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
+
   const [activeProductIndex, setActiveProductIndex] = useState(0);
   const activeProduct = heroProducts[activeProductIndex];
 
@@ -176,6 +185,7 @@ export default function Home() {
       {!introFinished && <IntroScroll onComplete={handleIntroComplete} />}
       
       <div 
+        id="home"
         className="home-main-content"
         style={{
           opacity: introFinished ? 1 : 0,

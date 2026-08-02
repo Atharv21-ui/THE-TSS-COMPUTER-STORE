@@ -121,7 +121,7 @@ export default function Layout() {
             window.scrollTo(0, 0);
           }}
           items={[
-            { label: t('nav.home'), ariaLabel: 'Go to home', link: '/' },
+            { label: t('nav.home'), ariaLabel: 'Go to home', link: '/#home' },
             { label: t('nav.laptops'), ariaLabel: 'Shop laptops', link: '/laptops' },
             { label: t('nav.desktops'), ariaLabel: 'Shop desktops', link: '/desktops' },
             { label: t('nav.printers'), ariaLabel: 'Shop printers', link: '/printers' },
@@ -153,10 +153,16 @@ export default function Layout() {
       <footer className="footer">
         <div className="footer-col">
           <Link 
-            to="/" 
+            to="/#home" 
             onClick={() => {
-              if (location.pathname === '/') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+              sessionStorage.setItem('tss_intro_shown', 'true');
+              setIntroFinished(true);
+              window.dispatchEvent(new Event('introComplete'));
+              const el = document.getElementById('home');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.scrollTo(0, 0);
               }
             }} 
             style={{ textDecoration: 'none', color: 'inherit' }}
