@@ -72,10 +72,22 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
   const [textLines, setTextLines] = useState<string[]>([t('nav.menu'), t('nav.close')]);
+  const [introFinished, setIntroFinished] = useState(() => {
+    return sessionStorage.getItem('tss_intro_shown') === 'true';
+  });
 
   React.useEffect(() => {
     setTextLines([t('nav.menu'), t('nav.close')]);
   }, [t]);
+
+  React.useEffect(() => {
+    const handleIntroComplete = () => setIntroFinished(true);
+    window.addEventListener('introComplete', handleIntroComplete);
+    return () => window.removeEventListener('introComplete', handleIntroComplete);
+  }, []);
+
+  const isScrollEntryPage = location.pathname === '/' && !introFinished;
+  const shouldHideControls = hideControls || isScrollEntryPage;
 
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -442,7 +454,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           <span className="font-heading" style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '2px' }}>TSS</span>
         </Link>
 
-        {!hideControls && (
+        {!shouldHideControls && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           {/* Search Icon */}
           <button 
