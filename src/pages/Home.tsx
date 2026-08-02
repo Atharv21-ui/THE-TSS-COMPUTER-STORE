@@ -239,12 +239,14 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="ctas" style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
-              <AnimatedButton 
-                text={t('product.add_to_cart')} 
-                onClick={handleAddToCart}
-              />
-              <AnimatedButton text="BUY NOW" className="outline-variant" onClick={handleBuyNow} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div className="ctas" style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
+                <AnimatedButton 
+                  text={t('product.add_to_cart')} 
+                  onClick={handleAddToCart}
+                />
+                <AnimatedButton text="BUY NOW" className="outline-variant" onClick={handleBuyNow} />
+              </div>
               <div style={{
                 fontSize: '11px',
                 color: 'var(--accent-color)',
@@ -258,7 +260,8 @@ export default function Home() {
                 alignItems: 'center',
                 gap: '6px',
                 background: 'rgba(var(--accent-color-rgb), 0.05)',
-                textTransform: 'uppercase'
+                textTransform: 'uppercase',
+                alignSelf: 'flex-start'
               }}>
                 <span style={{
                   width: '6px',
