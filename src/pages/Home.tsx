@@ -85,7 +85,18 @@ export default function Home() {
     sessionStorage.setItem('tss_intro_shown', 'true');
     setIntroFinished(true);
     window.dispatchEvent(new Event('introComplete'));
+    window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    const onIntroComplete = () => {
+      sessionStorage.setItem('tss_intro_shown', 'true');
+      setIntroFinished(true);
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('introComplete', onIntroComplete);
+    return () => window.removeEventListener('introComplete', onIntroComplete);
+  }, []);
 
   const [activeProductIndex, setActiveProductIndex] = useState(0);
   const activeProduct = heroProducts[activeProductIndex];

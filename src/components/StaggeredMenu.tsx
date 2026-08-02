@@ -428,9 +428,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             if (onLogoClick) { 
               onLogoClick(); 
             } 
-            if (location.pathname === '/') {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            window.scrollTo(0, 0);
             closeMenu(); 
           }} 
           style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', color: '#fff' }}

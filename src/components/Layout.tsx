@@ -118,9 +118,7 @@ export default function Layout() {
             sessionStorage.setItem('tss_intro_shown', 'true');
             setIntroFinished(true);
             window.dispatchEvent(new Event('introComplete'));
-            if (location.pathname === '/') {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            window.scrollTo(0, 0);
           }}
           items={[
             { label: t('nav.home'), ariaLabel: 'Go to home', link: '/' },

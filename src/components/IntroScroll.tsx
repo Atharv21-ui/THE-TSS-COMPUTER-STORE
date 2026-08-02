@@ -166,6 +166,7 @@ export default function IntroScroll({ onComplete }: IntroScrollProps) {
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       st.kill();
+      ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, [isLoaded, isFadingOut, onComplete]);
 
