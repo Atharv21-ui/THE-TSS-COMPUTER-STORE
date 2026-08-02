@@ -431,7 +431,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
         <Link 
-          to="/#home" 
+          to="/" 
           className="sm-logo" 
           aria-label="Logo" 
           onClick={(e) => { 
