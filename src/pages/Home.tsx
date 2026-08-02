@@ -239,8 +239,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div className="ctas" style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
+              <div className="ctas" style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <AnimatedButton 
                   text={t('product.add_to_cart')} 
                   onClick={handleAddToCart}
@@ -261,7 +261,7 @@ export default function Home() {
                 gap: '6px',
                 background: 'rgba(var(--accent-color-rgb), 0.05)',
                 textTransform: 'uppercase',
-                alignSelf: 'flex-start'
+                alignSelf: 'center'
               }}>
                 <span style={{
                   width: '6px',
