@@ -193,14 +193,14 @@ export default function RefurbishedItems() {
             key={product.id} 
             className="refurbished-card"
             style={{
-              background: 'rgba(12, 12, 18, 0.85)',
+              background: 'rgba(255, 255, 255, 0.6)',
               backdropFilter: 'blur(16px)',
               borderRadius: '16px',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
-              transition: 'transform 0.3s ease, border-color 0.3s ease'
+              transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease'
             }}
           >
             {/* Image Container */}
@@ -230,11 +230,11 @@ export default function RefurbishedItems() {
 
             {/* Content */}
             <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-              <h3 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#fff', lineHeight: '1.4' }}>
+              <h3 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#0f172a', lineHeight: '1.4' }}>
                 {product.title}
               </h3>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#00e5ff', fontSize: '12px', fontWeight: '700', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--accent-color)', fontSize: '12px', fontWeight: '700', marginBottom: '16px' }}>
                 <ShieldCheck size={16} />
                 <span>{product.warranty}</span>
               </div>
@@ -242,15 +242,15 @@ export default function RefurbishedItems() {
               {/* Specs pill list */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px', flexGrow: 1 }}>
                 {product.specs.map((spec, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#aaa', fontSize: '13px' }}>
-                    <CheckCircle size={14} color="#00e5ff" />
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '13px' }}>
+                    <CheckCircle size={14} color="var(--accent-color)" />
                     <span>{spec}</span>
                   </div>
                 ))}
               </div>
 
               {/* Price & Actions */}
-              <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '15px' }}>
+              <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(0, 0, 0, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '15px' }}>
                 <div>
                   <div style={{ fontSize: '11px', color: '#666', textDecoration: 'line-through' }}>
                     MSRP {product.originalPrice}

@@ -3,6 +3,7 @@
   --text-main: #0f172a;
   --text-muted: rgba(15, 23, 42, 0.7);
   --accent-color: #ff0000; /* Default red */
+  --bg-dark: #ffffff;
   
   --font-heading: 'Syncopate', sans-serif;
   --font-ui: 'Inter', sans-serif;
