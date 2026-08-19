@@ -4,6 +4,7 @@ import { Laptop, Monitor, Printer, Headphones, RefreshCw, ShieldCheck, CheckCirc
 import AnimatedButton from '../components/AnimatedButton';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 
 interface RefurbishedProduct {
@@ -90,6 +91,7 @@ const refurbishedProducts: RefurbishedProduct[] = [
 export default function RefurbishedItems() {
   const { t, formatPrice } = useLanguage();
   const { addToCart } = useCart();
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const [filter, setFilter] = useState<string>('all');
 
@@ -170,9 +172,9 @@ export default function RefurbishedItems() {
                 gap: '8px',
                 padding: '10px 20px',
                 borderRadius: '8px',
-                border: isActive ? '1px solid var(--accent-color)' : '1px solid rgba(255, 255, 255, 0.1)',
-                background: isActive ? 'rgba(0, 229, 255, 0.15)' : 'rgba(15, 15, 20, 0.6)',
-                color: isActive ? '#fff' : '#888',
+                border: isActive ? '1px solid var(--accent-color)' : (theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.1)'),
+                background: isActive ? 'rgba(0, 229, 255, 0.15)' : (theme === 'dark' ? 'rgba(15, 15, 20, 0.6)' : 'rgba(255, 255, 255, 0.6)'),
+                color: isActive ? (theme === 'dark' ? '#fff' : '#0f172a') : '#888',
                 fontSize: '13px',
                 fontWeight: '700',
                 cursor: 'pointer',
@@ -193,10 +195,10 @@ export default function RefurbishedItems() {
             key={product.id} 
             className="refurbished-card"
             style={{
-              background: 'rgba(255, 255, 255, 0.6)',
+              background: theme === 'dark' ? 'rgba(12, 12, 18, 0.85)' : 'rgba(255, 255, 255, 0.6)',
               backdropFilter: 'blur(16px)',
               borderRadius: '16px',
-              border: '1px solid rgba(0, 0, 0, 0.08)',
+              border: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
@@ -230,7 +232,7 @@ export default function RefurbishedItems() {
 
             {/* Content */}
             <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-              <h3 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#0f172a', lineHeight: '1.4' }}>
+              <h3 className="font-heading" style={{ fontSize: '1.2rem', marginBottom: '10px', color: 'var(--text-main)', lineHeight: '1.4' }}>
                 {product.title}
               </h3>
 
@@ -242,7 +244,7 @@ export default function RefurbishedItems() {
               {/* Specs pill list */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px', flexGrow: 1 }}>
                 {product.specs.map((spec, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '13px' }}>
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '13px' }}>
                     <CheckCircle size={14} color="var(--accent-color)" />
                     <span>{spec}</span>
                   </div>
@@ -250,7 +252,7 @@ export default function RefurbishedItems() {
               </div>
 
               {/* Price & Actions */}
-              <div style={{ paddingTop: '16px', borderTop: '1px solid rgba(0, 0, 0, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '15px' }}>
+              <div style={{ paddingTop: '16px', borderTop: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '15px' }}>
                 <div>
                   <div style={{ fontSize: '11px', color: '#666', textDecoration: 'line-through' }}>
                     MSRP {product.originalPrice}

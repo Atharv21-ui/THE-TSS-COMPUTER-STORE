@@ -839,6 +839,11 @@
   flex-direction: column;
 }
 
+.dark .product-card {
+  background: rgba(12,12,18,0.85);
+  border-color: rgba(255,255,255,0.08);
+}
+
 .product-card:hover {
   border-color: var(--accent-color);
   transform: translateY(-5px);
@@ -868,6 +873,10 @@
   mix-blend-mode: lighten;
 }
 
+.dark .product-img {
+  mix-blend-mode: normal;
+}
+
 .product-card:hover .product-img {
   opacity: 1;
   transform: scale(1.05);
@@ -883,6 +892,10 @@
   margin-top: -50px; /* Pull up to overlap image */
   position: relative;
   z-index: 2;
+}
+
+.dark .product-details {
+  background: linear-gradient(to top, rgba(12, 12, 18, 0.95), transparent);
 }
 
 .product-details h3 {
@@ -962,12 +975,20 @@
 
 .animated-btn.outline-variant .original {
   background: transparent;
-  color: #0f172a;
+  color: var(--text-main);
   border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dark .animated-btn.outline-variant .original {
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .animated-btn.outline-variant {
   border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dark .animated-btn.outline-variant {
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* --- ARROW BUTTON --- */
@@ -1123,7 +1144,7 @@
 }
 
 .store-address {
-  color: rgba(15, 23, 42, 0.6);
+  color: var(--text-muted);
   font-size: 16px;
   line-height: 1.6;
   margin-bottom: 40px;
@@ -1140,6 +1161,11 @@
   margin-bottom: 40px;
 }
 
+.dark .store-rating-box {
+  background: rgba(12, 12, 18, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 .rating-score-large {
   font-size: 48px;
   color: var(--accent-color);
@@ -1154,7 +1180,7 @@
 
 .rating-details .review-count {
   font-size: 13px;
-  color: rgba(15, 23, 42, 0.5);
+  color: var(--text-muted);
 }
 
 .store-map-col {
@@ -1221,11 +1247,20 @@
   backdrop-filter: blur(10px);
 }
 
+.dark .review-card-premium {
+  background: rgba(12, 12, 18, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 .review-card-premium:hover {
   background: #ffffff;
   border-color: rgba(var(--accent-color-rgb), 0.5);
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.1), 0 0 20px rgba(var(--accent-color-rgb), 0.1);
+}
+
+.dark .review-card-premium:hover {
+  background: rgba(20, 20, 25, 0.95);
 }
 
 .review-card-header {
@@ -1254,12 +1289,12 @@
 .review-meta h5 {
   font-size: 15px;
   margin-bottom: 2px;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .review-meta span {
   font-size: 12px;
-  color: rgba(15, 23, 42, 0.6);
+  color: var(--text-muted);
 }
 
 .review-stars-small {
@@ -1268,7 +1303,7 @@
 }
 
 .review-body p {
-  color: rgba(15, 23, 42, 0.8);
+  color: var(--text-muted);
   font-size: 14px;
   line-height: 1.6;
   font-style: italic;

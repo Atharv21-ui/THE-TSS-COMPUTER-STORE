@@ -1,9 +1,10 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Link, useLocation } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, Sun, Moon } from 'lucide-react';
 import { GooeyInput } from './ui/gooey-input';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import './StaggeredMenu.css';
 
 export interface StaggeredMenuItem {
@@ -71,6 +72,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const textWrapRef = useRef<HTMLSpanElement | null>(null);
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [textLines, setTextLines] = useState<string[]>([t('nav.menu'), t('nav.close')]);
   const [introFinished, setIntroFinished] = useState(() => {
     return sessionStorage.getItem('tss_intro_shown') === 'true';
@@ -491,6 +493,37 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             }}
           >
             <Search size={18} />
+          </button>
+
+          {/* Theme Switcher */}
+          <button 
+            className="sm-search-btn"
+            onClick={toggleTheme}
+            aria-label="Toggle dark mode"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(12, 12, 18, 0.85)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              borderRadius: '50%',
+              width: '36px',
+              height: '36px',
+              color: '#fff',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = 'var(--accent-color, #00ccff)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
           {/* Language Switcher */}

@@ -17,12 +17,14 @@ import AdminDashboard from './pages/AdminDashboard';
 import RelatedProducts from './pages/RelatedProducts';
 import { CartProvider } from './context/CartContext';
 import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
 import './App.css';
 
 function App() {
   return (
-    <LanguageProvider>
-      <CartProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <CartProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -42,8 +44,9 @@ function App() {
         </Route>
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
-    </CartProvider>
-    </LanguageProvider>
+      </CartProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 

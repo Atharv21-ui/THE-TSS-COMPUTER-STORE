@@ -9,6 +9,13 @@
   --font-ui: 'Inter', sans-serif;
 }
 
+:root.dark {
+  --bg-main: #0c0c12; /* Deep dark background */
+  --text-main: #f8fafc;
+  --text-muted: rgba(248, 250, 252, 0.7);
+  --bg-dark: #ffffff;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -81,7 +88,7 @@ button {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: #f8fafc;
+  background: var(--bg-main);
 }
 
 .intro-canvas {
@@ -97,7 +104,7 @@ button {
 .intro-preloader {
   position: fixed;
   inset: 0;
-  background: #f8fafc;
+  background: var(--bg-main);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,7 +121,7 @@ button {
 }
 
 .preloader-title {
-  color: #0f172a;
+  color: var(--text-main);
   letter-spacing: 6px;
   text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
@@ -181,7 +188,7 @@ button {
 }
 
 .hud-text .value {
-  color: #0f172a;
+  color: var(--text-main);
   font-weight: bold;
 }
 
@@ -199,7 +206,7 @@ button {
 .hud-main-text {
   font-size: 18px;
   letter-spacing: 8px;
-  color: #0f172a;
+  color: var(--text-main);
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
@@ -240,7 +247,7 @@ button {
   gap: 15px;
   font-size: 10px;
   letter-spacing: 4px;
-  color: #0f172a;
+  color: var(--text-main);
 }
 
 .scroll-line {
