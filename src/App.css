@@ -251,6 +251,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: end;
+  margin-top: auto;
   z-index: 10;
 }
 
