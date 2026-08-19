@@ -56,7 +56,7 @@ export const MultiStepLoader = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center backdrop-blur-xl bg-[#0a0a0a]/80"
+          className="fixed inset-0 z-[100] flex items-center justify-center backdrop-blur-xl bg-[#f8fafc]/80"
           style={{ zIndex: 100 }}
         >
           <div className="relative max-w-xl mx-auto px-8 w-full flex flex-col justify-center h-full">

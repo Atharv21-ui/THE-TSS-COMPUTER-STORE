@@ -229,7 +229,7 @@ export default function Layout() {
               <select 
                 value={footerForm.category}
                 onChange={(e) => setFooterForm({ ...footerForm, category: e.target.value })}
-                style={{ width: '100%', padding: '12px', background: '#0a0a0a', border: '1px solid #333', color: '#fff', borderRadius: '4px', fontSize: '12px', outline: 'none' }}
+                style={{ width: '100%', padding: '12px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', borderRadius: '4px', fontSize: '12px', outline: 'none' }}
               >
                 <option value="Laptop">Laptop Inquiry (लैपटॉप)</option>
                 <option value="Desktop">Desktop Inquiry (डेस्कटॉप)</option>

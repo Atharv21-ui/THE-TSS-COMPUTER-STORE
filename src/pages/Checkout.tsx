@@ -200,7 +200,7 @@ export default function Checkout() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '60px', marginTop: '60px', alignItems: 'start' }}>
           
           {/* Left Column: Cart Summary */}
-          <div className="checkout-panel" style={{ background: '#0a0a0a', padding: '40px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+          <div className="checkout-panel" style={{ background: 'rgba(255, 255, 255, 0.6)', padding: '40px', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.1)' }}>
             <h3 className="font-heading" style={{ fontSize: '1.5rem', marginBottom: '30px', borderBottom: '1px solid #333', paddingBottom: '15px' }}>{t('cart.summary')}</h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxHeight: '400px', overflowY: 'auto', paddingRight: '10px' }}>

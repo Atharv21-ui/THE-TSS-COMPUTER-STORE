@@ -177,7 +177,7 @@ export function GooeyInput({
   }, [searchText, setExpanded]);
 
   const surfaceClass =
-    "bg-[#0a0a0a] text-white shadow-sm ring-1 ring-[#333]"; // updated to match TSS theme
+    "bg-[#f8fafc] text-[#0f172a] shadow-sm ring-1 ring-[#cbd5e1]"; // updated to match TSS theme
 
   return (
     <div

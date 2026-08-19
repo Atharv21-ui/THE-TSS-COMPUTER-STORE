@@ -1462,14 +1462,14 @@ export default function AdminDashboard() {
                     value={title} 
                     onChange={(e) => setTitle(e.target.value)} 
                     required 
-                    bgContext="#0a0a0a" 
+                    bgContext="#f8fafc" 
                   />
                   <FloatingInput 
                     label="PRICE (e.g. 1299)" 
                     value={price} 
                     onChange={(e) => setPrice(e.target.value)} 
                     required 
-                    bgContext="#0a0a0a" 
+                    bgContext="#f8fafc" 
                   />
                 </div>
               </div>
@@ -1498,7 +1498,7 @@ export default function AdminDashboard() {
                     label="IMAGE SOURCE URL (FALLBACK)" 
                     value={src} 
                     onChange={(e) => setSrc(e.target.value)} 
-                    bgContext="#0a0a0a" 
+                    bgContext="#f8fafc" 
                   />
                 </div>
               </div>
@@ -1528,14 +1528,14 @@ export default function AdminDashboard() {
                     value={stock} 
                     onChange={(e) => setStock(e.target.value)} 
                     required 
-                    bgContext="#0a0a0a" 
+                    bgContext="#f8fafc" 
                   />
 
                   <FloatingInput 
                     label="BADGE (e.g. GAMING, NEW)" 
                     value={badge} 
                     onChange={(e) => setBadge(e.target.value)} 
-                    bgContext="#0a0a0a" 
+                    bgContext="#f8fafc" 
                   />
                 </div>
               </div>
@@ -1548,7 +1548,7 @@ export default function AdminDashboard() {
                   onChange={(e) => setDescription(e.target.value)} 
                   isTextArea 
                   rows={4}
-                  bgContext="#0a0a0a" 
+                  bgContext="#f8fafc" 
                 />
               </div>
 

@@ -241,3 +241,11 @@ g:/TSS/src/
 - **Current File Structure Changes:**
   - `[NEW]` `backend/src/models/Contact.ts`, `backend/src/routes/contacts.ts`
   - `[MODIFIED]` `backend/src/server.ts`, `src/pages/Contact.tsx`, `src/pages/AdminDashboard.tsx`
+
+### Current Theme Details (Before Transition to White Theme)
+- **Backgrounds:** Primary background is `#0a0a0a` (very dark gray/black), with variations like `#050505` and `#111` for cards/components.
+- **Text:** Main text is `#ffffff` (white), with muted text as `rgba(255, 255, 255, 0.7)`.
+- **Accents:** `#ff0000` (red) or `#00ccff` (cyan) in some specific components.
+- **Glassmorphism:** Widespread use of `rgba(10, 10, 10, 0.4)` backgrounds with `backdrop-filter: blur(10px)` and subtle white borders `rgba(255,255,255,0.05)`.
+- **Global CSS File:** `index.css` sets the CSS variables (`--bg-dark`, `--text-main`, `--text-muted`, `--accent-color`).
+- **Styles Structure:** `App.css` and inline Tailwind classes heavily rely on these dark color variables and hardcoded dark colors (e.g., `#000`, `rgba(255,255,255,...)`).

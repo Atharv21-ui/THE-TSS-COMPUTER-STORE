@@ -3,7 +3,7 @@ import './FloatingInput.css';
 
 interface FloatingInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  bgContext?: '#111' | '#0a0a0a';
+  bgContext?: string;
   isTextArea?: boolean;
   rows?: number;
 }
@@ -16,7 +16,7 @@ export default function FloatingInput({
   ...props 
 }: FloatingInputProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
-    <div className={`inputGroup ${isTextArea ? 'textarea' : ''}`} style={{ '--bg-context': bgContext } as React.CSSProperties}>
+    <div className={`inputGroup ${isTextArea ? 'textarea' : ''}`} style={{ '--bg-context': bgContext || '#f8fafc' } as React.CSSProperties}>
       {isTextArea ? (
         <textarea 
           placeholder=" " 

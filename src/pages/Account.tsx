@@ -193,7 +193,7 @@ export default function Account() {
                 value={loginEmail} 
                 onChange={(e) => setLoginEmail(e.target.value)} 
                 required 
-                bgContext="#0a0a0a" 
+                bgContext="#f8fafc" 
               />
               <FloatingInput 
                 label="PASSWORD" 
@@ -201,7 +201,7 @@ export default function Account() {
                 value={loginPassword} 
                 onChange={(e) => setLoginPassword(e.target.value)} 
                 required 
-                bgContext="#0a0a0a" 
+                bgContext="#f8fafc" 
               />
               <button 
                 type="submit" 
@@ -238,7 +238,7 @@ export default function Account() {
                 value={regName} 
                 onChange={(e) => setRegName(e.target.value)} 
                 required 
-                bgContext="#0a0a0a" 
+                bgContext="#f8fafc" 
               />
               <FloatingInput 
                 label="EMAIL ADDRESS" 
@@ -246,7 +246,7 @@ export default function Account() {
                 value={regEmail} 
                 onChange={(e) => setRegEmail(e.target.value)} 
                 required 
-                bgContext="#0a0a0a" 
+                bgContext="#f8fafc" 
               />
               <FloatingInput 
                 label="PASSWORD" 
@@ -254,7 +254,7 @@ export default function Account() {
                 value={regPassword} 
                 onChange={(e) => setRegPassword(e.target.value)} 
                 required 
-                bgContext="#0a0a0a" 
+                bgContext="#f8fafc" 
               />
               <FloatingInput 
                 label="DELIVERY ADDRESS" 
@@ -262,7 +262,7 @@ export default function Account() {
                 value={regAddress} 
                 onChange={(e) => setRegAddress(e.target.value)} 
                 required 
-                bgContext="#0a0a0a" 
+                bgContext="#f8fafc" 
               />
               <button 
                 type="submit" 
