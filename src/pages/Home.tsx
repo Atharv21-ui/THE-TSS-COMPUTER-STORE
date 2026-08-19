@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { Cpu, Monitor, Zap, Shield, Wifi, Battery } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
