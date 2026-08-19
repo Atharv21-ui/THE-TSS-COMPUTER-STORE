@@ -10,7 +10,7 @@ interface IntroScrollProps {
 }
 
 const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-const FRAME_COUNT = isMobile ? 53 : 63;
+const FRAME_COUNT = isMobile ? 53 : 44;
 const getFrameUrl = (index: number) => {
   const paddedIndex = index.toString().padStart(2, '0');
   const folder = isMobile ? 'mob_intro' : 'intro';
