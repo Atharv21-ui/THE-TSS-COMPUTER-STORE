@@ -534,6 +534,11 @@
   backdrop-filter: blur(10px);
 }
 
+.dark .section {
+  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(20, 20, 25, 0.6);
+}
+
 .section-title {
   font-size: 3rem;
   text-transform: uppercase;
@@ -671,6 +676,11 @@
   gap: 20px;
 }
 
+.dark .bento-item {
+  background: rgba(20, 20, 25, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 /* Inner Radial Glow Overlay */
 .bento-item::before {
   content: '';
@@ -728,7 +738,7 @@
 
 /* Footer */
 .footer {
-  background: #f8fafc;
+  background: var(--bg-main);
   padding: 60px;
   position: relative;
   z-index: 2;
@@ -736,6 +746,11 @@
   grid-template-columns: 1fr 2fr 1fr;
   gap: 40px;
   border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.dark .footer {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(12, 12, 18, 1);
 }
 
 .footer-col h4 {
