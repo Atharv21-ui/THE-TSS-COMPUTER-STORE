@@ -212,11 +212,12 @@
   height: auto;
   object-fit: contain;
   filter: none;
-  mix-blend-mode: normal;
   background: transparent;
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
+  position: relative;
+  z-index: 2;
 }
 
 .fg-text {
@@ -615,11 +616,10 @@
   object-fit: cover;
   opacity: 0.5;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  mix-blend-mode: multiply;
 }
 
 .dark .category-img {
-  mix-blend-mode: lighten;
+  opacity: 0.5;
 }
 
 .category-card:hover .category-img {
@@ -885,11 +885,10 @@
   object-fit: cover;
   opacity: 0.8;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  mix-blend-mode: lighten;
 }
 
 .dark .product-img {
-  mix-blend-mode: normal;
+  opacity: 0.8;
 }
 
 .product-card:hover .product-img {
