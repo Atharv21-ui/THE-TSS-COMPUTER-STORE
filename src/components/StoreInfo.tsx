@@ -31,7 +31,7 @@ export default function StoreInfo() {
         duration: 1,
         ease: 'power3.out',
         scrollTrigger: {
-          trigger: '.store-info-section',
+          trigger: containerRef.current,
           start: 'top 80%',
         }
       });

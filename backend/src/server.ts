@@ -416,7 +416,7 @@ if (fs.existsSync(distPath)) {
   });
   app.use(staticLimiter);
   app.use(express.static(distPath));
-  app.get('{*splat}', (req: Request, res: Response) => {
+  app.get('*', (req: Request, res: Response) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }

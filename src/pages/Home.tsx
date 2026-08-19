@@ -154,21 +154,24 @@ export default function Home() {
       }
     });
 
-    gsap.to('.stagger-text', {
-      y: 12,
-      opacity: 0,
-      duration: 0.2,
-      stagger: 0.04,
-      onComplete: () => {
-        gsap.to('.stagger-text', {
-          y: 0,
-          opacity: 1,
-          duration: 0.45,
-          stagger: 0.08,
-          delay: 0.05
-        });
-      }
-    });
+    const staggerElements = document.querySelectorAll('.stagger-text');
+    if (staggerElements.length > 0) {
+      gsap.to(staggerElements, {
+        y: 12,
+        opacity: 0,
+        duration: 0.2,
+        stagger: 0.04,
+        onComplete: () => {
+          gsap.to(staggerElements, {
+            y: 0,
+            opacity: 1,
+            duration: 0.45,
+            stagger: 0.08,
+            delay: 0.05
+          });
+        }
+      });
+    }
   };
 
   return (
