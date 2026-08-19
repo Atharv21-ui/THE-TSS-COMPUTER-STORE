@@ -575,8 +575,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               <span ref={plusHRef} className="sm-icon-line" />
               <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
             </span>
-          </div>
-        )}
+          </button>
+        </div>
+      )}
       </header>
 
       <aside id="staggered-menu-panel" ref={panelRef} className="staggered-menu-panel" aria-hidden={!open}>
