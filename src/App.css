@@ -591,12 +591,16 @@
 .category-card {
   position: relative;
   height: 400px;
-  background: #f1f5f9;
+  background: var(--bg-main);
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
   border: 1px solid rgba(0,0,0,0.05);
+}
+
+.dark .category-card {
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .category-card:hover {
@@ -611,6 +615,10 @@
   object-fit: cover;
   opacity: 0.5;
   transition: opacity 0.4s ease, transform 0.4s ease;
+  mix-blend-mode: multiply;
+}
+
+.dark .category-img {
   mix-blend-mode: lighten;
 }
 
@@ -631,6 +639,7 @@
   font-weight: 700;
   letter-spacing: 2px;
   margin-bottom: 5px;
+  color: var(--text-main);
 }
 
 .category-info p {
@@ -776,14 +785,20 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  color: var(--text-muted, #8888a0);
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--text-main);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   text-decoration: none;
   backdrop-filter: blur(8px);
+}
+
+.dark .social-icon-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
 }
 
 .social-icon-btn svg {

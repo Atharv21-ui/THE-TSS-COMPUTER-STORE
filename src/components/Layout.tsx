@@ -166,7 +166,7 @@ export default function Layout() {
           <p className="text-muted" style={{ fontSize: '12px', lineHeight: '1.6' }}>
             {t('footer.desc')}
           </p>
-          <div style={{ marginTop: '12px', fontSize: '12px', color: '#aaa', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <div style={{ marginTop: '12px', fontSize: '12px', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <div><strong>Support Helpline:</strong> +91 73176-05285</div>
             <div><strong>Sales & AMC Help:</strong> +91 94541-84285</div>
           </div>
@@ -222,14 +222,15 @@ export default function Layout() {
           ) : (
             <form onSubmit={handleFooterSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                <FloatingInput label="Full Name *" required type="text" bgContext="#111" value={footerForm.name} onChange={(e) => setFooterForm({ ...footerForm, name: e.target.value })} />
-                <FloatingInput label="Phone / WhatsApp *" required type="tel" bgContext="#111" value={footerForm.phone} onChange={(e) => setFooterForm({ ...footerForm, phone: e.target.value })} />
+                <FloatingInput label="Full Name *" required type="text" value={footerForm.name} onChange={(e) => setFooterForm({ ...footerForm, name: e.target.value })} />
+                <FloatingInput label="Phone / WhatsApp *" required type="tel" value={footerForm.phone} onChange={(e) => setFooterForm({ ...footerForm, phone: e.target.value })} />
               </div>
-              <FloatingInput label="Email Address" type="email" bgContext="#111" value={footerForm.email} onChange={(e) => setFooterForm({ ...footerForm, email: e.target.value })} />
+              <FloatingInput label="Email Address" type="email" value={footerForm.email} onChange={(e) => setFooterForm({ ...footerForm, email: e.target.value })} />
               <select 
                 value={footerForm.category}
                 onChange={(e) => setFooterForm({ ...footerForm, category: e.target.value })}
-                style={{ width: '100%', padding: '12px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', borderRadius: '4px', fontSize: '12px', outline: 'none' }}
+                style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid rgba(0,0,0,0.2)', color: 'var(--text-main)', borderRadius: '4px', fontSize: '12px', outline: 'none' }}
+                className="footer-select"
               >
                 <option value="Laptop">Laptop Inquiry (लैपटॉप)</option>
                 <option value="Desktop">Desktop Inquiry (डेस्कटॉप)</option>
@@ -239,7 +240,7 @@ export default function Layout() {
                 <option value="Refurbished Category">Refurbished Category (रिफर्बिश्ड श्रेणी)</option>
                 <option value="Sales & AMC Plan">Sales & AMC Plan (सेल और एएमसी)</option>
               </select>
-              <FloatingInput label="Message / Requirement *" required isTextArea rows={3} bgContext="#111" value={footerForm.message} onChange={(e) => setFooterForm({ ...footerForm, message: e.target.value })} />
+              <FloatingInput label="Message / Requirement *" required isTextArea rows={3} value={footerForm.message} onChange={(e) => setFooterForm({ ...footerForm, message: e.target.value })} />
               <button disabled={footerSubmitting} className="btn-solid" style={{ width: '100%', padding: '12px', marginTop: '4px', fontWeight: 'bold', opacity: footerSubmitting ? 0.7 : 1 }}>
                 {footerSubmitting ? 'SUBMITTING...' : 'SUBMIT CUSTOMER INQUIRY'}
               </button>

@@ -10,12 +10,17 @@
   font-size: 14px;
   padding: 16px;
   outline: none;
-  border: 1px solid #333;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: transparent;
   border-radius: 4px;
   width: 100%;
-  color: #fff;
+  color: var(--text-main);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .inputGroup input,
+.dark .inputGroup textarea {
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .inputGroup textarea {
@@ -32,7 +37,7 @@
   margin-left: 16px;
   pointer-events: none;
   transition: all 0.3s ease;
-  color: #888;
+  color: var(--text-muted);
 }
 
 .inputGroup.textarea label {
